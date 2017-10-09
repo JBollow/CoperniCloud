@@ -1,16 +1,1 @@
-# Geosoftware-I
-
-
-cd y:\onedrive\\dokumente\\uni\\uni\ münster\\WS17\\Geosoft\ 2\\Geosoft\\Geosoftware-2
-
-
-
-git add .
-
-git commit -a -m ""
-
-git push origin branch
-
-git checkout branch
-
-git checkout -b newbranch
+# Geosoftware-2
