@@ -1,5 +1,11 @@
 #map {
-    height: 500px;
+    display: inline-block;
+    height: 400px;
     width: 640px;
-    margin: 20px;
+    margin: 10px;
+}
+
+#outer {
+    width: 100%;
+    text-align: center;
 }
