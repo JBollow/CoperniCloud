@@ -8,9 +8,9 @@ angular.module('coperniCloud').config(function ($routeProvider) {
     })
 
     // route for the about page
-    .when('/about', {
-        templateUrl: '../pages/about.html',
-        controller: 'aboutController'
+    .when('/#!/', {
+        templateUrl: '../pages/home.html',
+        controller: 'mainController'
     })
 
     // route for the contact page

@@ -3,21 +3,54 @@
 <html ng-app="coperniCloud">
 
 <head>
+    <meta charset="UTF-8" content="CoperniCloud">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>CoperniCloud</title>
+
+    <!-- favicon -->
+    <link rel="apple-touch-icon" sizes="57x57" href="img/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="img/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="img/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="img/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="img/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="img/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="img/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="img/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="img/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="img/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="img/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16.png">
+    <link rel="manifest" href="img/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="img/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+
+
     <!-- SCROLLS -->
     <!-- load bootstrap and fontawesome via CDN -->
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css" />
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.2/dist/leaflet.css" />
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="./node_modules/font-awesome/css/font-awesome.css" />
+    <link rel="stylesheet" href="./node_modules/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/custom.css">
 
     <!-- load angular and angular route via CDN -->
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>
-    <script src="https://unpkg.com/leaflet@1.0.2/dist/leaflet.js"></script>
+    <script src="./node_modules/angular/angular.min.js"></script>
+    <script src="./node_modules/jsnlog/jsnlog.min.js"></script>
+    <script src="./node_modules/jsnlog/jsnlog.js"></script>
+    <script src="./node_modules/leaflet/dist/leaflet.js"></script>
     <script src="./node_modules/ui-leaflet/dist/ui-leaflet.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.js"></script>
+    <script src="./node_modules/angular-route/angular-route.js"></script>
     <script src="https://tombatossals.github.io/angular-leaflet-directive/dist/angular-leaflet-directive.js"></script>
+    <!-- jQuery (necessary for Bootstrap"s JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+    <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 
     <!-- local files -->
     <script src="script.js"></script>
@@ -25,18 +58,18 @@
     <script src="controllers/mainController.js"></script>
     <script src="controllers/aboutController.js"></script>
     <script src="controllers/contactController.js"></script>
+
 </head>
 
 <body ng-controller="mainController">
 
     <!-- HEADER AND NAVBAR -->
-    <header>
+    <!-- <header>
         <nav class="navbar navbar-default">
             <div class="container">
                 <div class="navbar-header">
                     <a class="navbar-brand" href="/">CoperniCloud</a>
                 </div>
-
                 <ul class="nav navbar-nav navbar-right">
                     <li>
                         <a href="#">
@@ -53,7 +86,7 @@
                 </ul>
             </div>
         </nav>
-    </header>
+    </header> -->
 
     <!-- MAIN CONTENT AND INJECTED VIEWS -->
     <div id="main">
@@ -65,5 +98,14 @@
     </div>
 
 </body>
+
+
+<!-- local scripts -->
+<script src="js/jsnlog.js"></script>
+
+<script src="js/modernizr.custom.js"></script>
+<script src="js/classie.js"></script>
+<script src="js/modalEffects.js"></script>
+<script src="js/uisearch.js"></script>
 
 </html>

@@ -1,11 +1,260 @@
+/* Search icon by IcoMoon, made with http://icomoon.io/app/ */
+
+@font-face {
+    font-family: 'icomoon';
+    src: url('../fonts/icomoon/icomoon.eot');
+    src: url('../fonts/icomoon/icomoon.eot?#iefix') format('embedded-opentype'), url('../fonts/icomoon/icomoon.woff') format('woff'), url('../fonts/icomoon/icomoon.ttf') format('truetype'), url('../fonts/icomoon/icomoon.svg#icomoon') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+html {
+    -webkit-font-smoothing: antialiased;
+}
+
+body {
+    overflow: hidden;
+    height: 100%;
+}
+
+.container-fluid {
+    z-index: 5;
+}
+
 #map {
-    display: inline-block;
-    height: 400px;
-    width: 640px;
-    margin: 10px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    z-index: 0;
+    cursor: crosshair;
 }
 
 #outer {
     width: 100%;
     text-align: center;
+}
+
+.ng-scope {
+    padding: 0;
+    margin: 0;
+}
+
+
+/*
+ *  Scrollbar
+ */
+
+.scrollbar {
+    margin-left: 30px;
+    float: left;
+    height: 300px;
+    width: 65px;
+    background: rgba(255, 255, 255, 0.5);
+    overflow-y: scroll;
+    margin-bottom: 25px;
+}
+
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+    background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #B9B9B9;
+    border: none;
+}
+
+
+/* Searchbar */
+
+.sb-search {
+	position: relative;
+    margin-top: 10px;
+    margin-left: 10px;
+	width: 0%;
+	min-width: 40px;
+	height: 40px;
+	border: 1px solid black;
+	float: left;
+	overflow: hidden;
+	-webkit-transition: width 0.3s;
+	-moz-transition: width 0.3s;
+	transition: width 0.3s;
+	-webkit-backface-visibility: hidden;
+}
+
+.sb-search-input {
+	position: absolute;
+	top: 0;
+	left: 0;
+	border: none;
+	outline: none;
+	background: rgba(255, 255, 255, 0.9);
+    width: 100%;
+	height: 40px;
+    margin: 0;
+	/* z-index: 0; */
+	padding: 0px 0px 0px 10px;
+	font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+	font-size: 16px;
+	color: #404040;
+}
+
+.sb-search-input:hover::-webkit-input-placeholder {
+	color: #404040;
+}
+
+input[type="search"].sb-search-input {
+	-webkit-appearance: none;
+	-webkit-border-radius: 0px;
+}
+
+.sb-search-input::-webkit-input-placeholder {
+	color: #404040;
+}
+
+.sb-search-input:-moz-placeholder {
+	color: #404040;
+}
+
+.sb-search-input::-moz-placeholder {
+	color: #404040;
+}
+
+.sb-search-input:-ms-input-placeholder {
+	color: #404040;
+}
+
+.sb-icon-search,
+.sb-search-submit {
+	width: 40px;
+	height: 40px;
+	display: block;
+	position: absolute;
+	right: 0;
+	top: 0;
+	padding: 0;
+	margin: 0;
+	line-height: 40px;
+	text-align: center;
+	cursor: pointer;
+}
+
+.sb-search-submit {
+	background: #fff;
+	/* IE needs this */
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+	/* IE 8 */
+	filter: alpha(opacity=0);
+	/* IE 5-7 */
+	opacity: 0;
+	color: transparent;
+	border: none;
+	outline: none;
+	z-index: -1;
+}
+
+.sb-icon-search {
+	color: #fff;
+	background: #6d6d6d;
+	z-index: 90;
+	font-size: 18px;
+	font-family: 'icomoon';
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	-webkit-font-smoothing: antialiased;
+}
+
+.sb-icon-search:before {
+	content: "\e000";
+}
+
+.sb-search.sb-search-open,
+.no-js .sb-search {
+	width: 100%;
+}
+
+.sb-search.sb-search-open .sb-icon-search,
+.no-js .sb-search .sb-icon-search {
+	background: #6d6d6d;
+	color: #fff;
+	z-index: 11;
+}
+
+.sb-search.sb-search-open .sb-search-submit,
+.no-js .sb-search .sb-search-submit {
+	z-index: 90;
+}
+
+
+/* Overlay style */
+
+.overlay {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: rgba(70, 8, 141, 0.6);
+}
+
+
+/* Overlay closing cross */
+
+.overlay .overlay-close {
+    width: 80px;
+    height: 80px;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    overflow: hidden;
+    border: none;
+    background: url(../img/cross.png) no-repeat center center;
+    text-indent: 200%;
+    color: transparent;
+    outline: none;
+    z-index: 1000;
+}
+
+
+/* Effects */
+
+.container {
+    background: #fff;
+    -webkit-transition: -webkit-transform 0.5s;
+    transition: transform 0.5s;
+}
+
+.container.overlay-open {
+    -webkit-transform: scale(0.8);
+    transform: scale(0.8);
+}
+
+.overlay-contentscale {
+    visibility: hidden;
+    -webkit-transform: translateY(100%);
+    transform: translateY(100%);
+    -webkit-transition: -webkit-transform 0.5s, visibility 0s 0.5s;
+    transition: transform 0.5s, visibility 0s 0.5s;
+}
+
+.overlay-contentscale.open {
+    visibility: visible;
+    -webkit-transform: translateY(0%);
+    transform: translateY(0%);
+    -webkit-transition: -webkit-transform 0.5s;
+    transition: transform 0.5s;
+}
+
+.overlay {
+    z-index: 1000;
 }
