@@ -3,19 +3,18 @@ angular.module('coperniCloud').config(function ($routeProvider) {
     $routeProvider
      // route for the home page
      .when('/', {
-        templateUrl: '../pages/home.html',
+        templateUrl: '../templates/home.html',
         controller: 'mainController'
     })
 
-    // route for the about page
     .when('/#!/', {
-        templateUrl: '../pages/home.html',
+        templateUrl: '../templates/home.html',
         controller: 'mainController'
     })
 
     // route for the contact page
-    .when('/contact', {
-        templateUrl: '../pages/contact.html',
-        controller: 'contactController'
-    });
+    // .when('/contact', {
+    //     templateUrl: '../templates/contact.html',
+    //     controller: 'contactController'
+    // });
 })

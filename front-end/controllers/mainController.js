@@ -1,5 +1,7 @@
 coperniCloud.controller('mainController', ['$scope', 'leafletData', function ($scope, leafletData) {
 
+    $scope.searchedItem = "";
+
     angular.extend($scope, {
         center: {
             lat: 51.82956,
@@ -44,23 +46,16 @@ coperniCloud.controller('mainController', ['$scope', 'leafletData', function ($s
         }
     });
 
-
-
     // A global reference is set.
     leafletData.getMap('map').then(function (m) {
         $scope.routeMap = m;
-        // $(window).on("resize", function () {
-        //     $("#map").height($(window).height());
-        //     $scope.routeMap.invalidateSize();
-        // }).trigger("resize");
-
     });
 
-    $scope.callUpdate = function () {
-        if (!$scope.search) {
-            $scope.search = new UISearch(document.getElementById('sb-search'));
-            console.log($scope.search);
+    //Watches for the variable change
+    $scope.$watch('searchedItem', function () {
+        if ($scope.searchedItem !== "") {
+            console.log($scope.searchedItem);
+            //start the search here
         }
-    }
-
+    });
 }]);
