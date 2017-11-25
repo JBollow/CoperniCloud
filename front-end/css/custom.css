@@ -74,125 +74,125 @@ body {
 /* Searchbar */
 
 .sb-search {
-	position: relative;
+    position: relative;
     margin-top: 10px;
     margin-left: 10px;
-	width: 0%;
-	min-width: 40px;
-	height: 40px;
-	border: 1px solid black;
-	float: left;
-	overflow: hidden;
-	-webkit-transition: width 0.3s;
-	-moz-transition: width 0.3s;
-	transition: width 0.3s;
-	-webkit-backface-visibility: hidden;
+    width: 0%;
+    min-width: 40px;
+    height: 40px;
+    border: 1px solid black;
+    float: left;
+    overflow: hidden;
+    -webkit-transition: width 0.3s;
+    -moz-transition: width 0.3s;
+    transition: width 0.3s;
+    -webkit-backface-visibility: hidden;
 }
 
 .sb-search-input {
-	position: absolute;
-	top: 0;
-	left: 0;
-	border: none;
-	outline: none;
-	background: rgba(255, 255, 255, 0.9);
+    position: absolute;
+    top: 0;
+    left: 0;
+    border: none;
+    outline: none;
+    background: rgba(255, 255, 255, 0.9);
     width: 100%;
-	height: 40px;
+    height: 40px;
     margin: 0;
-	/* z-index: 0; */
-	padding: 0px 0px 0px 10px;
-	font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
-	font-size: 16px;
-	color: #404040;
+    /* z-index: 0; */
+    padding: 0px 0px 0px 10px;
+    font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+    font-size: 16px;
+    color: #404040;
 }
 
 .sb-search-input:hover::-webkit-input-placeholder {
-	color: #404040;
+    color: #404040;
 }
 
 input[type="search"].sb-search-input {
-	-webkit-appearance: none;
-	-webkit-border-radius: 0px;
+    -webkit-appearance: none;
+    -webkit-border-radius: 0px;
 }
 
 .sb-search-input::-webkit-input-placeholder {
-	color: #404040;
+    color: #404040;
 }
 
 .sb-search-input:-moz-placeholder {
-	color: #404040;
+    color: #404040;
 }
 
 .sb-search-input::-moz-placeholder {
-	color: #404040;
+    color: #404040;
 }
 
 .sb-search-input:-ms-input-placeholder {
-	color: #404040;
+    color: #404040;
 }
 
 .sb-icon-search,
 .sb-search-submit {
-	width: 40px;
-	height: 40px;
-	display: block;
-	position: absolute;
-	right: 0;
-	top: 0;
-	padding: 0;
-	margin: 0;
-	line-height: 40px;
-	text-align: center;
-	cursor: pointer;
+    width: 40px;
+    height: 40px;
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 0;
+    margin: 0;
+    line-height: 40px;
+    text-align: center;
+    cursor: pointer;
 }
 
 .sb-search-submit {
-	background: #fff;
-	/* IE needs this */
-	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
-	/* IE 8 */
-	filter: alpha(opacity=0);
-	/* IE 5-7 */
-	opacity: 0;
-	color: transparent;
-	border: none;
-	outline: none;
-	z-index: -1;
+    background: #fff;
+    /* IE needs this */
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    /* IE 8 */
+    filter: alpha(opacity=0);
+    /* IE 5-7 */
+    opacity: 0;
+    color: transparent;
+    border: none;
+    outline: none;
+    z-index: -1;
 }
 
 .sb-icon-search {
-	color: #fff;
-	background: #6d6d6d;
-	z-index: 90;
-	font-size: 18px;
-	font-family: 'icomoon';
-	speak: none;
-	font-style: normal;
-	font-weight: normal;
-	font-variant: normal;
-	text-transform: none;
-	-webkit-font-smoothing: antialiased;
+    color: #fff;
+    background: #6d6d6d;
+    z-index: 90;
+    font-size: 18px;
+    font-family: 'icomoon';
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    -webkit-font-smoothing: antialiased;
 }
 
 .sb-icon-search:before {
-	content: "\e000";
+    content: "\e000";
 }
 
 .sb-search.sb-search-open,
 .no-js .sb-search {
-	width: 100%;
+    width: 100%;
 }
 
 .sb-search.sb-search-open .sb-icon-search,
 .no-js .sb-search .sb-icon-search {
-	background: #6d6d6d;
-	color: #fff;
-	z-index: 11;
+    background: #6d6d6d;
+    color: #fff;
+    z-index: 11;
 }
 
 .sb-search.sb-search-open .sb-search-submit,
 .no-js .sb-search .sb-search-submit {
-	z-index: 90;
+    z-index: 90;
 }
 
 
@@ -257,4 +257,37 @@ input[type="search"].sb-search-input {
 
 .overlay {
     z-index: 1000;
+}
+
+.extended {
+    position: fixed;
+    top: 100px;
+    left: 5px;
+    background: rgba(255, 255, 255, 0.7);
+    border: 1px solid rgb(10, 5, 5);
+}
+
+.extended.ng-hide {
+    left: -362px;
+}
+
+.extended.ng-hide-add,
+.extended.ng-hide-remove {
+    /* this is required as of 1.3x to properly
+         apply all styling in a show/hide animation */
+    transition: 0s linear all;
+}
+
+.extended.ng-hide-add-active,
+.extended.ng-hide-remove-active {
+    /* -webkit-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 2s;
+        -moz-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 2s;
+        -o-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 2s;
+        transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 2s;
+    */
+    transition: all ease-in-out 2s;
+}
+
+.extended.ng-show-add-active {
+    display: block;
 }

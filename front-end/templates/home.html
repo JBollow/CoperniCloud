@@ -1,5 +1,5 @@
 <!-- home.html -->
-<div class="jumbotron text-center">
+<div class="jumbotron text-center" data-ng-init="initExtended()">
     <div id="outer">
         <leaflet lf-center="center" id="map" markers="markers" layers="layers" defaults="defaults"></leaflet>
     </div>
@@ -9,6 +9,35 @@
 
             <div class="col-sm-4">
                 <div ui-search searched="searchedItem"></div>
+                <br>
+                <br>
+                <br>
+
+                <!-- some fine tuning still needed -->
+                <button type="button" class="btn btn-default" ng-click="toggleChecked()">
+                    <span class="glyphicon glyphicon-search"></span>+
+                </button>
+
+                <div class="extended" ng-show="checked">
+                    <form>
+                        <h2>Extended search</h2>
+                        <p>
+                            <label>Name: </label>
+                            <input ng-model="input.name" type="text" />
+                        </p>
+                        <p>
+                            <label>Start: </label>
+                            <input ng-model="input.start" type="date" />
+                        </p>
+                        <p>
+                            <label>End: </label>
+                            <input ng-model="input.end" type="date" />
+                        </p>
+                        <p>
+                            <input type="button" value="Search" class="btn" ng-click="startSearch(input)" />
+                        </p>
+                    </form>
+                </div>
             </div>
             <div class="col-sm-8">
             </div>

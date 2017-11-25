@@ -1,0 +1,23 @@
+<div class="modal-header">
+    <h3 class="modal-title">Which image would you like to open?</h3>
+</div>
+<div class="modal-body">
+    <div class="float-column-wrapper">
+        <table>
+            <tbody>
+                <tr ng-repeat="x in results">
+                    <td>
+                        <input type="radio" name="groupName" ng-model="$parent.chosen.value" ng-value="x.name" id="{{x.name}}"></input>
+                    </td>
+                    <td>{{x.name}}</td>
+                    <td>{{x.startDate}}</td>
+                    <td>{{x.endDate}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="ok(chosen.value)">OK</button>
+    <button class="btn btn-primary" type="button" ng-click="dismiss()">Close</button>
+</div>
