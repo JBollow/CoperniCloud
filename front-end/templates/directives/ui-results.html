@@ -1,0 +1,20 @@
+<div class="col-sm-8">
+    <div class="search-results">
+        <br>
+        <b>Searchresults for: {{searched}} </b>
+        <table border="1">
+            <tr>
+                <th>Name</th>
+                <th>Start</th>
+                <th>End</th>
+            </tr>
+            <tr ng-repeat="x in results">
+                <td>{{x.name}}</td>
+                <td>{{x.startDate}}</td>
+                <td>{{x.endDate}}</td>
+            </tr>
+        </table>
+
+
+    </div>
+</div>
