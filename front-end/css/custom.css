@@ -36,7 +36,7 @@ body {
 }
 
 .advsearch {
-    font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+    font-family: Futura, "Trebuchet MS", Arial, sans-serif;
     font-size: 24px;
     margin-top: 0px;
     margin-left: -5px;
@@ -61,7 +61,7 @@ body {
 }
 
 .buttonwhite {
-    font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+    font-family: Futura, "Trebuchet MS", Arial, sans-serif;
     font-size: 14px;
     font-style: normal;
     font-variant: normal;
@@ -155,7 +155,7 @@ body {
     margin: 0;
     /* z-index: 0; */
     padding: 0px 0px 0px 10px;
-    font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+    font-family: Futura, "Trebuchet MS", Arial, sans-serif;
     font-size: 16px;
     color: #404040;
 }
@@ -324,7 +324,7 @@ input[type="search"].sb-search-input {
     padding-top: 5px;
     text-align: left;
     color: white;
-    font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+    font-family: Futura, "Trebuchet MS", Arial, sans-serif;
     font-weight: normal;
     font-style: normal;
 }
@@ -363,7 +363,7 @@ form {
 
 
 label.date {
-    font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+    font-family: Futura, "Trebuchet MS", Arial, sans-serif;
     font-size: 18px;
     font-style: normal;
     font-weight: 400;
