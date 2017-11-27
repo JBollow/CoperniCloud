@@ -12,3 +12,16 @@ A basic one-page app with a map to decide whether we want to use AngularJS or no
 2. Install the application: `npm install`
 3. Start the server: `npm start`
 4. View in browser at `http://localhost:10001`
+
+
+
+# Back-End
+
+## +Requirements
+
+- nodemon: `npm install -g nodemon`
+
+## Installation
+
+1. Install the server: `npm install`
+2. Start the server: `nodemon app`

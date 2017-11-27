@@ -4,11 +4,21 @@
   "description": "Geosoftware 2 project.",
   "main": "app.js",
   "scripts": {
+    "start": "node app",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.16.2"
+    "express": "^4.16.2",
+    "mongodb": "^2.2.25",
+    "monk": "^4.0.0"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "chai-http": "^2.0.1",
+    "mocha": "^3.5.3",
+    "should": "^13.1.0",
+    "supertest": "^3.0.0"
   }
 }
