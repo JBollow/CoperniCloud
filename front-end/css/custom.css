@@ -62,7 +62,7 @@ body {
 
 .buttonwhite {
     font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
-    font-size: 14px;
+    font-size: 18px;
     font-style: normal;
     font-variant: normal;
     font-weight: 400;
@@ -156,7 +156,7 @@ body {
     /* z-index: 0; */
     padding: 0px 0px 0px 10px;
     font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
-    font-size: 16px;
+    font-size: 18px;
     color: #404040;
 }
 
