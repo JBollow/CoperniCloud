@@ -36,12 +36,12 @@ body {
 }
 
 .advsearch {
-    font-family: Futura, "Trebuchet MS", Arial, sans-serif;
+    font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
     font-size: 24px;
     margin-top: 0px;
     margin-left: -5px;
     float: left;
-    background-color: #6d6d6d;
+    background-color: #444444;
     color: white;
     border: 1px solid black;
     cursor: pointer;
@@ -51,17 +51,17 @@ body {
 
 .advsearch:hover {
     border: none;
-    background-color: #6d6d6d;
+    background-color: #444444;
     color: white;
 }
 
 .advsearch:active {
-    background-color: #6d6d6d;
+    background-color: #444444;
     transform: translateY(0px);
 }
 
 .buttonwhite {
-    font-family: Futura, "Trebuchet MS", Arial, sans-serif;
+    font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
     font-size: 14px;
     font-style: normal;
     font-variant: normal;
@@ -80,12 +80,12 @@ body {
 }
 
 .buttonwhite:hover {
-    background-color: #4f17b0;
+    background-color: #008dc5;
     color: white;
 }
 
 .buttonwhite:active {
-    background-color: #4f17b0;
+    background-color: #008dc5;
     transform: translateY(2px);
 }
 
@@ -155,13 +155,13 @@ body {
     margin: 0;
     /* z-index: 0; */
     padding: 0px 0px 0px 10px;
-    font-family: Futura, "Trebuchet MS", Arial, sans-serif;
+    font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
     font-size: 16px;
     color: #404040;
 }
 
 .sb-search-input:hover::-webkit-input-placeholder {
-    color: #404040;
+    color: white;
 }
 
 input[type="search"].sb-search-input {
@@ -216,7 +216,7 @@ input[type="search"].sb-search-input {
 
 .sb-icon-search {
     color: #fff;
-    background: #6d6d6d;
+    background: #444444;
     z-index: 90;
     font-size: 18px;
     font-family: 'icomoon';
@@ -238,7 +238,7 @@ input[type="search"].sb-search-input {
 
 .sb-search.sb-search-open .sb-icon-search,
 .no-js .sb-search .sb-icon-search {
-    background: #6d6d6d;
+    background: #444444;
     color: #fff;
     z-index: 11;
 }
@@ -316,16 +316,16 @@ input[type="search"].sb-search-input {
     position: fixed;
     top: 110px;
     left: 10px;
-    width:  400px;
-    background: rgba(90, 90, 90, 0.9);
+    width: 400px;
+    background: rgba(58, 58, 58, 0.9);
     border: 1px solid black;
     padding-left: 10px;
     padding-right: 10px;
     padding-top: 5px;
     text-align: left;
     color: white;
-    font-family: Futura, "Trebuchet MS", Arial, sans-serif;
-    font-weight: normal;
+    font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
+    font-weight: 100;
     font-style: normal;
 }
 
@@ -347,7 +347,7 @@ input[type="search"].sb-search-input {
         -o-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 2s;
         transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 2s;
     */
-    transition: all ease-in-out 1s;
+    transition: all ease-in-out 0.2s;
 }
 
 .extended.ng-show-add-active {
@@ -359,11 +359,11 @@ input[type="search"].sb-search-input {
 
 form {
     text-align: left;
+    padding-top: 10px;
 }
 
-
 label.date {
-    font-family: Futura, "Trebuchet MS", Arial, sans-serif;
+    font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
     font-size: 18px;
     font-style: normal;
     font-weight: 400;
@@ -373,70 +373,12 @@ label.date {
     margin-right: 15px;
 }
 
-label.trans {
-    font-weight: 400;
-    height: 50px;
-    display: block;
-    letter-spacing: 4px;
-    padding-top: 15px;
-    text-align: center;
-    padding-bottom: 0px;
-    background-color: transparent;
-}
-
-label.trans .label-text {
-    cursor: text;
-    font-size: 16px;
-    line-height: 14px;
-    -moz-transform: translateY(-24px);
-    -ms-transform: translateY(-24px);
-    -webkit-transform: translateY(-24px);
-    transform: translateY(-24px);
-    transition: all 0.2s;
-}
-
-label.trans input {
-    background-color: transparent;
-    border: 0;
-    border-bottom: 1px solid #fff;
-    font-size: 16px;
-    letter-spacing: -1px;
-    outline: 0;
-    padding: 5px 5px;
-    padding-bottom: 5px;
-    text-align: center;
-    transition: all 0.2s;
-    width: 200px;
-}
-
-label.trans input:focus {
-    max-width: 100%;
-    width: 300px;
-}
-
-label.trans input:focus+.label-text {
-    color: rgb(212, 212, 212);
-    font-size: 12px;
-    -moz-transform: translateY(-45px);
-    -ms-transform: translateY(-45px);
-    -webkit-transform: translateY(-45px);
-    transform: translateY(-45px);
-}
-
-label.trans input:valid+.label-text {
-    font-size: 12px;
-    -moz-transform: translateY(-45px);
-    -ms-transform: translateY(-45px);
-    -webkit-transform: translateY(-45px);
-    transform: translateY(-45px);
-}
-
 input[type=date] {
     height: 25px;
     margin: 0 auto;
     width: 100%;
-    font-size: 16px;
-    font-weight: normal;
+    font-size: 18px;
+    font-weight: 200;
     text-transform: uppercase;
     background-color: lighten(#2f2f2f, 40%);
     outline: none;
@@ -446,22 +388,57 @@ input[type=date] {
     color: #000;
 }
 
+input[type=text] {
+    height: 25px;
+    margin: 0 auto;
+    width: 100%;
+    font-size: 18px;
+    font-weight: normal;
+    background-color: lighten(#2f2f2f, 40%);
+    outline: none;
+    border: 0;
+    border-radius: 0px;
+    padding: 0 3px;
+    color: #000;
+    text-align: center;
+}
+
+input:hover {
+    background-color: #008dc5;
+    color: white;
+}
+
+:hover::-webkit-input-placeholder {
+    color: white;
+}
+
+:-moz-placeholder:hover {
+    color: white;
+}
+
+:-ms-input-placeholder:hover {
+    color: white;
+}
+
+
+/* leaflet stuff */
+
 .leaflet-popup-tip-container {
-	display: none;
+    display: none;
 }
 
 .leaflet-popup-content-wrapper {
-	border-radius: 0px;
+    border-radius: 0px;
 }
 
 .leaflet-routing-container {
-	border-radius: 0px;
+    border-radius: 0px;
 }
 
 .leaflet-control-layers {
-	border-radius: 0px;
+    border-radius: 0px;
 }
 
 .leaflet-container.crosshair-cursor-enabled {
-	cursor: crosshair;
+    cursor: crosshair;
 }
