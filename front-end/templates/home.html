@@ -5,45 +5,44 @@
     </div>
 
     <div class="container-fluid">
-        <div class="row">
-
+        <div class="row search">
             <div class="col-sm-4">
                 <div ui-search searched="searchedItem"></div>
-                <br>
-                <br>
-                <br>
+            </div>
+        </div>
 
-                <!-- some fine tuning still needed -->
+        <div class="row search">
+            <div class="col-sm-4">
                 <button type="button" class="advsearch" ng-click="toggleChecked()">
                     <i class="fa fa-angle-double-right" aria-hidden="true"></i>
                 </button>
+            </div>
+        </div>     
+ 
+        <div class="row search">
+            <div class="col-sm-4">
 
                 <div class="extended" ng-show="checked">
                     <form>
                         <input type="text" id="" placeholder="Identifier" />
                         <br>
                         <br>
-                        <table>
-                            <tr>
-                                <td colspan="2">
-                                    <label class="date">recording date</label>
-                                </td>
-                            </tr>
+                        <table class="cleantable">
                             <tr>
                                 <td width="70px">
                                     <p>
                                         <label class="date">before:</label>
                                     </p>
                                 </td>
-                                <td>
-                                    <input ng-model="input.start" type="date" />
-                                </td>
-                            </tr>
-                            <tr>
                                 <td width="70px">
                                     <p>
                                         <label class="date">after:</label>
                                     </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input ng-model="input.start" type="date" />
                                 </td>
                                 <td>
                                     <input ng-model="input.end" type="date" />
