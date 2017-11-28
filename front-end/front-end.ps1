@@ -1,0 +1,2 @@
+cd "$PSScriptroot"
+npm start
