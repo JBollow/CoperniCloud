@@ -1,6 +1,7 @@
 {
   "name": "CoperniCloud-back-end",
   "version": "1.0.0",
+  "private": true,
   "description": "Geosoftware 2 project.",
   "main": "app.js",
   "scripts": {

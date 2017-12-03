@@ -1,9 +1,9 @@
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
+var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var logger = require('morgan');
 
 // mongodb?
 var mongo = require('mongodb');
@@ -13,8 +13,8 @@ var db = monk('localhost:27017/copernicloud');
 var index = require('./routes/index');
 
 var app = express();
-var port = 10002;
 
+var port = 10002;
 app.listen(port, function (err, res) {
     if (err) {
         console.log('backend error');
@@ -33,6 +33,8 @@ app.use(function (req, res, next) {
     next();
 });
 
+app.use(express.static(path.join(__dirname, 'routes')));
+
 app.use(favicon(path.join(__dirname, './img', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -47,7 +49,7 @@ app.use(function (req, res, next) {
     next();
   });
 
-//   app.use('/', index);
+app.use('/', index);
 
 // catch 404 and forward to error handler
 // development 404 page

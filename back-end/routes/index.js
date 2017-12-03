@@ -13,7 +13,8 @@ fs.readdir(testFolder, (err, files) => {
     });
 })
 
-router.get('/search', function(req, res) {
-    // var name = req.params.name;
-    console.log("name");
+router.get('/search', function() {
+    console.log("Hallo");
 })
+
+module.exports = router;
