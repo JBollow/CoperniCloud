@@ -156,4 +156,34 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
         $scope.checked = !$scope.checked;
     }
 
+    /**
+     * A pop-up for the results of the paint
+     * @param paint
+     */
+    $scope.showPaint = function (results) {
+        var modalInstance = $uibModal.open({
+            animation: true,
+            templateUrl: '../templates/popups/paint.html',
+            controller: 'resultsController',
+            size: 'sm',
+            resolve: {
+                data: function () {
+                    return results;
+                }
+            }
+        });
+
+        //for when the modal is closed
+        modalInstance.result.then(function (selectedItem) {
+            $scope.selected = selectedItem;
+            console.log($scope.selected);
+            //here open a window for image editing
+        })
+    };
+
+    //for the extended search animation 
+    $scope.toggleChecked = function () {
+        $scope.checked = !$scope.checked;
+    }
+
 }]);

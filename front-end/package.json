@@ -20,7 +20,9 @@
     "font-awesome": "github:FortAwesome/Font-Awesome",
     "jsnlog": "^2.24.2",
     "leaflet": "^1.2.0",
+    "leaflet-draw": "^0.4.13",
     "ui-bootstrap": "^0.1.10",
-    "ui-leaflet": "^1.0.3"
+    "ui-leaflet": "^1.0.3",
+    "ui-leaflet-draw": "0.0.5"
   }
 }
