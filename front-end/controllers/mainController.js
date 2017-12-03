@@ -83,14 +83,13 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
                     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, Tiles courtesy of <a href="http://hot.openstreetmap.org/" target="_blank">Humanitarian OpenStreetMap Team</a>',
                     type: 'xyz'
                 }
-            }
-
+            },
         }
     });
 
     // A global reference is set.
     leafletData.getMap('map').then(function (m) {
-        $scope.routeMap = m;
+        $scope.baseMap = m;
     });
 
     /**
@@ -125,7 +124,6 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
         }
     }
 
-
     /**
      * A pop-up for the results of the search
      * @param results
@@ -151,35 +149,23 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
         })
     };
 
-    //for the extended search animation 
-    $scope.toggleChecked = function () {
-        $scope.checked = !$scope.checked;
-    }
-
     /**
-     * A pop-up for the results of the paint
-     * @param paint
+     * Enables drawing a rectangle and starts a search when finished
      */
-    $scope.showPaint = function (results) {
-        var modalInstance = $uibModal.open({
-            animation: true,
-            templateUrl: '../templates/popups/paint.html',
-            controller: 'resultsController',
-            size: 'sm',
-            resolve: {
-                data: function () {
-                    return results;
-                }
-            }
-        });
+    $scope.createBoundingBox = function () {
+        var polygonDrawer = new L.Draw.Rectangle($scope.baseMap);
+        polygonDrawer.enable();
 
-        //for when the modal is closed
-        modalInstance.result.then(function (selectedItem) {
-            $scope.selected = selectedItem;
-            console.log($scope.selected);
-            //here open a window for image editing
-        })
-    };
+        $scope.baseMap.on('draw:created', function (e) {
+            var type = e.layerType,
+                layer = e.layer,
+                boundingbox = e.layer._latlngs;
+            console.log(boundingbox);
+
+            //TODO start search here
+
+        });
+    }
 
     //for the extended search animation 
     $scope.toggleChecked = function () {
