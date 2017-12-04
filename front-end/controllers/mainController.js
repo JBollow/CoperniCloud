@@ -111,17 +111,25 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
         //TODO the other search parameters
         console.log(input);
         $scope.resultsArray = [];
-        for (var i = 0; i < $scope.exampleArray.length; i++) {
-            if ($scope.exampleArray[i].name.toLowerCase().match(input.name.toLowerCase())) {
-                $scope.resultsArray.push($scope.exampleArray[i]);
-            }
-        }
-
-        if ($scope.resultsArray.length > 0) {
-            $scope.showResults($scope.resultsArray);
-        } else {
+        // for (var i = 0; i < $scope.exampleArray.length; i++) {
+        //     if ($scope.exampleArray[i].name.toLowerCase().match(input.name.toLowerCase())) {
+        //         $scope.resultsArray.push($scope.exampleArray[i]);
+        //     }
+        // }
+        $.ajax({
+            url: 'http://localhost:10002/search',
+            type: 'get',
+            data: {
+                name: input.name
+            },
+            success:  function (data) {
+                $scope.showResults(data);
+        },
+        error: function(message){
             alert("Nichts gefunden!");
         }
+            
+        });
     }
 
     /**
