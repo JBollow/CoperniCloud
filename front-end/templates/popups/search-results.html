@@ -7,7 +7,7 @@
             <tbody>
                 <tr ng-repeat="x in results">
                     <td>
-                        <input type="radio" name="groupName" ng-model="$parent.chosen.value" ng-value="x.name" id="{{x.name}}"></input>
+                        <input type="radio" name="groupName" ng-model="$parent.chosen.value" ng-value="x" id="{{x}}"></input>
                     </td>
                     <td>{{x}}</td>
                 </tr>

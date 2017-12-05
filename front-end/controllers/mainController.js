@@ -108,27 +108,44 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
      * Function that searches for values in the passed object
      */
     $scope.startSearch = function (input) {
-        //TODO the other search parameters
-        console.log(input);
-        $scope.resultsArray = [];
-        // for (var i = 0; i < $scope.exampleArray.length; i++) {
-        //     if ($scope.exampleArray[i].name.toLowerCase().match(input.name.toLowerCase())) {
-        //         $scope.resultsArray.push($scope.exampleArray[i]);
-        //     }
-        // }
+        var parsedBefore, parsedAfter, name;
+        if (input.before !== undefined && input.before !== null) {
+            parsedBefore = Date.parse(input.before);
+        } else {
+            parsedBefore = '0';
+        }
+
+        if (input.after !== undefined && input.after !== null) {
+            parsedAfter = Date.parse(input.after);
+        } else {
+            parsedAfter = '0';
+        }
+
+        if (input.name !== undefined && input.name !== null) {
+            name = input.name.toUpperCase();
+        } else {
+            name = '0';
+        }
+
         $.ajax({
             url: 'http://localhost:10002/search',
             type: 'get',
             data: {
-                name: input.name
+                name: name,
+                before: parsedBefore,
+                after: parsedAfter
             },
-            success:  function (data) {
-                $scope.showResults(data);
-        },
-        error: function(message){
-            alert("Nichts gefunden!");
-        }
-            
+            success: function (data) {
+                if (data.length !== 0) {
+                    $scope.showResults(data);
+                } else {
+                    alert("No results!");
+                }
+
+            },
+            error: function (message) {
+                alert(message);
+            }
         });
     }
 

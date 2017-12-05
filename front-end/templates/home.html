@@ -24,7 +24,7 @@
 
                 <div class="extended" ng-show="checked">
                     <form>
-                        <input type="text" id="" placeholder="Identifier" />
+                        <input ng-model="input.name" type="text" id="" placeholder="Identifier" />
                         <br>
                         <br>
                         <table class="cleantable">
@@ -42,10 +42,10 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <input ng-model="input.start" type="date" />
+                                    <input ng-model="input.before" type="date" />
                                 </td>
                                 <td>
-                                    <input ng-model="input.end" type="date" />
+                                    <input ng-model="input.after" type="date" />
                                 </td>
                             </tr>
                         </table>
