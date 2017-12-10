@@ -18,7 +18,9 @@
     "mongodb": "^2.2.25",
     "monk": "^4.0.0",
     "morgan": "~1.7.0",
-    "serve-favicon": "~2.3.2"
+    "serve-favicon": "~2.3.2",
+    "util": "^0.10.3",
+    "xml2js": "^0.4.19"
   },
   "devDependencies": {
     "chai": "^3.5.0",

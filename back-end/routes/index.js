@@ -1,11 +1,18 @@
 var express = require('express');
 var router = express.Router();
+var xml2js = require('xml2js');
+var util = require('util');
+var parser = new xml2js.Parser();
+
+// Jan-Patrick
+// 'Y:/OneDrive/Dokumente/Uni/Uni Münster/WS17/Geosoft 2/Projekt/Testdaten/opt/sentinel2'
 
 //filesearch
-const testFolder = 'F://Dokumente/Uni/WS_2017/Geosoft2/Testdaten/opt/sentinel2';
+const testFolder = 'Y:/OneDrive/Dokumente/Uni/Uni Münster/WS17/Geosoft 2/Projekt/Testdaten/opt/sentinel2';
 const fs = require('fs');
 var fileNames = [];
-
+var testfile = 'Y:/OneDrive/Dokumente/Uni/Uni Münster/WS17/Geosoft 2/Projekt/Testdaten/opt/sentinel2/S2B_MSIL1C_20171010T163309_N0205_R083_T15QYF_20171010T164025.SAFE/INSPIRE.xml';
+var metaData = [];
 /**
  * Gets the names of the files in the folder and saves to the global variable
  */
@@ -14,10 +21,30 @@ fs.readdir(testFolder, (err, files) => {
         files.forEach(file => {
             let noExt = file.replace('.SAFE', '');
             fileNames.push(noExt);
+            readMetaData(file);
             console.log(noExt);
         });
     }
 })
+
+function readMetaData(folderName) {
+    var fileName = testFolder + "/" + folderName + "/INSPIRE.xml";
+    fs.readFile(fileName , "utf-8", function (error, text) {
+        if (error) {
+            console.log(error);
+        } else {
+            parser.parseString(text, function (err, result) {
+                 var test = result['gmd:MD_Metadata'];
+                // console.log(util.inspect(test, false, null));
+                metaData.push(test);
+                console.log(util.inspect(metaData, false, null)); 
+            });
+        }
+    });
+}
+
+
+
 
 /**
  * Helping function to search through the file name
@@ -109,7 +136,7 @@ router.get('/search', function (req, res) {
     } else {
         //returning the results with just the name comparison
         res.json(results);
-    }   
+    }
 })
 
 module.exports = router;
