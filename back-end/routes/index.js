@@ -14,6 +14,8 @@ const testFolder = 'F:/Dokumente/Uni/WS_2017/Geosoft2/Testdaten/opt/sentinel2';
 const fs = require('fs');
 var fileNames = [];
 var metaData = [];
+var metadataObjects = [];
+
 /**
  * Gets the names of the files in the folder and saves to the global variable
  */
@@ -21,9 +23,17 @@ fs.readdir(testFolder, (err, files) => {
     if (files) {
         files.forEach(file => {
             let noExt = file.replace('.SAFE', '');
-            fileNames.push(noExt);
+            let nameStrings = noExt.split('_');
+            let date = nameStrings[2].substring(0, 8);
+            let formattedDate = date.slice(0, 4) + "-" + date.slice(4, 6) + "-" + date.slice(6, 8);
+            let parsedDate = Date.parse(formattedDate);
+            metadataObjects.push({
+                name: noExt,
+                date: parsedDate
+            });
             readMetaData(file);
-            console.log(noExt);
+            // console.log(nameObjects);
+            // console.log(util.inspect(nameObjects, false, null));
         });
     }
 })
@@ -39,13 +49,31 @@ function readMetaData(folderName) {
             // console.log(error);
         } else {
             parser.parseString(text, function (err, result) {
-                var test = result['gmd:MD_Metadata'];
-                test["name"] = folderName.replace('.SAFE', '');;
-                metaData.push(test);
+                var metadata = result['gmd:MD_Metadata'];
+                // test["name"] = folderName.replace('.SAFE', '');
+                // metaData.push(test);
                 // console.log(util.inspect(metaData, false, null));
+                var name = folderName.replace('.SAFE', '');
+                var coord = metadata['gmd:identificationInfo'][0]['gmd:MD_DataIdentification'][0]['gmd:extent'][0]['gmd:EX_Extent'][0]['gmd:geographicElement'][0]['gmd:EX_GeographicBoundingBox'][0];
+                //saving the image coordinates
+                var eastBoundLng = Number(coord['gmd:eastBoundLongitude'][0]['gco:Decimal']); //-89.9675241650983
+                var westBoundLng = Number(coord['gmd:westBoundLongitude'][0]['gco:Decimal']); //-91.0560740062828
+                var northBoundLat = Number(coord['gmd:northBoundLatitude'][0]['gco:Decimal']); //23.498246176850945
+                var southBoundLat = Number(coord['gmd:southBoundLatitude'][0]['gco:Decimal']); //22.49054569679087
+                for (let i = 0; i < metadataObjects.length; i++) {
+                    if (metadataObjects[i].name === name) {
+                        metadataObjects[i].geometry = {};
+                        metadataObjects[i].geometry.eastBoundLng = eastBoundLng,
+                            metadataObjects[i].geometry.westBoundLng = westBoundLng,
+                            metadataObjects[i].geometry.northBoundLa = northBoundLat,
+                            metadataObjects[i].geometry.southBoundLat = southBoundLat
+                    }
+                }
+                console.log(util.inspect(metadataObjects, false, null));
             });
         }
     });
+
 }
 
 /**
@@ -58,22 +86,18 @@ router.get('/searchCoordinates', function (req, res) {
     var minLat = req.query.minLat;
     var maxLng = req.query.maxLng;
     var minLng = req.query.minLng;
-    for(let i = 0; i < metaData.length; i++) {
-        //the part with the image bounds
-        var coord = metaData[i]['gmd:identificationInfo'][0]['gmd:MD_DataIdentification'][0]['gmd:extent'][0]['gmd:EX_Extent'][0]['gmd:geographicElement'][0]['gmd:EX_GeographicBoundingBox'][0];
-        //saving the image coordinates
-        var eastBoundLng = Number(coord['gmd:eastBoundLongitude'][0]['gco:Decimal']); //-89.9675241650983
-        var westBoundLng = Number(coord['gmd:westBoundLongitude'][0]['gco:Decimal']); //-91.0560740062828
-        var northBoundLat = Number(coord['gmd:northBoundLatitude'][0]['gco:Decimal']); //23.498246176850945
-        var southBoundLat = Number(coord['gmd:southBoundLatitude'][0]['gco:Decimal']); //22.49054569679087
-
-        //comparing to check whether at least one of the points is inside the bounding box
-        if( ((northBoundLat>minLat&&northBoundLat<maxLat)||(southBoundLat>minLat&&southBoundLat<maxLat)) && ((westBoundLng>minLng&&westBoundLng<maxLng)||(eastBoundLng>minLng&&eastBoundLng<maxLng)) ) {
-            results.push(metaData[i].name);
+    for (let i = 0; i < metadataObjects.length; i++) {
+        if (metadataObjects[i].geometry) {
+            //comparing to check whether at least one of the points is inside the bounding box
+            if (((metadataObjects[i].geometry.northBoundLat > minLat && metadataObjects[i].geometry.northBoundLat < maxLat) || (metadataObjects[i].geometry.southBoundLat > minLat && metadataObjects[i].geometry.southBoundLat < maxLat)) && ((metadataObjects[i].geometry.westBoundLng > minLng && metadataObjects[i].geometry.westBoundLng < maxLng) || (metadataObjects[i].geometry.eastBoundLng > minLng && metadataObjects[i].geometry.eastBoundLng < maxLng))) {
+                results.push(metadataObjects[i]);
+                console.log(util.inspect(results, false, null));
+            }
+            //for debugging purposes
+            // console.log("bounding box: " + maxLat + " " + minLat + " " + maxLng + " " + minLng);
+            // console.log("image bounds: " + northBoundLat + " " + southBoundLat + " " + eastBoundLng + " " + westBoundLng);
         }
-        //for debugging purposes
-        console.log("bounding box: " + maxLat + " " + minLat + " " +maxLng + " " + minLng);
-        console.log("image bounds: " +  northBoundLat + " " + southBoundLat + " " + eastBoundLng + " " + westBoundLng);
+
     }
     res.json(results);
 })
@@ -99,27 +123,22 @@ router.get('/search', function (req, res) {
     var results = [];
     //if there's a name to look for
     if (req.query.name !== undefined) {
-        var name = req.query.name.toUpperCase();;
+        var name = req.query.name.toUpperCase();
         var nameSubstrings = name.split(' ');
-        for (var i = 0; i < fileNames.length; i++) {
-            var subElementArray = fileNames[i];
+        for (var i = 0; i < metadataObjects.length; i++) {
+            var subElementArray = metadataObjects[i].name;
             if (arrayContainsArray(subElementArray, nameSubstrings)) {
-                results.push(subElementArray);
+                results.push(metadataObjects[i]);
             }
         }
     } else {
-        results = fileNames;
+        results = metadataObjects;
     }
 
     //if there's one of the dates to compare with
     //there must be a more elegant way to compare them all...
     if (req.query.before !== '0' || req.query.after !== '0') {
         console.log(req.query.after);
-        //splitting the name to compare just the date
-        var split = [];
-        for (let i = 0; i < results.length; i++) {
-            split.push(results[i].split('_'));
-        }
         //an empty array for the results
         var resultsWithDate = [];
         //if there's a before date
@@ -129,23 +148,15 @@ router.get('/search', function (req, res) {
             if (req.query.after !== '0') {
                 var after = req.query.after;
                 //comparing all the data strings in the name with the passed before and after date
-                for (let i = 0; i < split.length; i++) {
-                    let date = split[i][2].substring(0, 8);
-                    let formattedDate = date.slice(0, 4) + "-" + date.slice(4, 6) + "-" + date.slice(6, 8);
-                    let parsedDate = Date.parse(formattedDate);
-                    console.log("parsedBeforeandAfter" + parsedDate);
-                    if (parsedDate <= before && parsedDate >= after) {
+                for (let i = 0; i < results.length; i++) {
+                    if (results[i].date <= before && results[i].date >= after) {
                         resultsWithDate.push(results[i]);
                     }
                 }
             } else {
                 //if there's only the before date.
-                for (let i = 0; i < split.length; i++) {
-                    let date = split[i][2].substring(0, 8);
-                    let formattedDate = date.slice(0, 4) + "-" + date.slice(4, 6) + "-" + date.slice(6, 8);
-                    let parsedDate = Date.parse(formattedDate);
-                    console.log("parsedBefore" + parsedDate);
-                    if (parsedDate <= before) {
+                for (let i = 0; i < results.length; i++) {
+                    if (results[i].date <= before) {
                         resultsWithDate.push(results[i]);
                     }
                 }
@@ -153,12 +164,8 @@ router.get('/search', function (req, res) {
         } else if (req.query.after !== '0') {
             //if there's only the after date
             var after = req.query.after;
-            for (let i = 0; i < split.length; i++) {
-                let date = split[i][2].substring(0, 8);
-                let formattedDate = date.slice(0, 4) + "-" + date.slice(4, 6) + "-" + date.slice(6, 8);
-                let parsedDate = Date.parse(formattedDate);
-                console.log("parsedAfter" + parsedDate);
-                if (parsedDate >= after) {
+            for (let i = 0; i < results.length; i++) {
+                if (results[i].date >= after) {
                     resultsWithDate.push(results[i]);
                 }
             }
