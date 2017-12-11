@@ -6,12 +6,13 @@ var parser = new xml2js.Parser();
 
 // Jan-Patrick
 // 'Y:/OneDrive/Dokumente/Uni/Uni Münster/WS17/Geosoft 2/Projekt/Testdaten/opt/sentinel2'
+// Anna
+// 'F:/Dokumente/Uni/WS_2017/Geosoft2/Testdaten/opt/sentinel2'
 
 //filesearch
-const testFolder = 'Y:/OneDrive/Dokumente/Uni/Uni Münster/WS17/Geosoft 2/Projekt/Testdaten/opt/sentinel2';
+const testFolder = 'F:/Dokumente/Uni/WS_2017/Geosoft2/Testdaten/opt/sentinel2';
 const fs = require('fs');
 var fileNames = [];
-var testfile = 'Y:/OneDrive/Dokumente/Uni/Uni Münster/WS17/Geosoft 2/Projekt/Testdaten/opt/sentinel2/S2B_MSIL1C_20171010T163309_N0205_R083_T15QYF_20171010T164025.SAFE/INSPIRE.xml';
 var metaData = [];
 /**
  * Gets the names of the files in the folder and saves to the global variable
@@ -27,24 +28,55 @@ fs.readdir(testFolder, (err, files) => {
     }
 })
 
+/**
+ * Creates an array of objects with metadata of each image
+ * @param {*} folderName name of the folder the xml is located in
+ */
 function readMetaData(folderName) {
     var fileName = testFolder + "/" + folderName + "/INSPIRE.xml";
-    fs.readFile(fileName , "utf-8", function (error, text) {
+    fs.readFile(fileName, "utf-8", function (error, text) {
         if (error) {
-            console.log(error);
+            // console.log(error);
         } else {
             parser.parseString(text, function (err, result) {
-                 var test = result['gmd:MD_Metadata'];
-                // console.log(util.inspect(test, false, null));
+                var test = result['gmd:MD_Metadata'];
+                test["name"] = folderName.replace('.SAFE', '');;
                 metaData.push(test);
-                console.log(util.inspect(metaData, false, null)); 
+                // console.log(util.inspect(metaData, false, null));
             });
         }
     });
 }
 
+/**
+ * Searches in the metadata for the coordinates
+ */
+router.get('/searchCoordinates', function (req, res) {
+    var results = [];
+    //saving the request parameters
+    var maxLat = req.query.maxLat;
+    var minLat = req.query.minLat;
+    var maxLng = req.query.maxLng;
+    var minLng = req.query.minLng;
+    for(let i = 0; i < metaData.length; i++) {
+        //the part with the image bounds
+        var coord = metaData[i]['gmd:identificationInfo'][0]['gmd:MD_DataIdentification'][0]['gmd:extent'][0]['gmd:EX_Extent'][0]['gmd:geographicElement'][0]['gmd:EX_GeographicBoundingBox'][0];
+        //saving the image coordinates
+        var eastBoundLng = Number(coord['gmd:eastBoundLongitude'][0]['gco:Decimal']); //-89.9675241650983
+        var westBoundLng = Number(coord['gmd:westBoundLongitude'][0]['gco:Decimal']); //-91.0560740062828
+        var northBoundLat = Number(coord['gmd:northBoundLatitude'][0]['gco:Decimal']); //23.498246176850945
+        var southBoundLat = Number(coord['gmd:southBoundLatitude'][0]['gco:Decimal']); //22.49054569679087
 
-
+        //comparing to check whether at least one of the points is inside the bounding box
+        if( ((northBoundLat>minLat&&northBoundLat<maxLat)||(southBoundLat>minLat&&southBoundLat<maxLat)) && ((westBoundLng>minLng&&westBoundLng<maxLng)||(eastBoundLng>minLng&&eastBoundLng<maxLng)) ) {
+            results.push(metaData[i].name);
+        }
+        //for debugging purposes
+        console.log("bounding box: " + maxLat + " " + minLat + " " +maxLng + " " + minLng);
+        console.log("image bounds: " +  northBoundLat + " " + southBoundLat + " " + eastBoundLng + " " + westBoundLng);
+    }
+    res.json(results);
+})
 
 /**
  * Helping function to search through the file name
@@ -67,7 +99,7 @@ router.get('/search', function (req, res) {
     var results = [];
     //if there's a name to look for
     if (req.query.name !== undefined) {
-        var name = req.query.name;
+        var name = req.query.name.toUpperCase();;
         var nameSubstrings = name.split(' ');
         for (var i = 0; i < fileNames.length; i++) {
             var subElementArray = fileNames[i];

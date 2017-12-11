@@ -3,38 +3,7 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
     $scope.searchedItem = "";
     $scope.checked = false;
     $scope.input = {};
-    //an example for testing
-    $scope.exampleArray = [{
-            name: "january",
-            startDate: "01.01.2017",
-            endDate: "31.01.2017"
-        },
-        {
-            name: "february",
-            startDate: "01.02.2017",
-            endDate: "28.02.2017"
-        },
-        {
-            name: "march",
-            startDate: "01.03.2017",
-            endDate: "31.03.2017"
-        },
-        {
-            name: "april",
-            startDate: "01.04.2017",
-            endDate: "30.04.2017"
-        },
-        {
-            name: "may",
-            startDate: "01.05.2017",
-            endDate: "31.05.2017"
-        },
-        {
-            name: "june",
-            startDate: "01.06.2017",
-            endDate: "30.04.2017"
-        },
-    ];
+    $scope.requestsCounter = 0; //to avoid sending the request multiple times
 
 
     //the map
@@ -178,48 +147,49 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
      * Enables drawing a rectangle and starts a search when finished
      */
     $scope.createBoundingBox = function () {
+        $scope.requestsCounter = 0;
         var polygonDrawer = new L.Draw.Rectangle($scope.baseMap);
         polygonDrawer.enable();
 
         $scope.baseMap.on('draw:created', function (e) {
             var type = e.layerType,
-                layer = e.layer,
-                boundingbox = e.layer._latlngs;
+                layer = e.layer;
+            boundingbox = e.layer._latlngs;
             console.log(boundingbox);
-
-            //TODO start search here
-
+            $scope.findCoord(boundingbox);
         });
     }
 
-    //for the extended search animation 
-    $scope.toggleChecked = function () {
-        $scope.checked = !$scope.checked;
-    }
+    $scope.findCoord = function (boundingbox) {
 
-    /**
-     * A pop-up for the results of the paint
-     * @param paint
-     */
-    $scope.showPaint = function (results) {
-        var modalInstance = $uibModal.open({
-            animation: true,
-            templateUrl: '../templates/popups/paint.html',
-            controller: 'resultsController',
-            size: 'sm',
-            resolve: {
-                data: function () {
-                    return results;
+        if ($scope.requestsCounter === 0) {
+            var maxLat = boundingbox[0][1].lat;
+            var minLat = boundingbox[0][0].lat;
+            var maxLng = boundingbox[0][2].lng;
+            var minLng = boundingbox[0][0].lng;
+            $.ajax({
+                url: 'http://localhost:10002/searchCoordinates',
+                type: 'get',
+                data: {
+                    maxLat: maxLat,
+                    minLat: minLat,
+                    maxLng: maxLng,
+                    minLng: minLng
+                },
+                success: function (data) {
+                    if (data.length !== 0) {
+                        $scope.showResults(data);
+                    } else {
+                        alert("No results!");
+                    }
+                },
+                error: function (message) {
+                    alert(message);
                 }
-            }
-        });
+            });
+            $scope.requestsCounter++;
+        }
 
-        //for when the modal is closed
-        modalInstance.result.then(function (selectedItem) {
-            $scope.selected = selectedItem;
-            console.log($scope.selected);
-            //here open a window for image editing
-        })
     };
 
     //for the extended search animation 
