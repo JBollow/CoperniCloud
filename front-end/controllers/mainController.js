@@ -5,7 +5,6 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
     $scope.input = {};
     $scope.requestsCounter = 0; //to avoid sending the request multiple times
 
-
     //the map
     angular.extend($scope, {
         center: {
@@ -30,27 +29,43 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
                     name: 'DarkMatter',
                     url: 'http://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png',
                     type: 'xyz',
-                    // layerOptions: {
-                    //     apikey: ,
-                    //     mapid: ''
-                    // }
+                    layerOptions: {
+                        minZoom: 3,
+                        // apikey: ,
+                        // mapid: ''
+                    }
                 },
                 Grayscale: {
                     name: 'Grayscale',
                     url: 'http://korona.geog.uni-heidelberg.de/tiles/roadsg/x={x}&y={y}&z={z}',
-                    type: 'xyz'
+                    type: 'xyz',
+                    layerOptions: {
+                        minZoom: 3,
+                        // apikey: ,
+                        // mapid: ''
+                    }
                 },
                 OpenStreetMap_DE: {
                     name: 'OSMDE',
                     url: 'http://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png',
                     attribution: '© <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-                    type: 'xyz'
+                    type: 'xyz',
+                    layerOptions: {
+                        minZoom: 3,
+                        // apikey: ,
+                        // mapid: ''
+                    }
                 },
                 OpenStreetMap_HOT: {
                     name: 'OpenStreetMap HOT',
                     url: 'https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png',
                     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, Tiles courtesy of <a href="http://hot.openstreetmap.org/" target="_blank">Humanitarian OpenStreetMap Team</a>',
-                    type: 'xyz'
+                    type: 'xyz',
+                    layerOptions: {
+                        minZoom: 3,
+                        // apikey: ,
+                        // mapid: ''
+                    }
                 }
             },
         }
@@ -59,6 +74,13 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
     // A global reference is set.
     leafletData.getMap('map').then(function (m) {
         $scope.baseMap = m;
+        var southWest = L.latLng(-89.98155760646617, -180),
+            northEast = L.latLng(89.99346179538875, 180);
+        var bounds = L.latLngBounds(southWest, northEast);
+        $scope.baseMap.setMaxBounds(bounds);
+        $scope.baseMap.on('drag', function() {
+            $scope.baseMap.panInsideBounds(bounds, { animate: false });
+        });
     });
 
     /**
