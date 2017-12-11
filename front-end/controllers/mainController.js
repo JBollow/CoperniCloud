@@ -78,8 +78,10 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
             northEast = L.latLng(89.99346179538875, 180);
         var bounds = L.latLngBounds(southWest, northEast);
         $scope.baseMap.setMaxBounds(bounds);
-        $scope.baseMap.on('drag', function() {
-            $scope.baseMap.panInsideBounds(bounds, { animate: false });
+        $scope.baseMap.on('drag', function () {
+            $scope.baseMap.panInsideBounds(bounds, {
+                animate: false
+            });
         });
     });
 
@@ -94,6 +96,15 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
             $scope.startSearch(input);
         }
     });
+
+    $scope.triggerEnter = function ($event) {
+        if (event.keyCode == 13) { // '13' is the key code for enter
+            // $scope.startSearch(input);
+            $timeout(function() {
+                document.querySelector('#searchButton').click();
+              }, 0);
+        }
+    }
 
     /**
      * Function that searches for values in the passed object

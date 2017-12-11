@@ -24,7 +24,7 @@
 
                 <div class="extended" ng-show="checked">
                     <form>
-                        <input ng-model="input.name" type="text" id="" placeholder="Identifier" />
+                        <input ng-model="input.name" type="text" ng-keydown="triggerEnter($event)"  id="" placeholder="Identifier" />
                         <br>
                         <br>
                         <table class="cleantable">
@@ -42,16 +42,16 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <input ng-model="input.before" type="date" />
+                                    <input ng-model="input.before" ng-keydown="triggerEnter($event)" type="date" />
                                 </td>
                                 <td>
-                                    <input ng-model="input.after" type="date" />
+                                    <input ng-model="input.after" ng-keydown="triggerEnter($event)"  type="date" />
                                 </td>
                             </tr>
                         </table>
                         <br>
                         <p>
-                            <input type="button" style="width: 100%;" value="Search" class="buttonwhite" ng-click="startSearch(input)" />
+                            <input type="button" id="searchButton" style="width: 100%;" value="Search" class="buttonwhite" ng-click="startSearch(input)" />
                         </p>
                     </form>
                 </div>
