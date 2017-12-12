@@ -79,6 +79,16 @@ h3 {
     cursor: crosshair;
 }
 
+#smallMap {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 90%;
+    z-index: 0;
+    cursor: crosshair;
+    height: 350px;
+}
+
 #outer {
     width: 100%;
     text-align: center;
@@ -295,6 +305,11 @@ input[type="search"].sb-search-input {
 .sb-search.sb-search-open .sb-search-submit,
 .no-js .sb-search .sb-search-submit {
     z-index: 90;
+}
+
+.scrollbar {
+    height: 350px;
+    overflow: scroll;
 }
 
 
@@ -571,8 +586,8 @@ div.bottom {
     font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif;
     font-weight: 100;
     font-style: normal;
-    width: 500%;
-    margin-left: -200%;
+    width: 120%;
+    /* margin-left: -200%; */
 }
 
 span.customRadio {

@@ -1,24 +1,30 @@
-
 <div class="modal-header">
     <h1 class="modal-title">Search Results</h1>
 </div>
-<div class="modal-body">
-    <div class="float-column-wrapper">
-        <table class="searchResultTable">
-            <tbody>
-                <tr ng-repeat="x in results">
-                    <td align="center">
-                        <input type="radio" name="groupName" ng-model="$parent.chosen.value" ng-value="x" id="{{x}}"><span class="customRadio"></span>
-                    </td>
-                    <td align="center">
+<div class="modal-body" style="height: 370px;">
+    <div class="col-sm-6" class="scrollbar">
+        <div class="float-column-wrapper">
+            <table class="searchResultTable">
+                <tbody>
+                    <tr ng-repeat="x in results | orderBy:'-date'">
+                        <td align="center">
+                            <input type="radio" name="groupName" ng-model="$parent.chosen.value" ng-value="x" ng-change="drawRectangle(chosen.value)" id="{{x.name}}">
+                            <span class="customRadio"></span>
+                        </td>
+                        <!-- <td align="center">
                         <img class="searchPreviewImg" src="../../img/ms-icon-310x310.png" alt="">
-                    </td>
-                    <td align="left">
-                        <h3>{{x}}</h3>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+                    </td> -->
+                        <td align="left">
+                            <h3>{{x.name}}</h3>
+                            <p>{{x.date | date:'mediumDate'}}</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="col-sm-6" class="scrollbar">
+        <leaflet lf-center="center" id="smallMap" defaults="defaults"></leaflet>
     </div>
 </div>
 <div class="modal-footer">

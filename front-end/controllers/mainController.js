@@ -74,6 +74,7 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
     // A global reference is set.
     leafletData.getMap('map').then(function (m) {
         $scope.baseMap = m;
+        //preventing from going outside the bounds of one world :D
         var southWest = L.latLng(-89.98155760646617, -180),
             northEast = L.latLng(89.99346179538875, 180);
         var bounds = L.latLngBounds(southWest, northEast);
@@ -97,12 +98,16 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
         }
     });
 
+    /**
+     * Sending the search form if enter is clicked
+     * @param {*}  event
+     */
     $scope.triggerEnter = function ($event) {
         if (event.keyCode == 13) { // '13' is the key code for enter
             // $scope.startSearch(input);
-            $timeout(function() {
+            $timeout(function () {
                 document.querySelector('#searchButton').click();
-              }, 0);
+            }, 0);
         }
     }
 
@@ -111,6 +116,7 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
      */
     $scope.startSearch = function (input) {
         var parsedBefore, parsedAfter, name;
+        //Sending zeroes when an imput is empty to make checking in backend easier
         if (input.before !== undefined && input.before !== null) {
             parsedBefore = Date.parse(input.before);
         } else {
@@ -160,7 +166,7 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
             animation: true,
             templateUrl: '../templates/popups/search-results.html',
             controller: 'resultsController',
-            size: 'sm',
+            size: 'lg',
             resolve: {
                 data: function () {
                     return results;
@@ -171,7 +177,7 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
         //for when the modal is closed
         modalInstance.result.then(function (selectedItem) {
             $scope.selected = selectedItem;
-            console.log($scope.selected);
+            console.log($scope.selected.name);
             //here open a window for image editing
         })
     };
@@ -193,6 +199,10 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
         });
     }
 
+    /**
+     * Sends coordinates as search parameters
+     * @param {*} boundingbox 
+     */
     $scope.findCoord = function (boundingbox) {
 
         if ($scope.requestsCounter === 0) {

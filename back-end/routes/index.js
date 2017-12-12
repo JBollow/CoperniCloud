@@ -6,9 +6,9 @@ var parser = new xml2js.Parser();
 
 // const testFolder = '';
 // Jan-Patrick
-const testFolder = 'Y:/OneDrive/Dokumente/Uni/Uni Münster/WS17/Geosoft 2/Projekt/Testdaten/opt/sentinel2';
+// const testFolder = 'Y:/OneDrive/Dokumente/Uni/Uni Münster/WS17/Geosoft 2/Projekt/Testdaten/opt/sentinel2';
 // Anna
-// const testFolder = 'F:/Dokumente/Uni/WS_2017/Geosoft2/Testdaten/opt/sentinel2'
+const testFolder = 'F:/Dokumente/Uni/WS_2017/Geosoft2/Testdaten/opt/sentinel2';
 
 //filesearch
 const fs = require('fs');
@@ -65,7 +65,7 @@ function readMetaData(folderName) {
                         metadataObjects[i].geometry = {};
                         metadataObjects[i].geometry.eastBoundLng = eastBoundLng,
                             metadataObjects[i].geometry.westBoundLng = westBoundLng,
-                            metadataObjects[i].geometry.northBoundLa = northBoundLat,
+                            metadataObjects[i].geometry.northBoundLat = northBoundLat,
                             metadataObjects[i].geometry.southBoundLat = southBoundLat
                     }
                 }
@@ -124,7 +124,7 @@ router.get('/search', function (req, res) {
     //if there's a name to look for
     if (req.query.name !== undefined) {
         var name = req.query.name.toUpperCase();
-        var nameSubstrings = name.split(' ');
+        var nameSubstrings = name.replace("_", " ").split(' ');
         for (var i = 0; i < metadataObjects.length; i++) {
             var subElementArray = metadataObjects[i].name;
             if (arrayContainsArray(subElementArray, nameSubstrings)) {
