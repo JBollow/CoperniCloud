@@ -4,13 +4,13 @@ var xml2js = require('xml2js');
 var util = require('util');
 var parser = new xml2js.Parser();
 
+// const testFolder = '';
 // Jan-Patrick
-// 'Y:/OneDrive/Dokumente/Uni/Uni Münster/WS17/Geosoft 2/Projekt/Testdaten/opt/sentinel2'
+const testFolder = 'Y:/OneDrive/Dokumente/Uni/Uni Münster/WS17/Geosoft 2/Projekt/Testdaten/opt/sentinel2';
 // Anna
-// 'F:/Dokumente/Uni/WS_2017/Geosoft2/Testdaten/opt/sentinel2'
+// const testFolder = 'F:/Dokumente/Uni/WS_2017/Geosoft2/Testdaten/opt/sentinel2'
 
 //filesearch
-const testFolder = 'F:/Dokumente/Uni/WS_2017/Geosoft2/Testdaten/opt/sentinel2';
 const fs = require('fs');
 var fileNames = [];
 var metaData = [];

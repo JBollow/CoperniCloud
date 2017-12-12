@@ -1,21 +1,27 @@
-<div class="modal-header searchresults">
-    <h3 class="modal-title">Search Results</h3>
+
+<div class="modal-header">
+    <h1 class="modal-title">Search Results</h1>
 </div>
-<div class="modal-body searchresults">
+<div class="modal-body">
     <div class="float-column-wrapper">
-        <table>
+        <table class="searchResultTable">
             <tbody>
                 <tr ng-repeat="x in results">
-                    <td>
-                        <input type="radio" name="groupName" ng-model="$parent.chosen.value" ng-value="x" id="{{x}}"></input>
+                    <td align="center">
+                        <input type="radio" name="groupName" ng-model="$parent.chosen.value" ng-value="x" id="{{x}}"><span class="customRadio"></span>
                     </td>
-                    <td>{{x}}</td>
+                    <td align="center">
+                        <img class="searchPreviewImg" src="../../img/ms-icon-310x310.png" alt="">
+                    </td>
+                    <td align="left">
+                        <h3>{{x}}</h3>
+                    </td>
                 </tr>
             </tbody>
         </table>
     </div>
 </div>
-<div class="modal-footer searchresults">
+<div class="modal-footer">
     <button class="btn btn-primary buttonwhite" type="button" ng-click="ok(chosen.value)">OK</button>
     <button class="btn btn-primary buttonwhite" type="button" ng-click="dismiss()">Close</button>
 </div>
