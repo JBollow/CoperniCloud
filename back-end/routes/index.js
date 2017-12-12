@@ -122,7 +122,7 @@ function arrayContainsArray(big, small) {
 router.get('/search', function (req, res) {
     var results = [];
     //if there's a name to look for
-    if (req.query.name !== undefined) {
+    if (req.query.name !== 0) {
         var name = req.query.name.toUpperCase();
         var nameSubstrings = name.replace("_", " ").split(' ');
         for (var i = 0; i < metadataObjects.length; i++) {

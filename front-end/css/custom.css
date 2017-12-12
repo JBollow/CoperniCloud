@@ -307,9 +307,9 @@ input[type="search"].sb-search-input {
     z-index: 90;
 }
 
-.scrollbar {
+.scrollbarDiv {
     height: 350px;
-    overflow: scroll;
+    overflow: auto;
 }
 
 

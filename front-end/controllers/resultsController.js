@@ -5,9 +5,9 @@ coperniCloud.controller('resultsController', function ($scope, data, $uibModalIn
 
     angular.extend($scope, {
         center: {
-            lat: 51.82956,
-            lng: 7.276709,
-            zoom: 5
+            lat: 51,
+            lng: 7,
+            zoom: 3
         },
         defaults: {
             tileLayer: 'http://korona.geog.uni-heidelberg.de/tiles/roadsg/x={x}&y={y}&z={z}',
