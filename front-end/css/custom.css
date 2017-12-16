@@ -22,7 +22,7 @@ body {
     color: #404040;
     margin: 0;
     padding: 0px;
-    /* overflow: hidden; */
+    overflow: hidden;
     height: 100%;
 }
 
@@ -49,6 +49,16 @@ h2 {
 h3 {
     font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif;
     font-size: 14px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 500;
+    line-height: 15.4px;
+    color: #404040;
+}
+
+p {
+    font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif;
+    font-size: 12px;
     font-style: normal;
     font-variant: normal;
     font-weight: 500;
@@ -86,7 +96,8 @@ h3 {
     width: 90%;
     z-index: 0;
     cursor: crosshair;
-    height: 350px;
+    height: 60vh;
+    border: 1px solid black;
 }
 
 #outer {
@@ -179,7 +190,7 @@ h3 {
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: #B9B9B9;
+    background-color: #008dc5;
     border: none;
 }
 
@@ -307,44 +318,6 @@ input[type="search"].sb-search-input {
     z-index: 90;
 }
 
-.scrollbarDiv {
-    height: 350px;
-    overflow: auto;
-}
-
-
-/* Overlay style */
-
-.overlay {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    background: rgba(70, 8, 141, 0.6);
-}
-
-
-/* Overlay closing cross */
-
-.overlay .overlay-close {
-    width: 80px;
-    height: 80px;
-    position: absolute;
-    right: 20px;
-    top: 20px;
-    overflow: hidden;
-    border: none;
-    background: url(../img/cross.png) no-repeat center center;
-    text-indent: 200%;
-    color: transparent;
-    outline: none;
-    z-index: 1000;
-}
-
-
-/* Effects */
-
 .container {
     background: #fff;
     -webkit-transition: -webkit-transform 0.5s;
@@ -370,10 +343,6 @@ input[type="search"].sb-search-input {
     transform: translateY(0%);
     -webkit-transition: -webkit-transform 0.5s;
     transition: transform 0.5s;
-}
-
-.overlay {
-    z-index: 1000;
 }
 
 .extended {
@@ -437,6 +406,7 @@ label.date {
     clear: both;
     float: left;
     margin-right: 15px;
+    color: white;
 }
 
 input[type=date] {
@@ -503,6 +473,11 @@ input:hover {
 
 .leaflet-control-layers {
     border-radius: 0px;
+    font-size: 18px;
+    color: #404040;
+    font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif;
+    font-weight: 100;
+    font-style: normal;
 }
 
 .leaflet-container.crosshair-cursor-enabled {
@@ -537,7 +512,6 @@ tr {
     border: none;
     padding: 0px;
     width: 100%;
-    height: 100%;
 }
 
 .searchResultTable tbody td,
@@ -546,8 +520,8 @@ tr {
 }
 
 .searchResultTable tbody td {
-    height: 100%;
     padding-top: .5em;
+    padding-right: 1em;
     padding-bottom: .5em;
 }
 
@@ -573,6 +547,12 @@ div.bottom {
     bottom: 0;
 }
 
+.scrollbarDiv {
+    height: 60vh;
+    overflow: hidden;
+    overflow-y: auto;
+}
+
 .modal-content {
     background: rgba(255, 255, 255, 0.9);
     border: 1px solid black;
@@ -586,54 +566,94 @@ div.bottom {
     font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif;
     font-weight: 100;
     font-style: normal;
-    width: 120%;
-    /* margin-left: -200%; */
+    overflow: hidden;
 }
 
-span.customRadio {
-    display: none;
+.modal-lg {
+    width: 80%;
+    overflow: hidden;
 }
 
-input[type="radio"] {
-    width: 16px;
-    height: 16px;
-    margin: 0;
-    cursor: default;
+.modal-body {
+    height: 370px;
 }
 
-input[type="radio"]+span.customRadio {
-    display: inline-block;
-    width: 16px;
-    height: 16px;
-    background-color: white;
-    margin: 0 0 0 -16px;
+.hoverTable {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.hoverTable td {
+    padding: 7px;
+    border: #ffffff00 1px solid;
+}
+
+.hoverTable tr {
+    background: #ffffff00;
+}
+
+.hoverTable tr:hover {
+    background-color: #00b7ff62;
+}
+
+input[type='radio'] {
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 1px solid darkgray;
     border-radius: 50%;
-    box-shadow: 0 0 3px -1px rgba(0, 0, 0, 0.8);
-    pointer-events: none;
+    outline: none;
+    box-shadow: 0 0 5px 0px gray inset;
 }
 
-input[type="radio"]+span.customRadio::after {
-    content: '.';
-    color: transparent;
-    position: absolute;
-    display: block;
-    width: 2px;
-    height: 2px;
-    margin: 7px 0 0 7px;
-    opacity: 0.6;
-    border-radius: 50%;
-    transition: .2s;
-}
-
-input[type="radio"]:checked+span.customRadio::after {
-    width: 10px;
-    height: 10px;
-    margin: 3px 0 0 3px;
-    opacity: 1;
+input[type='radio']:hover {
     background-color: #008dc5;
-    box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.2);
 }
 
-img.searchPreviewImg {
-    width: 200px;
+input[type='radio']:before {
+    content: '';
+    display: block;
+    width: 60%;
+    height: 60%;
+    margin: 20% auto;
+    border-radius: 50%;
+}
+
+input[type='radio']:checked:before {
+    background: #008dc5;
+}
+
+.swalCc {
+    font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif !important;
+    background-color: rgba(255, 255, 255, 1.0)!important;
+    border: 1px solid black !important;
+    border-radius: 0px !important;
+}
+
+.swal2-confirm {
+    font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif!important;
+    font-size: 18px!important;
+    font-style: normal!important;
+    font-weight: 100!important;
+    line-height: 20px!important;
+    height: 40px!important;
+    width: 140px!important;
+    margin-top: 20px!important;
+    margin-bottom: 0px!important;
+    padding-top: 0px!important;
+    padding-bottom: 0px!important;
+    color: #fff!important;
+    border: none!important;
+    cursor: pointer!important;
+    border: 1px solid black !important;
+    border-radius: 0px !important;
+    background-color: #008dc5 !important;
+}
+
+.swal2-confirm:hover {
+    background-color: #0074a1 !important;
+}
+
+.searchRow {
+    margin-bottom: 20px;
 }

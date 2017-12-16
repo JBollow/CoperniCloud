@@ -54,7 +54,7 @@ coperniCloud.controller('resultsController', function ($scope, data, $uibModalIn
             ];
             // create an orange rectangle
             $scope.bounds = L.rectangle(bounds, {
-                color: "#ff7800",
+                color: "#008dc5",
                 weight: 1
             }).addTo($scope.smallMap);
             // zoom the map to the rectangle bounds, but not too close

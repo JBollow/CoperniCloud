@@ -57,7 +57,7 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
                     }
                 },
                 OpenStreetMap_HOT: {
-                    name: 'OpenStreetMap HOT',
+                    name: 'OpenStreetMap',
                     url: 'https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png',
                     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, Tiles courtesy of <a href="http://hot.openstreetmap.org/" target="_blank">Humanitarian OpenStreetMap Team</a>',
                     type: 'xyz',
@@ -147,12 +147,24 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
                 if (data.length !== 0) {
                     $scope.showResults(data);
                 } else {
-                    alert("No results!");
+                    swal({
+                        titel: 'Error',
+                        text: "No results!",
+                        type: 'error',
+                        customClass: 'swalCc',
+                        buttonsStyling: false,
+                    });
                 }
 
             },
             error: function (message) {
-                alert(message);
+                swal({
+                    titel: 'Error',
+                    text: message,
+                    type: 'error',
+                    customClass: 'swalCc',
+                    buttonsStyling: false,
+                });
             }
         });
     }
@@ -223,11 +235,23 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
                     if (data.length !== 0) {
                         $scope.showResults(data);
                     } else {
-                        alert("No results!");
+                        swal({
+                            titel: 'Error',
+                            text: "No results!",
+                            type: 'error',
+                            customClass: 'swalCc',
+                            buttonsStyling: false,
+                        });
                     }
                 },
                 error: function (message) {
-                    alert(message);
+                    swal({
+                        titel: 'Error',
+                        text: message,
+                        type: 'error',
+                        customClass: 'swalCc',
+                        buttonsStyling: false,
+                    });
                 }
             });
             $scope.requestsCounter++;
