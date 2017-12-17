@@ -167,6 +167,7 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
                 });
             }
         });
+        $scope.searchedItem = '';
     }
 
     /**
