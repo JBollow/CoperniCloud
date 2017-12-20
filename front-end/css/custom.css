@@ -107,9 +107,11 @@ p {
 
 .advsearch {
     font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif;
-    font-size: 24px;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 100;
     margin-top: 0px;
-    margin-left: -5px;
+    margin-left: -5px;    
     float: left;
     background-color: #008dc5;
     color: white;
