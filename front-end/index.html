@@ -79,18 +79,6 @@
     <script src="controllers/resultsController.js"></script>
     <script src="directives/ui-search.js"></script>
 
-    <!-- Klappt nicht? -->
-    <script>
-        $(function () {
-            $('tr').click(function (event) {
-                if (event.target.type != "radio") {
-                    var that = $(this).find('input[type=radio]');
-                    that.attr('checked', !that.is(':checked'));
-                }
-            });
-        });
-    </script>
-
 </head>
 
 <body ng-controller="mainController">
