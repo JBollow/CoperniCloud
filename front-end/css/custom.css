@@ -408,7 +408,8 @@ label.date {
     clear: both;
     float: left;
     margin-right: 15px;
-    color: white;
+    margin-top: 5px;
+    color: #404040;
 }
 
 input[type=date] {

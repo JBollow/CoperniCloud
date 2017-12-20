@@ -32,6 +32,7 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
                     type: 'xyz',
                     layerOptions: {
                         minZoom: 3,
+                        maxZoom: 13,
                         // apikey: ,
                         // mapid: ''
                     }
@@ -42,6 +43,7 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
                     type: 'xyz',
                     layerOptions: {
                         minZoom: 3,
+                        maxZoom: 13,
                         // apikey: ,
                         // mapid: ''
                     }
@@ -52,6 +54,7 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
                     type: 'xyz',
                     layerOptions: {
                         minZoom: 3,
+                        maxZoom: 13,
                         // apikey: ,
                         // mapid: ''
                     }
@@ -63,6 +66,7 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
                     type: 'xyz',
                     layerOptions: {
                         minZoom: 3,
+                        maxZoom: 13,
                         // apikey: ,
                         // mapid: ''
                     }
@@ -74,6 +78,7 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
                     type: 'xyz',
                     layerOptions: {
                         minZoom: 3,
+                        maxZoom: 13,
                         // apikey: ,
                         // mapid: ''
                     }
@@ -211,9 +216,11 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
         if ($scope.tilesLayer) {
             $scope.baseMap.removeLayer($scope.tilesLayer);
         }
-        $scope.tilesLayer = L.tileLayer('http://gis-bigdata:12015/tiles/' + folderName + '.SAFE/{z}/{x}/{y}.png', {
+        $scope.tilesLayer = L.tileLayer('http://127.0.0.1:8887/' + folderName + '.SAFE/T15QYF_20171010T163309_TCI/{z}/{x}/{y}.png', {
             attribution: 'Tiles',
-            tms: true
+            tms: true,
+            minZoom: 3,
+            maxZoom: 13
         }).addTo($scope.baseMap);
     }
 
