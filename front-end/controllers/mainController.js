@@ -194,17 +194,15 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
             //here open a window for image editing
             $scope.addLayer($scope.selected.name);
         })
-    };  
+    };
 
-    $scope.addLayer = function(folderName) {
-        // let path = 'F:/Dokumente/Uni/WS_2017/Geosoft2/Testdaten/opt/sentinel2/S2B_MSIL1C_20171010T163309_N0205_R083_T15QYF_20171010T164025.SAFE/GRANULE/L1C_T15QYF_A003112_20171010T164025/IMG_DATA/tms'
+    $scope.addLayer = function (folderName) {
         if ($scope.tilesLayer) {
             $scope.baseMap.removeLayer($scope.tilesLayer);
         }
-        $scope.tilesLayer = L.tileLayer('http://127.0.0.1:8887/{z}/{x}/{y}.png',
-        {
-        attribution: 'Tiles', 
-        tms:true
+        $scope.tilesLayer = L.tileLayer('http://gis-bigdata:12015/tiles/' + folderName + '.SAFE/{z}/{x}/{y}.png', {
+            attribution: 'Tiles',
+            tms: true
         }).addTo($scope.baseMap);
     }
 

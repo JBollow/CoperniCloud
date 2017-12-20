@@ -9,6 +9,11 @@ var parser = new xml2js.Parser();
 const testFolder = 'Y:/OneDrive/Dokumente/Uni/Uni Münster/WS17/Geosoft 2/Projekt/Testdaten/opt/sentinel2';
 // Anna
 // const testFolder = 'F:/Dokumente/Uni/WS_2017/Geosoft2/Testdaten/opt/sentinel2';
+// Docker
+// const testFolder = 'http://gis-bigdata:12015/sentinel2/';
+// Doesn't work with only http!!!
+// So still waiting for the filesystem and deployment in docker
+
 
 //filesearch
 const fs = require('fs');
