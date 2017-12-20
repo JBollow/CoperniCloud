@@ -1,0 +1,117 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html ng-app="coperniCloud">
+
+<head>
+    <meta charset="UTF-8" content="CoperniCloud">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>CoperniCloud</title>
+
+    <!-- favicon -->
+    <link rel="apple-touch-icon" sizes="57x57" href="img/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="img/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="img/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="img/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="img/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="img/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="img/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="img/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="img/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="img/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="img/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16x16.png">
+    <link rel="manifest" href="img/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="img/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+
+
+    <!-- SCROLLS -->
+    <!-- css -->
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css" />
+    <!-- for bootstrap in CSP mode -->
+    <!-- <link rel="stylesheet" href="./node_modules/angular-ui-bootstrap/dist/ui-bootstrap-csp.css" /> -->
+    <!-- <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet"> -->
+    <link rel="stylesheet" href="./node_modules/font-awesome/css/font-awesome.css" />
+    <link rel="stylesheet" href="./node_modules/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="./node_modules/leaflet-draw/dist/leaflet.draw.css" />
+    <link rel="stylesheet" href="./node_modules/sweetalert2/dist/sweetalert2.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/custom.css">
+
+    <!-- load angular and angular route via CDN -->
+    <script src="./node_modules/angular/angular.min.js"></script>
+    <script src="./node_modules/angular-animate/angular-animate.js"></script>
+    <script src="./node_modules/jsnlog/jsnlog.min.js"></script>
+    <script src="./node_modules/jsnlog/jsnlog.js"></script>
+    <script src="./node_modules/leaflet/dist/leaflet.js"></script>
+    <script src="./node_modules/ui-leaflet/dist/ui-leaflet.min.js"></script>
+    <!-- <script src="./node_modules/ui-leaflet/dist/ui-leaflet.js"></script> -->
+    <script src="./node_modules/leaflet-draw/dist/leaflet.draw-src.js"></script>
+    <script src="./node_modules/angular-route/angular-route.js"></script>
+    <script src="https://tombatossals.github.io/angular-leaflet-directive/dist/angular-leaflet-directive.js"></script>
+    <script src="./node_modules/leaflet-draw/dist/leaflet.draw-src.js"></script>
+    <script src="./node_modules/angular-route/angular-route.js"></script>
+
+    <!-- jQuery (necessary for Bootstrap"s JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+    <!-- <script src="./node_modules/angular-ui-bootstrap/dist/ui-bootstrap.js"></script> -->
+    <script src="./node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js"></script>
+    <!-- <script src="https://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-1.3.1.js"></script> -->
+    <script src="dist/ui-leaflet-draw.js"></script>
+    <script src="./node_modules/sweetalert2/dist/sweetalert2.all.min.js"></script>
+
+    <!-- Include a polyfill for ES6 Promises (optional) for IE11, UC Browser and Android browser support -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
+
+    <!-- local files -->
+    <script src="script.js"></script>
+    <script src="./config/routeProvider.js"></script>
+    <script src="controllers/mainController.js"></script>
+    <script src="controllers/aboutController.js"></script>
+    <script src="controllers/contactController.js"></script>
+    <script src="controllers/resultsController.js"></script>
+    <script src="directives/ui-search.js"></script>
+
+    <!-- Klappt nicht? -->
+    <script>
+        $(function () {
+            $('tr').click(function (event) {
+                if (event.target.type != "radio") {
+                    var that = $(this).find('input[type=radio]');
+                    that.attr('checked', !that.is(':checked'));
+                }
+            });
+        });
+    </script>
+
+</head>
+
+<body ng-controller="mainController">
+
+    <!-- MAIN CONTENT AND INJECTED VIEWS -->
+    <div id="main">
+
+        <!-- angular templating -->
+        <!-- this is where content will be injected -->
+        <div ng-view></div>
+
+    </div>
+
+</body>
+
+
+<!-- local scripts -->
+<script src="js/jsnlog.js"></script>
+
+<script src="js/modernizr.custom.js"></script>
+<script src="js/classie.js"></script>
+<script src="js/modalEffects.js"></script>
+
+</html>

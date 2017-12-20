@@ -1,0 +1,38 @@
+<div class="row">
+    <div class="modal-header">
+        <h1 class="modal-title">Search Results:</h1>
+    </div>
+</div>
+<div class="row searchRow">
+    <div class="modal-body">
+        <div class="col-sm-6">
+            <div class="float-column-wrapper scrollbarDiv">
+                <table class="searchResultTable hoverTable">
+                    <tbody>
+                        <tr ng-repeat="x in results | orderBy:'-date'">
+                            <td align="center">
+                                <input type="radio" name="groupName" ng-model="$parent.chosen.value" ng-value="x" ng-change="drawRectangle(chosen.value)"
+                                    id="{{x.name}}">
+                            </td>
+                            <td align="left">
+                                <label for="{{x.name}}">
+                                    <h3>{{x.name}}</h3>
+                                    <p>{{x.date | date:'mediumDate'}}</p>
+                                </label>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <leaflet lf-center="center" id="smallMap" defaults="defaults"></leaflet>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="modal-footer">
+        <button class="btn btn-primary buttonwhite" type="button" ng-click="ok(chosen.value)">OK</button>
+        <button class="btn btn-primary buttonwhite" type="button" ng-click="dismiss()">Close</button>
+    </div>
+</div>

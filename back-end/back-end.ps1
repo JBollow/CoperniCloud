@@ -1,0 +1,2 @@
+cd "$PSScriptroot"
+nodemon app

@@ -1,0 +1,664 @@
+/* Search icon by IcoMoon, made with http://icomoon.io/app/ */
+
+@font-face {
+    font-family: 'icomoon';
+    src: url('../fonts/icomoon/icomoon.eot');
+    src: url('../fonts/icomoon/icomoon.eot?#iefix') format('embedded-opentype'), url('../fonts/icomoon/icomoon.woff') format('woff'), url('../fonts/icomoon/icomoon.ttf') format('truetype'), url('../fonts/icomoon/icomoon.svg#icomoon') format('svg');
+    font-weight: 100;
+}
+
+html {
+    -webkit-font-smoothing: antialiased;
+}
+
+body {
+    background-color: #008dc5;
+    font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif;
+    font-size: 10px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 400;
+    line-height: 14px;
+    color: #404040;
+    margin: 0;
+    padding: 0px;
+    overflow: hidden;
+    height: 100%;
+}
+
+h1 {
+    font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif;
+    font-size: 20px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 400;
+    line-height: 22px;
+    color: #404040;
+}
+
+h2 {
+    font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 500;
+    line-height: 15.4px;
+    color: #404040;
+}
+
+h3 {
+    font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 500;
+    line-height: 15.4px;
+    color: #404040;
+}
+
+p {
+    font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif;
+    font-size: 12px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 500;
+    line-height: 15.4px;
+    color: #404040;
+}
+
+.box {
+    background-color: rgba(255, 255, 255, 0.9);
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border: 1px solid black;
+    margin-top: 10px;
+}
+
+.container-fluid {
+    z-index: 5;
+}
+
+#map {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    z-index: 0;
+    cursor: crosshair;
+}
+
+#smallMap {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 90%;
+    z-index: 0;
+    cursor: crosshair;
+    height: 60vh;
+    border: 1px solid black;
+}
+
+#outer {
+    width: 100%;
+    text-align: center;
+}
+
+.advsearch {
+    font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif;
+    font-size: 24px;
+    margin-top: 0px;
+    margin-left: -5px;
+    float: left;
+    background-color: #008dc5;
+    color: white;
+    border: 1px solid black;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+}
+
+.advsearch:hover {
+    border: none;
+    background-color: #0074a1;
+    color: white;
+}
+
+.advsearch:active {
+    background-color: #008dc5;
+    transform: translateY(0px);
+}
+
+.buttonwhite {
+    font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 100;
+    line-height: 20px;
+    height: 25px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    background-color: #008dc5;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border: 1px solid black;
+    border-radius: 0px;
+}
+
+.buttonwhite:hover {
+    background-color: #0074a1;
+    color: white;
+}
+
+.buttonwhite:active {
+    background-color: #0074a1;
+    transform: translateY(2px);
+}
+
+.ng-scope {
+    padding: 0;
+    margin: 0;
+}
+
+
+/*
+ *  Scrollbar
+ */
+
+.scrollbar {
+    margin-left: 30px;
+    float: left;
+    height: 300px;
+    width: 65px;
+    background: rgba(255, 255, 255, 0.5);
+    overflow-y: scroll;
+    margin-bottom: 25px;
+}
+
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+    background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #008dc5;
+    border: none;
+}
+
+
+/* Searchbar */
+
+.sb-search {
+    position: relative;
+    margin-top: 10px;
+    margin-left: -5px;
+    width: 0%;
+    min-width: 40px;
+    height: 40px;
+    border: 1px solid black;
+    float: left;
+    overflow: hidden;
+    -webkit-transition: width 0.3s;
+    -moz-transition: width 0.3s;
+    transition: width 0.3s;
+    -webkit-backface-visibility: hidden;
+}
+
+.sb-search-input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    border: none;
+    outline: none;
+    background: rgba(255, 255, 255, 0.9);
+    width: 100%;
+    height: 40px;
+    margin: 0;
+    /* z-index: 0; */
+    padding: 0px 0px 0px 10px;
+    font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif;
+    font-size: 16px;
+    color: #404040;
+}
+
+.sb-search-input:hover::-webkit-input-placeholder {
+    color: white;
+}
+
+input[type="search"].sb-search-input {
+    -webkit-appearance: none;
+    -webkit-border-radius: 0px;
+}
+
+.sb-search-input::-webkit-input-placeholder {
+    color: #404040;
+}
+
+.sb-search-input:-moz-placeholder {
+    color: #404040;
+}
+
+.sb-search-input::-moz-placeholder {
+    color: #404040;
+}
+
+.sb-search-input:-ms-input-placeholder {
+    color: #404040;
+}
+
+.sb-icon-search,
+.sb-search-submit {
+    width: 40px;
+    height: 40px;
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 0;
+    margin: 0;
+    line-height: 40px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.sb-search-submit {
+    background: #fff;
+    /* IE needs this */
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    /* IE 8 */
+    filter: alpha(opacity=0);
+    /* IE 5-7 */
+    opacity: 0;
+    color: transparent;
+    border: none;
+    outline: none;
+    z-index: -1;
+}
+
+.sb-icon-search {
+    color: #fff;
+    background: #008dc5;
+    z-index: 90;
+    font-size: 16px;
+    font-family: 'icomoon';
+    font-style: normal;
+    font-weight: 100;
+    font-variant: normal;
+    text-transform: none;
+    -webkit-font-smoothing: antialiased;
+}
+
+.sb-icon-search:before {
+    content: "\e000";
+}
+
+.sb-search.sb-search-open,
+.no-js .sb-search {
+    width: 100%;
+}
+
+.sb-search.sb-search-open .sb-icon-search,
+.no-js .sb-search .sb-icon-search {
+    background: #008dc5;
+    color: #fff;
+    z-index: 11;
+}
+
+.sb-search.sb-search-open .sb-search-submit,
+.no-js .sb-search .sb-search-submit {
+    z-index: 90;
+}
+
+.container {
+    background: #fff;
+    -webkit-transition: -webkit-transform 0.5s;
+    transition: transform 0.5s;
+}
+
+.container.overlay-open {
+    -webkit-transform: scale(0.8);
+    transform: scale(0.8);
+}
+
+.overlay-contentscale {
+    visibility: hidden;
+    -webkit-transform: translateY(100%);
+    transform: translateY(100%);
+    -webkit-transition: -webkit-transform 0.5s, visibility 0s 0.5s;
+    transition: transform 0.5s, visibility 0s 0.5s;
+}
+
+.overlay-contentscale.open {
+    visibility: visible;
+    -webkit-transform: translateY(0%);
+    transform: translateY(0%);
+    -webkit-transition: -webkit-transform 0.5s;
+    transition: transform 0.5s;
+}
+
+.extended {
+    position: relative;
+    top: 0px;
+    left: -5px;
+    width: 400px;
+    background: rgba(255, 255, 255, 0.9);
+    ;
+    border: 1px solid black;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    text-align: left;
+    color: white;
+    font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif;
+    font-weight: 100;
+    font-style: normal;
+}
+
+.extended.ng-hide {
+    left: -400px;
+}
+
+.extended.ng-hide-add,
+.extended.ng-hide-remove {
+    /* this is required as of 1.3x to properly
+         apply all styling in a show/hide animation */
+    transition: 0s linear all;
+}
+
+.extended.ng-hide-add-active,
+.extended.ng-hide-remove-active {
+    /* -webkit-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 2s;
+        -moz-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 2s;
+        -o-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 2s;
+        transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 2s;
+    */
+    transition: all ease-in-out 0.2s;
+}
+
+.extended.ng-show-add-active {
+    display: block;
+}
+
+
+/* Form */
+
+form {
+    text-align: left;
+    padding-top: 10px;
+}
+
+label.date {
+    font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 100;
+    text-align: right;
+    font-variant: small-caps;
+    clear: both;
+    float: left;
+    margin-right: 15px;
+    color: white;
+}
+
+input[type=date] {
+    height: 25px;
+    margin: 0 auto;
+    width: 100%;
+    font-size: 16px;
+    font-weight: 100;
+    text-transform: uppercase;
+    background-color: lighten(#2f2f2f, 40%);
+    outline: none;
+    border: 1px solid black;
+    border-radius: 0px;
+    padding: 0 3px;
+    color: #000;
+}
+
+input[type=text] {
+    height: 25px;
+    margin: 0 auto;
+    width: 100%;
+    font-size: 16px;
+    font-weight: 100;
+    background-color: lighten(#2f2f2f, 40%);
+    outline: none;
+    border: 1px solid black;
+    border-radius: 0px;
+    padding: 0 3px;
+    color: #000;
+    text-align: center;
+}
+
+input {
+    background-color: #00b7ff62;
+    color: white;
+}
+
+input:hover {
+    background-color: #008dc5;
+    color: white;
+}
+
+:hover::-webkit-input-placeholder {
+    color: white;
+}
+
+:-moz-placeholder:hover {
+    color: white;
+}
+
+:-ms-input-placeholder:hover {
+    color: white;
+}
+
+
+/* leaflet stuff */
+
+.leaflet-popup-tip-container {
+    display: none;
+}
+
+.leaflet-popup-content-wrapper {
+    border-radius: 0px;
+}
+
+.leaflet-routing-container {
+    border-radius: 0px;
+}
+
+.leaflet-control-layers {
+    border-radius: 0px;
+    font-size: 18px;
+    color: #404040;
+    font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif;
+    font-weight: 100;
+    font-style: normal;
+}
+
+.leaflet-container.crosshair-cursor-enabled {
+    cursor: crosshair;
+}
+
+.cleantable,
+.cleantable tr,
+.cleantable tbody td,
+.cleantable thead th,
+.cleantable tfoot th {
+    border: none;
+    padding: 0px;
+    width: 100%;
+    height: 100%;
+}
+
+.cleantable tbody td,
+tr {
+    width: 50%;
+}
+
+.cleantable tbody td {
+    height: 100%;
+}
+
+.searchResultTable,
+.searchResultTable tr,
+.searchResultTable tbody td,
+.searchResultTable thead th,
+.searchResultTable tfoot th {
+    border: none;
+    padding: 0px;
+    width: 100%;
+}
+
+.searchResultTable tbody td,
+tr {
+    width: 50%;
+}
+
+.searchResultTable tbody td {
+    padding-top: .5em;
+    padding-right: 1em;
+    padding-bottom: .5em;
+}
+
+.searchResultTable td:first-child {
+    width: 30px;
+}
+
+.searchResultTable td+td {
+    width: 0px;
+}
+
+.searchResultTable td+td+td {
+    padding-left: 10px;
+}
+
+div.search {
+    margin-bottom: 8px;
+    margin-left: -18px;
+}
+
+div.bottom {
+    position: absolute;
+    bottom: 0;
+}
+
+.scrollbarDiv {
+    height: 60vh;
+    overflow: hidden;
+    overflow-y: auto;
+}
+
+.modal-content {
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid black;
+    border-radius: 0px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align: left;
+    color: #404040;
+    font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif;
+    font-weight: 100;
+    font-style: normal;
+    overflow: hidden;
+}
+
+.modal-lg {
+    width: 80%;
+    overflow: hidden;
+}
+
+.modal-body {
+    height: 370px;
+}
+
+.hoverTable {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.hoverTable td {
+    padding: 7px;
+    border: #ffffff00 1px solid;
+}
+
+.hoverTable tr {
+    background: #ffffff00;
+}
+
+.hoverTable tr:hover {
+    background-color: #00b7ff62;
+}
+
+input[type='radio'] {
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 1px solid darkgray;
+    border-radius: 50%;
+    outline: none;
+    box-shadow: 0 0 5px 0px gray inset;
+}
+
+input[type='radio']:hover {
+    background-color: #008dc5;
+}
+
+input[type='radio']:before {
+    content: '';
+    display: block;
+    width: 60%;
+    height: 60%;
+    margin: 20% auto;
+    border-radius: 50%;
+}
+
+input[type='radio']:checked:before {
+    background: #008dc5;
+}
+
+.swalCc {
+    font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif !important;
+    background-color: rgba(255, 255, 255, 1.0)!important;
+    border: 1px solid black !important;
+    border-radius: 0px !important;
+}
+
+.swal2-confirm {
+    font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif!important;
+    font-size: 18px!important;
+    font-style: normal!important;
+    font-weight: 100!important;
+    line-height: 20px!important;
+    height: 40px!important;
+    width: 140px!important;
+    margin-top: 20px!important;
+    margin-bottom: 0px!important;
+    padding-top: 0px!important;
+    padding-bottom: 0px!important;
+    color: #fff!important;
+    border: none!important;
+    cursor: pointer!important;
+    border: 1px solid black !important;
+    border-radius: 0px !important;
+    background-color: #008dc5 !important;
+}
+
+.swal2-confirm:hover {
+    background-color: #0074a1 !important;
+}
+
+.searchRow {
+    margin-bottom: 20px;
+}

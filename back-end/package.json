@@ -1,0 +1,32 @@
+{
+  "name": "CoperniCloud-back-end",
+  "version": "1.0.0",
+  "description": "Geosoftware 2 project.",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "~1.16.0",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.0",
+    "express": "^4.16.2",
+    "jade": "~1.11.0",
+    "mongodb": "^2.2.25",
+    "monk": "^4.0.0",
+    "morgan": "~1.7.0",
+    "serve-favicon": "~2.3.2",
+    "util": "^0.10.3",
+    "xml2js": "^0.4.19"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "chai-http": "^2.0.1",
+    "mocha": "^3.5.3",
+    "should": "^13.1.0",
+    "supertest": "^3.0.0"
+  }
+}
