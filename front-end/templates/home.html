@@ -1,4 +1,3 @@
-<!-- home.html -->
 <div class="jumbotron text-center" data-ng-init="initExtended()">
     <div id="outer">
         <leaflet lf-center="center" id="map" markers="markers" layers="layers" defaults="defaults"></leaflet>
@@ -7,14 +6,22 @@
     <div class="container-fluid">
         <div class="row search">
             <div class="col-sm-4">
-                <div title="quicksearch for intentifiers"  ui-search searched="searchedItem"></div>
+                <div title="quicksearch for intentifiers" ui-search searched="searchedItem"></div>
             </div>
         </div>
 
         <div class="row search">
             <div class="col-sm-4">
-                <button type="button" class="advsearch" title="show advancedsearch"  ng-click="toggleChecked()">
-                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                <button type="button" title="draw boundingbox for search" class="advsearch" ng-click="createBoundingBox()">
+                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="row search">
+            <div class="col-sm-4">
+                <button type="button" class="advsearch" title="show advancedsearch" ng-click="toggleChecked()">
+                    <i class="fa fa-plus-circle" aria-hidden="true"></i>
                 </button>
             </div>
         </div>
@@ -24,9 +31,7 @@
 
                 <div class="extended" ng-show="checked">
                     <form>
-                        <input ng-model="input.name" type="text" ng-keydown="triggerEnter($event)"  id="" placeholder="Identifiers..." />
-                        <br>
-                        <br>
+                        <input ng-model="input.name" type="text" ng-keydown="triggerEnter($event)" id="" placeholder="Identifiers..." />
                         <table class="cleantable">
                             <tr>
                                 <td width="70px">
@@ -45,13 +50,14 @@
                                     <input ng-model="input.before" ng-keydown="triggerEnter($event)" type="date" />
                                 </td>
                                 <td>
-                                    <input ng-model="input.after" ng-keydown="triggerEnter($event)"  type="date" />
+                                    <input ng-model="input.after" ng-keydown="triggerEnter($event)" type="date" />
                                 </td>
                             </tr>
                         </table>
                         <br>
                         <p>
-                            <input type="button" id="searchButton" style="width: 100%;" value="Search" class="buttonwhite" ng-click="startSearch(input)" />
+                            <input type="button" id="searchButton" style="width: 100%;" value="Search" class="buttonwhite" ng-click="startSearch(input)"
+                            />
                         </p>
                     </form>
                 </div>
@@ -61,11 +67,6 @@
         </div>
 
         <div class="row search bottom">
-            <div class="col-sm-4">
-                <button type="button" title="draw boundingbox for search"  class="advsearch" ng-click="createBoundingBox()">
-                    <i class="fa fa-paint-brush" aria-hidden="true"></i>
-                </button>
-            </div>
         </div>
-    </div>
+    </div>	
 </div>

@@ -107,11 +107,13 @@ p {
 
 .advsearch {
     font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif;
-    font-size: 24px;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 100;
     margin-top: 0px;
-    margin-left: -5px;
+    margin-left: -5px;    
     float: left;
-    background-color: #505050;
+    background-color: #008dc5;
     color: white;
     border: 1px solid black;
     cursor: pointer;
@@ -121,12 +123,12 @@ p {
 
 .advsearch:hover {
     border: none;
-    background-color: #505050;
+    background-color: #0074a1;
     color: white;
 }
 
 .advsearch:active {
-    background-color: #505050;
+    background-color: #008dc5;
     transform: translateY(0px);
 }
 
@@ -141,8 +143,8 @@ p {
     margin-bottom: 0px;
     padding-top: 0px;
     padding-bottom: 0px;
-    background-color: white;
-    color: #404040;
+    background-color: #008dc5;
+    color: #fff;
     border: none;
     cursor: pointer;
     border: 1px solid black;
@@ -150,12 +152,12 @@ p {
 }
 
 .buttonwhite:hover {
-    background-color: #008dc5;
+    background-color: #0074a1;
     color: white;
 }
 
 .buttonwhite:active {
-    background-color: #008dc5;
+    background-color: #0074a1;
     transform: translateY(2px);
 }
 
@@ -286,7 +288,7 @@ input[type="search"].sb-search-input {
 
 .sb-icon-search {
     color: #fff;
-    background: #505050;
+    background: #008dc5;
     z-index: 90;
     font-size: 16px;
     font-family: 'icomoon';
@@ -308,7 +310,7 @@ input[type="search"].sb-search-input {
 
 .sb-search.sb-search-open .sb-icon-search,
 .no-js .sb-search .sb-icon-search {
-    background: #505050;
+    background: #008dc5;
     color: #fff;
     z-index: 11;
 }
@@ -350,7 +352,7 @@ input[type="search"].sb-search-input {
     top: 0px;
     left: -5px;
     width: 400px;
-    background: rgba(80, 80, 80, 0.9);
+    background: rgba(255, 255, 255, 0.9);
     ;
     border: 1px solid black;
     padding-left: 10px;
@@ -437,6 +439,11 @@ input[type=text] {
     padding: 0 3px;
     color: #000;
     text-align: center;
+}
+
+input {
+    background-color: #00b7ff62;
+    color: white;
 }
 
 input:hover {
