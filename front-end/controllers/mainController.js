@@ -216,7 +216,7 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
         if ($scope.tilesLayer) {
             $scope.baseMap.removeLayer($scope.tilesLayer);
         }
-        $scope.tilesLayer = L.tileLayer('http://127.0.0.1:8887/' + folderName + '.SAFE/T15QYF_20171010T163309_TCI/{z}/{x}/{y}.png', {
+        $scope.tilesLayer = L.tileLayer('http://127.0.0.1:8887/' + folderName + '.SAFE/TCI/{z}/{x}/{y}.png', {
             attribution: 'Tiles',
             tms: true,
             minZoom: 3,
