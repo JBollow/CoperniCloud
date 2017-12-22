@@ -1,4 +1,8 @@
 #!/bin/bash
-cd /opt/sentinel2
+cd /opt
+echo "cd opt"
 sudo rm -rf tiles
-cd /home/t_kueh066
+mkdir tiles
+echo "del tiles"
+cd /home/t_kueh06
+echo "cd home"
