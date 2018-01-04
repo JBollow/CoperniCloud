@@ -224,7 +224,8 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
             minZoom: 3,
             maxZoom: 13
         }).addTo($scope.baseMap);
-    }
+    };
+
     /**
      * Enables drawing a rectangle and starts a search when finished
      */
