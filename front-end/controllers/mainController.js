@@ -32,7 +32,7 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
                     type: 'xyz',
                     layerOptions: {
                         minZoom: 3,
-                        maxZoom: 13,
+                        maxZoom: 13
                         // apikey: ,
                         // mapid: ''
                     }
@@ -43,7 +43,7 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
                     type: 'xyz',
                     layerOptions: {
                         minZoom: 3,
-                        maxZoom: 13,
+                        maxZoom: 13
                         // apikey: ,
                         // mapid: ''
                     }
@@ -54,7 +54,7 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
                     type: 'xyz',
                     layerOptions: {
                         minZoom: 3,
-                        maxZoom: 13,
+                        maxZoom: 13
                         // apikey: ,
                         // mapid: ''
                     }
@@ -66,7 +66,7 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
                     type: 'xyz',
                     layerOptions: {
                         minZoom: 3,
-                        maxZoom: 13,
+                        maxZoom: 13
                         // apikey: ,
                         // mapid: ''
                     }
@@ -78,7 +78,7 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
                     type: 'xyz',
                     layerOptions: {
                         minZoom: 3,
-                        maxZoom: 13,
+                        maxZoom: 13
                         // apikey: ,
                         // mapid: ''
                     }
@@ -225,7 +225,6 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
             maxZoom: 13
         }).addTo($scope.baseMap);
     }
-
     /**
      * Enables drawing a rectangle and starts a search when finished
      */

@@ -3,15 +3,14 @@ var router = express.Router();
 var xml2js = require('xml2js');
 var util = require('util');
 var parser = new xml2js.Parser();
+const fs = require('fs');
+const path = require("path");
 
 // const testFolder = '';
-// Jan-Patrick
-const testFolder = 'Y:/OneDrive/Dokumente/Uni/Uni Münster/WS17/Geosoft 2/Projekt/Testdaten/opt/sentinel2';
-// Anna
-// const testFolder = 'F:/Dokumente/Uni/WS_2017/Geosoft2/Testdaten/opt/sentinel2';
+
+const testFolder = path.join(__dirname, "sat_data");
 
 //filesearch
-const fs = require('fs');
 var fileNames = [];
 var metaData = [];
 var metadataObjects = [];

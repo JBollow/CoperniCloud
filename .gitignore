@@ -1,7 +1,17 @@
+# front-end modules, logs etc.
+
 front-end/node_modules/
 front-end/.idea/
 front-end/npm-debug.log
+
+# back-end modules, logs etc
 back-end/node_modules/
 back-end/.idea/
 back-end/npm-debug.log
 back-end/data/
+
+.idea/
+
+# nicht Platform-unabhängiger non-sense
+*.bat
+*.ps1
