@@ -6,8 +6,6 @@ var parser = new xml2js.Parser();
 const fs = require('fs');
 const path = require("path");
 
-// const testFolder = '';
-
 const testFolder = path.join(__dirname, "sat_data");
 
 //filesearch

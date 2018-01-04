@@ -12,6 +12,9 @@ back-end/data/
 
 .idea/
 
+# locally generated tiles (redundant)
+sat_data/tiles/*
+
 # nicht Platform-unabhängiger non-sense
 *.bat
 *.ps1
