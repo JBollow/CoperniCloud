@@ -1,7 +1,21 @@
+# front-end modules, logs etc.
 front-end/node_modules/
 front-end/.idea/
 front-end/npm-debug.log
+front-end/package-lock.json
+
+# back-end modules, logs etc
 back-end/node_modules/
 back-end/.idea/
 back-end/npm-debug.log
 back-end/data/
+back-end/package-lock.json
+
+.idea/
+
+# locally generated tiles (redundant)
+sat_data/
+
+# nuetzliche installationsscripts fur windows systeme
+*.bat
+*.ps1
