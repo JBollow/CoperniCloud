@@ -216,9 +216,8 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
         if ($scope.tilesLayer) {
             $scope.baseMap.removeLayer($scope.tilesLayer);
         }
-        // Jetzt nur TCI, restlichen Bänder vielleicht über eine Auwahl?
         // http://gis-bigdata:12015/tiles/ klappt nur im uni vpn und wenn der server läuft
-        $scope.tilesLayer = L.tileLayer('Y:/Downloads/Test/tiles/' + folderName + '.SAFE/TCI/{z}/{x}/{y}.png', {
+        $scope.tilesLayer = L.tileLayer('http://gis-bigdata:12015/tiles/' + folderName + '.SAFE/TCI/{z}/{x}/{y}.png', {
             attribution: 'Tiles',
             tms: true,
             minZoom: 3,
