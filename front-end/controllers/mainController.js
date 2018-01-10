@@ -32,6 +32,7 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
                     type: 'xyz',
                     layerOptions: {
                         minZoom: 3,
+                        maxZoom: 13,
                         // apikey: ,
                         // mapid: ''
                     }
@@ -42,6 +43,7 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
                     type: 'xyz',
                     layerOptions: {
                         minZoom: 3,
+                        maxZoom: 13,
                         // apikey: ,
                         // mapid: ''
                     }
@@ -52,6 +54,7 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
                     type: 'xyz',
                     layerOptions: {
                         minZoom: 3,
+                        maxZoom: 13,
                         // apikey: ,
                         // mapid: ''
                     }
@@ -63,6 +66,7 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
                     type: 'xyz',
                     layerOptions: {
                         minZoom: 3,
+                        maxZoom: 13,
                         // apikey: ,
                         // mapid: ''
                     }
@@ -74,6 +78,7 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
                     type: 'xyz',
                     layerOptions: {
                         minZoom: 3,
+                        maxZoom: 13,
                         // apikey: ,
                         // mapid: ''
                     }
@@ -203,8 +208,23 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
             $scope.selected = selectedItem;
             console.log($scope.selected.name);
             //here open a window for image editing
+            $scope.addLayer($scope.selected.name);
         })
     };
+
+    $scope.addLayer = function (folderName) {
+        if ($scope.tilesLayer) {
+            $scope.baseMap.removeLayer($scope.tilesLayer);
+        }
+        // Jetzt nur TCI, restlichen Bänder vielleicht über eine Auwahl?
+        // http://gis-bigdata:12015/tiles/ klappt nur im uni vpn und wenn der server läuft
+        $scope.tilesLayer = L.tileLayer('Y:/Downloads/Test/tiles/' + folderName + '.SAFE/TCI/{z}/{x}/{y}.png', {
+            attribution: 'Tiles',
+            tms: true,
+            minZoom: 3,
+            maxZoom: 13
+        }).addTo($scope.baseMap);
+    }
 
     /**
      * Enables drawing a rectangle and starts a search when finished
