@@ -125,7 +125,7 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
                 document.querySelector('#searchButton').click();
             }, 0);
         }
-    }
+    };
 
     /**
      * Function that searches for values in the passed object
@@ -184,7 +184,7 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
             }
         });
         $scope.searchedItem = '';
-    }
+    };
 
     /**
      * A pop-up for the results of the search
@@ -209,7 +209,7 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
             console.log($scope.selected.name);
             //here open a window for image editing
             $scope.addLayer($scope.selected.name);
-        })
+        });
     };
 
     $scope.addLayer = function (folderName) {
@@ -223,7 +223,7 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
             minZoom: 3,
             maxZoom: 13
         }).addTo($scope.baseMap);
-    }
+    };
 
     /**
      * Enables drawing a rectangle and starts a search when finished
@@ -240,7 +240,7 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
             console.log(boundingbox);
             $scope.findCoord(boundingbox);
         });
-    }
+    };
 
     /**
      * Sends coordinates as search parameters
@@ -293,6 +293,30 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
     //for the extended search animation 
     $scope.toggleChecked = function () {
         $scope.checked = !$scope.checked;
-    }
+    };
+
+    /**
+     * A pop-up for help
+     */
+    $scope.help = function () {
+        var modalInstance = $uibModal.open({
+            animation: true,
+            templateUrl: '../templates/popups/help.html',
+            controller: 'helpController',
+            size: 'lg'
+        });
+    };
+    
+    /**
+     * A pop-up for compute
+     */
+    $scope.compute = function () {
+        var modalInstance = $uibModal.open({
+            animation: true,
+            templateUrl: '../templates/popups/compute.html',
+            controller: 'computeController',
+            size: 'lg'
+        });
+    };
 
 }]);

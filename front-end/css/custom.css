@@ -111,7 +111,7 @@ p {
     font-style: normal;
     font-weight: 100;
     margin-top: 0px;
-    margin-left: -5px;    
+    margin-left: -5px;
     float: left;
     background-color: #008dc5;
     color: white;
@@ -390,6 +390,15 @@ input[type="search"].sb-search-input {
     display: block;
 }
 
+div.helprow {
+    min-height: 40px;
+}
+
+div.helpbuttons {
+    min-height: 40px;
+    padding-left: 5px;
+}
+
 
 /* Form */
 
@@ -443,8 +452,8 @@ input[type=text] {
 }
 
 input {
-    background-color: #00b7ff62;
-    color: white;
+    background-color: #fff;
+    color: #000;
 }
 
 input:hover {
@@ -481,7 +490,7 @@ input:hover {
 
 .leaflet-control-layers {
     border-radius: 0px;
-    font-size: 18px;
+    font-size: 16px;
     color: #404040;
     font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif;
     font-weight: 100;
@@ -510,6 +519,15 @@ tr {
 
 .cleantable tbody td {
     height: 100%;
+}
+
+.cleantable2 {
+    border: none;
+    padding: 0px;
+}
+
+.cleantable2 td:first-child {
+    width: 50px;
 }
 
 .searchResultTable,
@@ -664,4 +682,89 @@ input[type='radio']:checked:before {
 
 .searchRow {
     margin-bottom: 20px;
+}
+
+.sb-icon-search-help {
+    border: 1px solid black;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    margin: 0;
+    line-height: 40px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.sb-icon-search-help {
+    color: #fff;
+    background: #008dc5;
+    z-index: 90;
+    font-size: 16px;
+    font-family: 'icomoon';
+    font-style: normal;
+    font-weight: 100;
+    font-variant: normal;
+    text-transform: none;
+    -webkit-font-smoothing: antialiased;
+}
+
+.sb-icon-search-help:before {
+    content: "\e000";
+}
+
+.delete {
+    font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 100;
+    padding: 0;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-left: 5px;
+    cursor: pointer;
+    width: 24px;
+    height: 24px;
+    color: white;
+    border: 1px solid black;
+    background-color: #fd1200;
+}
+
+.add_form_field {
+    font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 100;
+    padding: 0;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 0;
+    cursor: pointer;
+    width: 24px;
+    height: 24px;
+    background-color: #008dc5;
+    color: white;
+    border: 1px solid black;
+}
+
+select {
+    font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif;
+    font-size: 16px;
+    font-weight: 1000;
+    border: 1px solid #bbb;
+    padding: .5em;
+    margin-left: 5px;
+    margin-bottom: 10px;
+    background-color: white;
+    background-image: url(select-arrow.png);
+    background-position: right;
+    background-repeat: no-repeat;
+}
+
+select:hover {
+    background-color: #008dc5;
+    color: #fff;
 }

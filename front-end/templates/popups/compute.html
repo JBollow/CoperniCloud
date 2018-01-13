@@ -1,0 +1,50 @@
+<div class="row">
+    <div class="modal-header">
+        <h1 class="modal-title">Compute</h1>
+    </div>
+</div>
+<div class="row searchRow">
+    <div class="modal-body">
+        <div class="col-sm-12">
+            <span class="container1">
+                <span>
+                    <select name="front_bracket_0">
+                        <option value="_"> </option>
+                        <option value="(">(</option>
+                        <option value="root(">&radic;</option>
+                    </select>
+                    <select name="0_band">
+                        <option value="band_1">Band 1</option>
+                        <option value="band_2">Band 2</option>
+                        <option value="band_3">Band 3</option>
+                        <option value="band_4">Band 4</option>
+                        <option value="band_5">Band 5</option>
+                        <option value="band_6">Band 6</option>
+                        <option value="band_7">Band 7</option>
+                        <option value="band_8">Band 8</option>
+                        <option value="band_8a">Band 8a</option>
+                        <option value="band_9">Band 9</option>
+                        <option value="band_10">Band 10</option>
+                        <option value="band_11">Band 11</option>
+                        <option value="band_12">Band 12</option>
+                    </select>
+                    <select name="back_bracket_0">
+                        <option value="_"> </option>
+                        <option value=")">)</option>
+                        <option value=")^2">)²</option>
+                    </select>
+                </span>
+
+            </span>
+            <button class="add_form_field" ng-click="addff()">
+                <span style="font-size:16px; font-weight:bold;">+</span>
+            </button>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="modal-footer">
+        <button class="btn btn-primary buttonwhite" type="button" ng-click="ok(chosen.value)">OK</button>
+        <button class="btn btn-primary buttonwhite" type="button" ng-click="dismiss()">Close</button>
+    </div>
+</div>

@@ -44,7 +44,7 @@ coperniCloud.controller('resultsController', function ($scope, data, $uibModalIn
     $scope.drawRectangle = function (dataset) {
         if ($scope.bounds) {
             //removing a rectangle if there is one
-            $scope.smallMap.removeLayer($scope.bounds)
+            $scope.smallMap.removeLayer($scope.bounds);
         }
         if (dataset.geometry) {
             // define rectangle geographical bounds if exist
@@ -63,7 +63,7 @@ coperniCloud.controller('resultsController', function ($scope, data, $uibModalIn
             //zooming out otherwise
             $scope.smallMap.setView([51, 7], 3);
         }
-    }
+    };
 
     //when it's closed by clicking outside the modal
     $scope.$on('modal.closing', function (event, data) {
