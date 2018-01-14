@@ -6,45 +6,55 @@
 <div class="row searchRow">
     <div class="modal-body">
         <div class="col-sm-12">
-            <span class="container1">
+            <!-- <span class="container1"> -->
+            <span ng-repeat="x in terms" style="display:inline;">
                 <span>
-                    <select name="front_bracket_0">
-                        <option value="_"> </option>
+                    <select ng-if="$index>0" ng-model="x.operator">
+                        <option value="+">+</option>
+                        <option value="-">-</option>
+                        <option value="*">&#x00D7;</option>
+                        <option value="/">&#x00F7;</option>
+                    </select>
+                    <select ng-model="x.front">
+                        <option value=""> </option>
                         <option value="(">(</option>
                         <option value="root(">&radic;</option>
                     </select>
-                    <select name="0_band">
-                        <option value="band_1">Band 1</option>
-                        <option value="band_2">Band 2</option>
-                        <option value="band_3">Band 3</option>
-                        <option value="band_4">Band 4</option>
-                        <option value="band_5">Band 5</option>
-                        <option value="band_6">Band 6</option>
-                        <option value="band_7">Band 7</option>
-                        <option value="band_8">Band 8</option>
-                        <option value="band_8a">Band 8a</option>
-                        <option value="band_9">Band 9</option>
-                        <option value="band_10">Band 10</option>
-                        <option value="band_11">Band 11</option>
-                        <option value="band_12">Band 12</option>
+                    <select ng-model="x.band">
+                        <option value="Band 1">Band 1</option>
+                        <option value="Band 2">Band 2</option>
+                        <option value="Band 3">Band 3</option>
+                        <option value="Band 4">Band 4</option>
+                        <option value="Band 5">Band 5</option>
+                        <option value="Band 6">Band 6</option>
+                        <option value="Band 7">Band 7</option>
+                        <option value="Band 8">Band 8</option>
+                        <option value="Band 8a">Band 8a</option>
+                        <option value="Band 9">Band 9</option>
+                        <option value="Band 10">Band 10</option>
+                        <option value="Band 11">Band 11</option>
+                        <option value="Band 12">Band 12</option>
                     </select>
-                    <select name="back_bracket_0">
-                        <option value="_"> </option>
+                    <select ng-model="x.back">
+                        <option value=""> </option>
                         <option value=")">)</option>
                         <option value=")^2">)²</option>
                     </select>
+                    <button class="add_form_field" ng-click="addff()">
+                        <span style="font-size:16px; font-weight:bold;">+</span>
+                    </button>
+                    <button class="delete" ng-click="deleteff($index)" ng-if="terms.length>1">-</button>
                 </span>
-
             </span>
-            <button class="add_form_field" ng-click="addff()">
-                <span style="font-size:16px; font-weight:bold;">+</span>
-            </button>
         </div>
     </div>
 </div>
+<div>
+    <span ng-repeat="x in terms" style="display:inline;">{{x.operator}} {{x.front}} {{x.band}} {{x.back}} </span>
+</div>
 <div class="row">
     <div class="modal-footer">
-        <button class="btn btn-primary buttonwhite" type="button" ng-click="ok(chosen.value)">OK</button>
+        <button class="btn btn-primary buttonwhite" type="button" ng-click="ok()">OK</button>
         <button class="btn btn-primary buttonwhite" type="button" ng-click="dismiss()">Close</button>
     </div>
 </div>
