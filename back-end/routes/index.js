@@ -6,11 +6,11 @@ var parser = new xml2js.Parser();
 
 // const testFolder = '';
 // Jan-Patrick
-// const testFolder = 'Y:/OneDrive/Dokumente/Uni/Uni Münster/WS17/Geosoft 2/Projekt/Testdaten/opt/sentinel2';
+const testFolder = 'Y:/OneDrive/Dokumente/Uni/Uni Münster/WS17/Geosoft 2/Projekt/Testdaten/opt/sentinel2';
 // Anna
 // const testFolder = 'F:/Dokumente/Uni/WS_2017/Geosoft2/Testdaten/opt/sentinel2';
 // Dani
-const testFolder = 'F:/WWU_Münster/05_WS1718/Geosoft II/Testdaten/opt/sentinel2';
+// const testFolder = 'F:/WWU_Münster/05_WS1718/Geosoft II/Testdaten/opt/sentinel2';
 
 //filesearch
 const fs = require('fs');
@@ -185,27 +185,27 @@ router.post('/postobject', function (req, res) {
 
     // Set our internal DB variable
     var db = req.db;
-  
+
     // Get our object
     var object = req.body;
-  
+
     // Set our collection
     var collection = db.get('copernicollection');
-  
+
     // Submit to the DB
     collection.insert({
-      object
+        object
     }, function (err, doc) {
-      if (err) {
-  
-        // If it failed, return error
-        res.send("There was a problem adding the information to the database.");
-      } else {
-  
-        // Or print object id
-        res.send(doc._id);
-      }
+        if (err) {
+
+            // If it failed, return error
+            res.send("There was a problem adding the information to the database.");
+        } else {
+
+            // Or print object id
+            res.send(doc._id);
+        }
     });
-  });
+});
 
 module.exports = router;
