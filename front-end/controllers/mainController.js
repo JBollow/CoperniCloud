@@ -223,19 +223,36 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
             $scope.baseMap.removeLayer($scope.tilesLayer);
         }
 
-        // Mit $http geht es nur mit plugin wegen dem cross origin konflikt 
-        $scope.tilesLayer = L.tileLayer('http://gis-bigdata:12015/tiles/' + folderName + '.SAFE/TCI/{z}/{x}/{y}.png', {
-            attribution: 'Tiles',
-            tms: true,
-            minZoom: 3,
-            maxZoom: 13
-        }).addTo($scope.baseMap);
-        $scope.baseMap.fitBounds(bounds, {
-            padding: [150, 150]
-        });
-        $scope.overlayName = folderName;
-        $scope.thereIsAnOverlay = true;
+        // Different tile path for 1C and 2A        
+        if (folderName.includes("MSIL1C")) {
+            $scope.tilesLayer = L.tileLayer('http://gis-bigdata:12015/tiles/' + folderName + '.SAFE/TCI/{z}/{x}/{y}.png', {
+                attribution: 'Tiles',
+                tms: true,
+                minZoom: 3,
+                maxZoom: 13
+            }).addTo($scope.baseMap);
+            $scope.baseMap.fitBounds(bounds, {
+                padding: [150, 150]
+            });
+            $scope.overlayName = folderName;
+            $scope.thereIsAnOverlay = true;
+        }
 
+        if (folderName.includes("MSIL2A")) {
+            $scope.tilesLayer = L.tileLayer('http://gis-bigdata:12015/tiles/' + folderName + '.SAFE/R10m/TCI/{z}/{x}/{y}.png', {
+                attribution: 'Tiles',
+                tms: true,
+                minZoom: 3,
+                maxZoom: 13
+            }).addTo($scope.baseMap);
+            $scope.baseMap.fitBounds(bounds, {
+                padding: [150, 150]
+            });
+            $scope.overlayName = folderName;
+            $scope.thereIsAnOverlay = true;
+        }
+
+        // Mit $http geht es nur mit plugin wegen dem cross origin konflikt 
         // $http.get('http://gis-bigdata:12015/tiles/' + folderName + '.SAFE/TCI/').then(function (data) {
         //     // http://gis-bigdata:12015/tiles/ klappt nur im uni vpn und wenn der server läuft
         //     $scope.tilesLayer = L.tileLayer('http://gis-bigdata:12015/tiles/' + folderName + '.SAFE/TCI/{z}/{x}/{y}.png', {
