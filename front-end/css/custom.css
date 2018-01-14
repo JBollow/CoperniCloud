@@ -390,6 +390,49 @@ input[type="search"].sb-search-input {
     display: block;
 }
 
+.overlayControl {
+    position: relative;
+    top: 62vh;
+    left: 25vw;
+    width: 800px;
+    background: rgba(255, 255, 255, 0.9);
+    height: 100px;
+    border: 1px solid black;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    text-align: left;
+    /* color: white; */
+    font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif;
+    font-weight: 100;
+    font-style: normal;
+}
+
+.overlayControl.ng-hide {
+    bottom: 80vh;
+}
+
+.overlayControl.ng-hide-add,
+.overlayControl.ng-hide-remove {
+    /* this is required as of 1.3x to properly
+         apply all styling in a show/hide animation */
+    transition: 5s linear all;
+}
+
+.overlayControl.ng-hide-add-active,
+.overlayControl.ng-hide-remove-active {
+    /* -webkit-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 2s;
+        -moz-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 2s;
+        -o-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 2s;
+        transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 2s;
+    */
+    transition: all ease-in-out 0.2s;
+}
+
+.overlayControl.ng-show-add-active {
+    display: block;
+}
+
 div.helprow {
     min-height: 40px;
 }

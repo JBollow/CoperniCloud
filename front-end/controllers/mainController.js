@@ -1,9 +1,13 @@
-coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', '$uibModal', function ($scope, $timeout, leafletData, $uibModal) {
+coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', '$uibModal', '$http', function ($scope, $timeout, leafletData, $uibModal, $http) {
 
     $scope.searchedItem = "";
     $scope.checked = false;
     $scope.input = {};
     $scope.requestsCounter = 0; //to avoid sending the request multiple times
+    $scope.thereIsAnOverlay = false;
+    $scope.overlayName = "";
+    $scope.opacityValue = 100;
+    $scope.overlayFaded = false;
 
     //the map
     angular.extend($scope, {
@@ -204,25 +208,48 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
         });
 
         //for when the modal is closed
-        modalInstance.result.then(function (selectedItem) {
-            $scope.selected = selectedItem;
+        modalInstance.result.then(function (meta) {
+            $scope.selected = meta.result;
+            let bounds = meta.bounds;
             console.log($scope.selected.name);
             //here open a window for image editing
-            $scope.addLayer($scope.selected.name);
+            $scope.addLayer($scope.selected.name, bounds);
         });
     };
 
-    $scope.addLayer = function (folderName) {
+    $scope.addLayer = function (folderName, bounds) {
+        $scope.thereIsAnOverlay = false;
         if ($scope.tilesLayer) {
             $scope.baseMap.removeLayer($scope.tilesLayer);
         }
-        // http://gis-bigdata:12015/tiles/ klappt nur im uni vpn und wenn der server läuft
-        $scope.tilesLayer = L.tileLayer('http://gis-bigdata:12015/tiles/' + folderName + '.SAFE/TCI/{z}/{x}/{y}.png', {
-            attribution: 'Tiles',
-            tms: true,
-            minZoom: 3,
-            maxZoom: 13
-        }).addTo($scope.baseMap);
+
+        $http.get('http://gis-bigdata:12015/tiles/' + folderName + '.SAFE/TCI/').then(function (data) {
+            // http://gis-bigdata:12015/tiles/ klappt nur im uni vpn und wenn der server läuft
+            $scope.tilesLayer = L.tileLayer('http://gis-bigdata:12015/tiles/' + folderName + '.SAFE/TCI/{z}/{x}/{y}.png', {
+                attribution: 'Tiles',
+                tms: true,
+                minZoom: 3,
+                maxZoom: 13
+            }).addTo($scope.baseMap);
+            $scope.baseMap.fitBounds(bounds, {
+                padding: [150, 150]
+            });
+            $scope.overlayName = folderName;
+            $scope.thereIsAnOverlay = true;
+        }, function (err) {
+            // your error function
+            if (err.status == 404) {
+                swal({
+                    titel: 'Error',
+                    text: "Unfortunately there was a problem with the tiles server :(",
+                    type: 'error',
+                    customClass: 'swalCc',
+                    buttonsStyling: false,
+                });
+            }
+        });
+
+
     };
 
     /**
@@ -306,7 +333,7 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
             size: 'lg'
         });
     };
-    
+
     /**
      * A pop-up for compute
      */
@@ -318,5 +345,20 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
             size: 'lg'
         });
     };
+
+    $scope.changeOpacity = function () {
+        console.log($scope.rangeValue);
+        var opacity = $scope.opacityValue / 100;
+        $scope.tilesLayer.setOpacity(opacity);
+    }
+
+    $scope.fadeOverlay = function () {
+        if ($scope.overlayFaded) {
+            $scope.tilesLayer.setOpacity(0);
+        } else {
+            var opacity = $scope.opacityValue / 100;
+            $scope.tilesLayer.setOpacity(opacity);
+        }
+    }
 
 }]);

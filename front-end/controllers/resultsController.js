@@ -48,17 +48,17 @@ coperniCloud.controller('resultsController', function ($scope, data, $uibModalIn
         }
         if (dataset.geometry) {
             // define rectangle geographical bounds if exist
-            var bounds = [
+            $scope.bounds = [
                 [dataset.geometry.northBoundLat, dataset.geometry.eastBoundLng],
                 [dataset.geometry.southBoundLat, dataset.geometry.westBoundLng]
             ];
             // create an orange rectangle
-            $scope.bounds = L.rectangle(bounds, {
+            $scope.rectangle = L.rectangle($scope.bounds, {
                 color: "#008dc5",
                 weight: 1
             }).addTo($scope.smallMap);
             // zoom the map to the rectangle bounds, but not too close
-            $scope.smallMap.fitBounds(bounds, {padding: [150, 150]});
+            $scope.smallMap.fitBounds($scope.bounds, {padding: [150, 150]});
         } else {
             //zooming out otherwise
             $scope.smallMap.setView([51, 7], 3);
@@ -75,7 +75,8 @@ coperniCloud.controller('resultsController', function ($scope, data, $uibModalIn
 
     //..by pressing the ok button
     $scope.ok = function (result) {
-        $uibModalInstance.close(result);
+        let allMeta = {result: result, bounds: $scope.bounds}
+        $uibModalInstance.close(allMeta);
     };
 
     //..by pressing the Cancel button

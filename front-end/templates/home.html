@@ -74,11 +74,13 @@
                 </button>
             </div>
 
-            <div class="col-sm-4">
+        </div>
+        <div class="overlayControl" ng-show="thereIsAnOverlay">
+                <input type="checkbox" ng-change="fadeOverlay()" ng-model="overlayFaded">
+            {{overlayName}} <input type="range" name="range" ng-model="opacityValue" min="0" max="100" ng-change="changeOpacity()"> 
                 <button type="button" title="Compute?" class="advsearch" ng-click="compute()">
                     <i class="fa fa-cogs" aria-hidden="true"></i>
                 </button>
-            </div>
         </div>
     </div>
 </div>
