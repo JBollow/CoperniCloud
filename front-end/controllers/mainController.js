@@ -319,4 +319,103 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
         });
     };
 
+    function postjson() {
+
+        var namearray = [];
+        var name = $("#etappenname").val();
+        start = $("#etappenstart").val();
+        ende = $("#etappenende").val();
+        var datum = $("#etappendatum").val();
+        var link = $("#etappenwebsite").val();
+        var bild = $("#etappenbilder").val();
+    
+    
+        if (name != "") {
+    
+            var data = editableLayers.toGeoJSON();
+            console.log("editableLayers");
+            console.log(editableLayers);
+    
+            // Add a name to the layer
+            data.name = name;
+    
+            var properties = {
+                popupContent: "<p style='font-size: 14px;'><b>" + name + "<b><p style='font-size: 12px;'>" + start + "<p style='font-size: 12px;'>" + ende + "<p style='font-size: 12px;'>" + datum + "<br><br><a href='http://" + link + "'>Website</a></p><img style='max-width:200px;max-height:100%;' src='" + bild + "'>"
+            };
+    
+            // Add properties
+            data.properties = properties;
+    
+            var senddata = JSON.stringify(data);
+    
+    
+            // Post to local mongodb
+            $.ajax({
+                type: "POST",
+                url: "http://localhost:3000/postjson",
+                dataType: 'json',
+                contentType: 'application/json',
+                data: senddata,
+                traditional: true,
+                cache: false,
+                processData: false,
+                success: function () {
+                    alert("Upload successful!");
+                    console.log("Upload successful!");
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert("Upload failed!");
+                    console.log("Upload failed!")
+                },
+                timeout: 3000
+            });
+    
+        } else {
+            alert("Please type a name!");
+            console.log("No name attribute given!")
+        }
+    };
+    
+    
+    
+    /*
+     * post information about the objects saved in cache to DB
+     */
+    $scope.postobject = function () {
+
+        // var namearray = [];
+        // var name = $("#name").val();
+        
+            // Post to local mongodb
+            $.ajax({
+                type: "POST",
+                url: "http://localhost:10002/postobject",
+                // welcher Datentyp?
+                dataType: 'json',
+                contentType: 'application/json',
+                data: 'string',
+                traditional: true,
+                cache: false,
+                processData: false,
+                success: function () {
+                    swal({
+                        titel: 'Success',
+                        text: "yay!",
+                        type: 'info',
+                        customClass: 'swalCc',
+                        buttonsStyling: false,
+                    });
+                },
+                error: function (message) {
+                    swal({
+                        titel: 'Error',
+                        text: message,
+                        type: 'error',
+                        customClass: 'swalCc',
+                        buttonsStyling: false,
+                    });
+                }
+            });
+    };
+
 }]);
