@@ -223,32 +223,44 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
             $scope.baseMap.removeLayer($scope.tilesLayer);
         }
 
-        $http.get('http://gis-bigdata:12015/tiles/' + folderName + '.SAFE/TCI/').then(function (data) {
-            // http://gis-bigdata:12015/tiles/ klappt nur im uni vpn und wenn der server läuft
-            $scope.tilesLayer = L.tileLayer('http://gis-bigdata:12015/tiles/' + folderName + '.SAFE/TCI/{z}/{x}/{y}.png', {
-                attribution: 'Tiles',
-                tms: true,
-                minZoom: 3,
-                maxZoom: 13
-            }).addTo($scope.baseMap);
-            $scope.baseMap.fitBounds(bounds, {
-                padding: [150, 150]
-            });
-            $scope.overlayName = folderName;
-            $scope.thereIsAnOverlay = true;
-        }, function (err) {
-            // your error function
-            if (err.status == 404) {
-                swal({
-                    titel: 'Error',
-                    text: "Unfortunately there was a problem with the tiles server :(",
-                    type: 'error',
-                    customClass: 'swalCc',
-                    buttonsStyling: false,
-                });
-            }
+        // Mit $http geht es nur mit plugin wegen dem cross origin konflikt 
+        $scope.tilesLayer = L.tileLayer('http://gis-bigdata:12015/tiles/' + folderName + '.SAFE/TCI/{z}/{x}/{y}.png', {
+            attribution: 'Tiles',
+            tms: true,
+            minZoom: 3,
+            maxZoom: 13
+        }).addTo($scope.baseMap);
+        $scope.baseMap.fitBounds(bounds, {
+            padding: [150, 150]
         });
+        $scope.overlayName = folderName;
+        $scope.thereIsAnOverlay = true;
 
+        // $http.get('http://gis-bigdata:12015/tiles/' + folderName + '.SAFE/TCI/').then(function (data) {
+        //     // http://gis-bigdata:12015/tiles/ klappt nur im uni vpn und wenn der server läuft
+        //     $scope.tilesLayer = L.tileLayer('http://gis-bigdata:12015/tiles/' + folderName + '.SAFE/TCI/{z}/{x}/{y}.png', {
+        //         attribution: 'Tiles',
+        //         tms: true,
+        //         minZoom: 3,
+        //         maxZoom: 13
+        //     }).addTo($scope.baseMap);
+        //     $scope.baseMap.fitBounds(bounds, {
+        //         padding: [150, 150]
+        //     });
+        //     $scope.overlayName = folderName;
+        //     $scope.thereIsAnOverlay = true;
+        // }, function (err) {
+        //     // your error function
+        //     if (err.status == 404) {
+        //         swal({
+        //             titel: 'Error',
+        //             text: "Unfortunately there was a problem with the tiles server :(",
+        //             type: 'error',
+        //             customClass: 'swalCc',
+        //             buttonsStyling: false,
+        //         });
+        //     }
+        // });
 
     };
 
@@ -354,10 +366,10 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
 
     $scope.fadeOverlay = function () {
         if ($scope.overlayFaded) {
-            $scope.tilesLayer.setOpacity(0);
-        } else {
             var opacity = $scope.opacityValue / 100;
             $scope.tilesLayer.setOpacity(opacity);
+        } else {
+            $scope.tilesLayer.setOpacity(0);
         }
     }
 

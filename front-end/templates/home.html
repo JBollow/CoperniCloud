@@ -75,12 +75,26 @@
             </div>
 
         </div>
-        <div class="overlayControl" ng-show="thereIsAnOverlay">
-                <input type="checkbox" ng-change="fadeOverlay()" ng-model="overlayFaded">
-            {{overlayName}} <input type="range" name="range" ng-model="opacityValue" min="0" max="100" ng-change="changeOpacity()"> 
-                <button type="button" title="Compute?" class="advsearch" ng-click="compute()">
-                    <i class="fa fa-cogs" aria-hidden="true"></i>
-                </button>
+        <div style="text-align:center">
+            <div class="overlayControl" ng-show="thereIsAnOverlay">
+                <p style="font-size: 16px; line-height: 30px;">
+
+                    <label class="checkcontainer">
+                        <input class="" type="checkbox" ng-change="fadeOverlay()" ng-model="overlayFaded" ng-checked="true" />
+                        <span class="checkmark"></span>
+                    </label>
+
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{overlayName}}&nbsp;&nbsp;&nbsp;&nbsp;
+
+                    <span style="display: inline-block;">Opacity:
+                        <input style="display: inline-block; width: 100px;" type="range" name="range" ng-model="opacityValue" min="0" max="100" ng-change="changeOpacity()"> {{opacityValue}}%</span>
+
+                    <button type="button" title="Compute?" class="compbutton" ng-click="compute()">
+                        <i class="fa fa-cogs" aria-hidden="true"></i>
+                    </button>
+                </p>
+            </div>
         </div>
+
     </div>
 </div>
