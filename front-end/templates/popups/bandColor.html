@@ -1,6 +1,6 @@
 <div class="row">
     <div class="modal-header">
-        <h1 class="modal-title">Computeinterface</h1>
+        <h1 class="modal-title">Band colors</h1>
     </div>
 </div>
 
@@ -9,19 +9,9 @@
 
         <div class="col-sm-8">
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <span ng-repeat="x in terms" class="bluebox" style="display:inline-block;">
+
+            <div ng-repeat="x in terms">
                 <span>
-                    <select ng-if="$index>0" ng-model="x.operator">
-                        <option value="+">+</option>
-                        <option value="-">-</option>
-                        <option value="*">&#x00D7;</option>
-                        <option value="/">&#x00F7;</option>
-                    </select>
-                    <select ng-model="x.front">
-                        <option value=""> </option>
-                        <option value="(">(</option>
-                        <option value="root(">&radic;</option>
-                    </select>
                     <select ng-model="x.band">
                         <option value="B01">Band 1</option>
                         <option value="B02">Band 2</option>
@@ -38,17 +28,22 @@
                         <option value="B12">Band 12</option>
                         <option value="TCI">TCI</option>
                     </select>
+                    <p style="font-size: 12px; display: inline;">&nbsp;in</p>
                     <select ng-model="x.back">
-                        <option value=""> </option>
-                        <option value=")">)</option>
-                        <option value=")^2">)²</option>
+                        <option value="red">Red</option>
+                        <option value="green">Green</option>
+                        <option value="blue">Blue</option>
+                        <option value="greyscale">Grayscale</option>
                     </select>
-                    <button class="delete" ng-click="deleteff($index)" ng-if="terms.length>1">-</button>
-                    <button class="add_form_field" ng-click="addff()">
+
+                    <!-- Bitte überarbeiten -->
+                    <button class="delete" ng-click="deletecf($index)" ng-if="terms.length>1">-</button>
+                    <button class="add_form_field" ng-click="addcf()">
                         <span style="font-size:16px; font-weight:bold;">+</span>
                     </button>
+
                 </span>
-            </span>
+            </div>
         </div>
 
         <div class="col-sm-4">
@@ -146,16 +141,6 @@
 
 <div class="row">
     <div class="modal-footer">
-        <button class="btn btnleft buttonwhite" type="button" ng-click="">NDVI</button>
-        <button class="btn btnleft buttonwhite" type="button" ng-click="">TRUE COLOR</button>
-        <button class="btn btnleft buttonwhite" type="button" ng-click="">False color</button>
-        <button class="btn btnleft buttonwhite" type="button" ng-click="">Short-wave Infrared</button>
-        <button class="btn btnleft buttonwhite" type="button" ng-click="">Near Infra-red</button>
-        <p style="font-size: 14px; display: inline;">
-        <span ng-repeat="x in terms" style="display:inline;">{{x.operator}} {{x.front}} {{x.band}} {{x.back}} </span>
-        </p>
-        &nbsp;&nbsp;
-
         <button class="btn btn-primary buttonwhite" type="button" ng-click="ok()">OK</button>
         <button class="btn btn-primary buttonwhite" type="button" ng-click="dismiss()">Close</button>
     </div>

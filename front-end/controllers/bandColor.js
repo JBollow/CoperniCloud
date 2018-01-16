@@ -1,6 +1,6 @@
 'use strict';
 
-coperniCloud.controller('computeController', function ($scope, $uibModalInstance) {
+coperniCloud.controller('bandColor', function ($scope, $uibModalInstance) {
 
     // Close by pressing the Cancel button
     $scope.dismiss = function () {
@@ -23,7 +23,7 @@ coperniCloud.controller('computeController', function ($scope, $uibModalInstance
         band: '',
         back: ''
     }];
-    $scope.addff = function () {
+    $scope.addcf = function () {
         if ($scope.terms.length < 11) {
             $scope.terms.push({
                 operator: '+',
@@ -46,7 +46,7 @@ coperniCloud.controller('computeController', function ($scope, $uibModalInstance
      * Removing bands from the expression
      * @param {*} index 
      */
-    $scope.deleteff = function (index) {
+    $scope.deletecf = function (index) {
         if (index === 0) {
             $scope.terms[index + 1].operator = "";
         }

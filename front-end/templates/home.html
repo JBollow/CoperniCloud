@@ -67,28 +67,54 @@
             </div>
         </div>
 
+        <div class="row search bottom4">
+            <div class="col-sm-4">
+
+                <button type="button" title="Share your image." class="advsearch" ng-click="share()">
+                    <i class="fa fa-share-alt" aria-hidden="true"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="row search bottom3">
+            <div class="col-sm-4">
+                <button type="button" title="Load your image." class="advsearch" ng-click="load()">
+                    <i class="fa fa-cloud-upload" aria-hidden="true"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="row search bottom2">
+            <div class="col-sm-4">
+                <button type="button" title="Save your image." class="advsearch" ng-click="save()">
+                    <i class="fa fa-cloud-download" aria-hidden="true"></i>
+                </button>
+            </div>
+        </div>
+
         <div class="row search bottom">
             <div class="col-sm-4">
+
                 <button type="button" title="Help?" class="advsearch" ng-click="help()">
                     <i class="fa fa-question-circle" aria-hidden="true"></i>
                 </button>
             </div>
-
         </div>
+
         <div style="text-align:center">
             <div class="overlayControl" ng-show="thereIsAnOverlay">
                 <p style="font-size: 14px; line-height: 32px;">
 
+                    <!-- bitte überarbeiten erst der zweite click auf die checkbox klappt -->
                     <label class="checkcontainer">
                         <input class="" type="checkbox" ng-change="fadeOverlay()" ng-model="overlayFaded" ng-checked="true" />
                         <span class="checkmark"></span>
                     </label>
 
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{overlayName}}&nbsp;&nbsp;
-
-                    Band:
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{overlayName}}&nbsp;&nbsp; Band:
+                    <!-- bitte überarbeiten ng-click ist bestimmt nicht richtig -->
                     <select id="band" class="band" ng-click="changeBand()">
-                        <option value="B01">Band 1</option>                            
+                        <option value="B01">Band 1</option>
                         <option value="B02">Band 2</option>
                         <option value="B03">Band 3</option>
                         <option value="B04">Band 4</option>
@@ -105,6 +131,12 @@
                     </select>
 
                     &nbsp;
+
+                    <button type="button" title="Choose band colors." class="paintbutton" ng-click="bandColor()">
+                        <i class="fa fa-paint-brush" aria-hidden="true"></i>
+                    </button>
+
+                    &nbsp;&nbsp;
 
                     <span style="display: inline-block;">Opacity:
                         <input style="display: inline-block; width: 100px;" type="range" name="range" ng-model="opacityValue" min="0" max="100" ng-change="changeOpacity()"> {{opacityValue}}%</span>

@@ -188,6 +188,34 @@ p {
     transform: translateY(0px);
 }
 
+.paintbutton {
+    font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif;
+    font-size: 22px;
+    line-height: 20px;
+    font-style: normal;
+    font-weight: 100;
+    margin-top: -6px;
+    margin-right: -11px;
+    background-color: #008dc5;
+    color: white;
+    border: 1px solid black;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    padding-top: 2px;
+}
+
+.paintbutton:hover {
+    border: none;
+    background-color: #0074a1;
+    color: white;
+}
+
+.paintbutton:active {
+    background-color: #008dc5;
+    transform: translateY(0px);
+}
+
 .buttonwhite {
     font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif;
     font-size: 16px;
@@ -215,6 +243,10 @@ p {
 .buttonwhite:active {
     background-color: #0074a1;
     transform: translateY(2px);
+}
+
+.btnleft {
+    float: left;
 }
 
 .ng-scope {
@@ -450,7 +482,7 @@ input[type="search"].sb-search-input {
     position: absolute;
     bottom: 8px;
     left: 55px;
-    width: 875px;
+    width: 925px;
     background: rgba(255, 255, 255, 0.9);
     height: 40px;
     border: 1px solid black;
@@ -669,7 +701,22 @@ div.search {
 
 div.bottom {
     position: absolute;
-    bottom: 0;
+    bottom: 0px;
+}
+
+div.bottom2 {
+    position: absolute;
+    bottom: 48px;
+}
+
+div.bottom3 {
+    position: absolute;
+    bottom: 96px;
+}
+
+div.bottom4 {
+    position: absolute;
+    bottom: 144px;
 }
 
 .scrollbarDiv {
@@ -718,7 +765,7 @@ div.bottom {
 }
 
 .hoverTable tr:hover {
-    background-color: #00b7ff62;
+    background-color: #008dc525;
 }
 
 input[type='radio'] {
@@ -746,6 +793,37 @@ input[type='radio']:before {
 
 input[type='radio']:checked:before {
     background: #008dc5;
+}
+
+table.sentinelTable {
+    border-collapse: collapse;
+}
+
+table.sentinelTable td,
+table.sentinelTable th {
+    border: 1px solid #555555;
+    padding: 6px 6px;
+}
+
+table.sentinelTable tbody td {
+    font-size: 12px;
+    font-weight: bold;
+    text-align: left;
+}
+
+table.sentinelTable th {
+    background: #008DC5;
+}
+
+table.sentinelTable th {
+    font-size: 14px;
+    font-weight: bold;
+    color: #FFFFFF;
+    text-align: left;
+}
+
+table.sentinelTable tfoot td {
+    font-size: 13px;
 }
 
 .swalCc {
@@ -1262,4 +1340,12 @@ input[type=range]:focus::-ms-fill-upper {
     -webkit-transform: rotate(45deg);
     -ms-transform: rotate(45deg);
     transform: rotate(45deg);
+}
+
+.bluebox {
+    background-color: #008dc525;
+    padding-top: 10px;
+    padding-left: 5px;
+    margin-right: 5px;
+    margin-bottom: 5px
 }

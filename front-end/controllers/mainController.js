@@ -373,6 +373,18 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
         });
     };
 
+    /**
+     * A pop-up for bandcolors
+     */
+    $scope.bandColor = function () {
+        var modalInstance = $uibModal.open({
+            animation: true,
+            templateUrl: '../templates/popups/bandColor.html',
+            controller: 'bandColor',
+            size: 'lg'
+        });
+    };
+
     $scope.changeOpacity = function () {
         console.log($scope.rangeValue);
         var opacity = $scope.opacityValue / 100;
