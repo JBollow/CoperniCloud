@@ -919,7 +919,7 @@ table.sentinelTable tfoot td {
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
-    margin: 0;
+    margin-bottom: 10px;
     margin-right: 5px;
     margin-left: 5px;
     cursor: pointer;
