@@ -450,7 +450,7 @@ input[type="search"].sb-search-input {
     position: absolute;
     bottom: 8px;
     left: 55px;
-    width: 850px;
+    width: 875px;
     background: rgba(255, 255, 255, 0.9);
     height: 40px;
     border: 1px solid black;
@@ -867,6 +867,26 @@ select {
 }
 
 select:hover {
+    background-color: #008dc5;
+    color: #fff;
+}
+
+select.band {
+    font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif;
+    font-size: 14px;
+    font-weight: 1000;
+    border: 1px solid #bbb;
+    display: inline-block;
+    padding: 2px;
+    position: relative;
+    bottom: 2px;
+    background-color: white;
+    background-image: url(select-arrow.png);
+    background-position: right;
+    background-repeat: no-repeat;
+}
+
+select.band:hover {
     background-color: #008dc5;
     color: #fff;
 }

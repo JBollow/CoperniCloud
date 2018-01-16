@@ -1,4 +1,4 @@
-coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', '$uibModal', '$http', function ($scope, $timeout, leafletData, $uibModal, $http) {
+coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', '$uibModal', '$http', function ($scope, $timeout, leafletData, $uibModal) {
 
     $scope.searchedItem = "";
     $scope.checked = false;
@@ -8,6 +8,10 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
     $scope.overlayName = "";
     $scope.opacityValue = 100;
     $scope.overlayFaded = false;
+
+    var dataType = "";
+    var tilesServer = "tiles";
+    var bandType = "TCI";
 
     //the map
     angular.extend($scope, {
@@ -217,67 +221,61 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
         });
     };
 
+    $scope.addTileServer = function (tilesServer, folderName, dataType, bandType) {
+        $scope.tilesLayer = L.tileLayer('http://gis-bigdata:12015/' + tilesServer + '/' + folderName + '.SAFE/' + dataType + bandType + '/{z}/{x}/{y}.png', {
+            attribution: 'Tiles',
+            tms: true,
+            minZoom: 3,
+            maxZoom: 13
+        }).addTo($scope.baseMap);
+    };
+
     $scope.addLayer = function (folderName, bounds) {
         $scope.thereIsAnOverlay = false;
+
         if ($scope.tilesLayer) {
             $scope.baseMap.removeLayer($scope.tilesLayer);
         }
 
         // Different tile path for 1C and 2A        
         if (folderName.includes("MSIL1C")) {
-            $scope.tilesLayer = L.tileLayer('http://gis-bigdata:12015/tiles/' + folderName + '.SAFE/TCI/{z}/{x}/{y}.png', {
-                attribution: 'Tiles',
-                tms: true,
-                minZoom: 3,
-                maxZoom: 13
-            }).addTo($scope.baseMap);
-            $scope.baseMap.fitBounds(bounds, {
-                padding: [150, 150]
-            });
-            $scope.overlayName = folderName;
-            $scope.thereIsAnOverlay = true;
+            dataType = "";
         }
-
         if (folderName.includes("MSIL2A")) {
-            $scope.tilesLayer = L.tileLayer('http://gis-bigdata:12015/tiles/' + folderName + '.SAFE/R10m/TCI/{z}/{x}/{y}.png', {
-                attribution: 'Tiles',
-                tms: true,
-                minZoom: 3,
-                maxZoom: 13
-            }).addTo($scope.baseMap);
-            $scope.baseMap.fitBounds(bounds, {
-                padding: [150, 150]
-            });
-            $scope.overlayName = folderName;
-            $scope.thereIsAnOverlay = true;
+            dataType = "R10m/";
         }
 
-        // Mit $http geht es nur mit plugin wegen dem cross origin konflikt 
-        // $http.get('http://gis-bigdata:12015/tiles/' + folderName + '.SAFE/TCI/').then(function (data) {
-        //     // http://gis-bigdata:12015/tiles/ klappt nur im uni vpn und wenn der server läuft
-        //     $scope.tilesLayer = L.tileLayer('http://gis-bigdata:12015/tiles/' + folderName + '.SAFE/TCI/{z}/{x}/{y}.png', {
-        //         attribution: 'Tiles',
-        //         tms: true,
-        //         minZoom: 3,
-        //         maxZoom: 13
-        //     }).addTo($scope.baseMap);
-        //     $scope.baseMap.fitBounds(bounds, {
-        //         padding: [150, 150]
-        //     });
-        //     $scope.overlayName = folderName;
-        //     $scope.thereIsAnOverlay = true;
-        // }, function (err) {
-        //     // your error function
-        //     if (err.status == 404) {
-        //         swal({
-        //             titel: 'Error',
-        //             text: "Unfortunately there was a problem with the tiles server :(",
-        //             type: 'error',
-        //             customClass: 'swalCc',
-        //             buttonsStyling: false,
-        //         });
-        //     }
-        // });
+        $scope.addTileServer(tilesServer, folderName, dataType, bandType);
+
+        $scope.baseMap.fitBounds(bounds, {
+            padding: [150, 150]
+        });
+        $scope.overlayName = folderName;
+        $scope.thereIsAnOverlay = true;
+    };
+
+    $scope.changeBand = function () {
+        $scope.thereIsAnOverlay = false;
+
+        if ($scope.tilesLayer) {
+            $scope.baseMap.removeLayer($scope.tilesLayer);
+        }
+
+        bandType = band.value;
+        folderName = $scope.selected.name;
+
+        // Different tile path for 1C and 2A        
+        if (folderName.includes("MSIL1C")) {
+            dataType = "";
+        }
+        if (folderName.includes("MSIL2A")) {
+            dataType = "R10m/";
+        }
+
+        $scope.addTileServer(tilesServer, folderName, dataType, bandType);
+
+        $scope.overlayName = folderName;
+        $scope.thereIsAnOverlay = true;
 
     };
 
