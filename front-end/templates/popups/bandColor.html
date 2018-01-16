@@ -28,13 +28,29 @@
                         <option value="B12">Band 12</option>
                         <option value="TCI">TCI</option>
                     </select>
-                    <p style="font-size: 12px; display: inline;">&nbsp;in</p>
+                    <p style="font-size: 14px; display: inline;">&nbsp;in</p>
                     <select ng-model="x.back">
-                        <option value="red">Red</option>
-                        <option value="green">Green</option>
-                        <option value="blue">Blue</option>
-                        <option value="greyscale">Grayscale</option>
+                        <option class="inred" value="red">Red</option>
+                        <option class="ingreen" value="green">Green</option>
+                        <option class="inblue" value="blue">Blue</option>
+                        <option class="ingrey" value="greyscale">Grayscale</option>
                     </select>
+
+                    <span style="display: inline-block;">
+                        <p style="font-size: 16px; line-height: 32px; display: inline;">&nbsp;Contrast:</p>
+                        <input style="display: inline-block; width: 100px;" type="range" name="range" ng-model="contrastValue" min="0" max="255">
+                        <div style="width: 30px; display: inline-block;">
+                            <p style="font-size: 14px; line-height: 32px; display: inline;">&nbsp;{{contrastValue}}</p>
+                        </div>
+                    </span>
+
+                    <span style="display: inline-block;">
+                        <p style="font-size: 16px; line-height: 32px; display: inline;">&nbsp;Brightness:</p>
+                        <input style="display: inline-block; width: 100px;" type="range" name="range" ng-model="brightnessValue" min="0" max="255">
+                        <div style="width: 30px; display: inline-block;">
+                            <p style="font-size: 14px; line-height: 32px; display: inline;">&nbsp;{{brightnessValue}}</p>
+                        </div>
+                    </span>
 
                     <!-- Bitte überarbeiten -->
                     <button class="delete" ng-click="deletecf($index)" ng-if="terms.length>1">-</button>

@@ -1349,3 +1349,17 @@ input[type=range]:focus::-ms-fill-upper {
     margin-right: 5px;
     margin-bottom: 5px
 }
+
+option.inred {
+    background-color: rgb(210, 70, 70);
+}
+
+option.ingreen {
+    background-color: rgb(70, 210, 70);
+}
+option.inblue {
+    background-color: rgb(70, 70, 210);
+}
+option.ingrey {
+    background-color: rgb(117, 117, 117);
+}
