@@ -42,9 +42,10 @@ coperniCloud.controller('resultsController', function ($scope, data, $uibModalIn
      * @param {*} dataset image metadata
      */
     $scope.drawRectangle = function (dataset) {
-        if ($scope.bounds) {
+        if ( $scope.rectangle) {
             //removing a rectangle if there is one
-            $scope.smallMap.removeLayer($scope.bounds);
+            $scope.smallMap.removeLayer($scope.rectangle);
+            $scope.bounds = [];
         }
         if (dataset.geometry) {
             // define rectangle geographical bounds if exist
