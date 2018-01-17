@@ -719,6 +719,11 @@ div.bottom4 {
     bottom: 144px;
 }
 
+div.bottom5 {
+    position: absolute;
+    bottom: 192px;
+}
+
 .scrollbarDiv {
     height: 60vh;
     overflow: hidden;

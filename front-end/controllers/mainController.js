@@ -12,6 +12,7 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
     var dataType = "";
     var tilesServer = "tiles";
     var bandType = "TCI";
+    var serverUrl = "http://gis-bigdata:12015/";
 
     //the map
     angular.extend($scope, {
@@ -222,7 +223,7 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
     };
 
     $scope.addTileServer = function (tilesServer, folderName, dataType, bandType) {
-        $scope.tilesLayer = L.tileLayer('http://gis-bigdata:12015/' + tilesServer + '/' + folderName + '.SAFE/' + dataType + bandType + '/{z}/{x}/{y}.png', {
+        $scope.tilesLayer = L.tileLayer(serverUrl + tilesServer + '/' + folderName + '.SAFE/' + dataType + bandType + '/{z}/{x}/{y}.png', {
             attribution: 'Tiles',
             tms: true,
             minZoom: 3,
