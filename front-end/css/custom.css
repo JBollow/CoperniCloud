@@ -530,6 +530,10 @@ div.helpbuttons {
     padding-left: 5px;
 }
 
+div.helpbuttons2 {
+    min-height: 40px;
+    padding-left: -5px;
+}
 
 /* Form */
 
