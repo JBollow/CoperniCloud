@@ -8,6 +8,7 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
     $scope.overlayName = "";
     $scope.opacityValue = 100;
     $scope.overlayVisible = true;
+    $scope.bandOptions = [];
 
     var dataType = "";
     var tilesServer = "tiles";
@@ -241,9 +242,11 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
         // Different tile path for 1C and 2A        
         if (folderName.includes("MSIL1C")) {
             dataType = "";
+            $scope.bandOptions = ["B01","B02","B03","B04","B05","B06","B07","B08","B8A","B09","B10","B11","B12","TCI"];
         }
         if (folderName.includes("MSIL2A")) {
             dataType = "R10m/";
+            $scope.bandOptions = ["AOT","B02","B03","B04","B08","TCI","WVP"];
         }
 
         $scope.addTileServer(tilesServer, folderName, dataType, bandType);
@@ -392,7 +395,7 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
         console.log($scope.rangeValue);
         var opacity = $scope.opacityValue / 100;
         $scope.tilesLayer.setOpacity(opacity);
-    }
+    };
 
     $scope.fadeOverlay = function () {
         if ($scope.overlayVisible) {
@@ -401,6 +404,6 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
         } else {
             $scope.tilesLayer.setOpacity(0);
         }
-    }
+    };
 
 }]);

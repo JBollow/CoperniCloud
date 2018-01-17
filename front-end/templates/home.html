@@ -112,29 +112,14 @@
             <div class="overlayControl" ng-show="thereIsAnOverlay">
                 <p style="font-size: 14px; line-height: 32px;">
 
-                    <!-- bitte überarbeiten erst der zweite click auf die checkbox klappt -->
                     <label class="checkcontainer">
                         <input class="" type="checkbox" ng-change="fadeOverlay()" ng-model="overlayVisible"/>
                         <span class="checkmark"></span>
                     </label>
 
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{overlayName}}&nbsp;&nbsp; Band:
-                    <!-- bitte überarbeiten ng-click ist bestimmt nicht richtig -->
-                    <select id="band" class="band" ng-model="selectedBand" ng-change="changeBand()">
-                        <option value="B01">Band 1</option>
-                        <option value="B02">Band 2</option>
-                        <option value="B03">Band 3</option>
-                        <option value="B04">Band 4</option>
-                        <option value="B05">Band 5</option>
-                        <option value="B06">Band 6</option>
-                        <option value="B07">Band 7</option>
-                        <option value="B08">Band 8</option>
-                        <option value="B8A">Band 8A</option>
-                        <option value="B09">Band 9</option>
-                        <option value="B10">Band 10</option>
-                        <option value="B11">Band 11</option>
-                        <option value="B12">Band 12</option>
-                        <option value="TCI">TCI</option>
+
+                    <select id="band" ng-options="b for b in bandOptions" class="band" ng-model="selectedBand" ng-change="changeBand()">
                     </select>
 
                     &nbsp;
