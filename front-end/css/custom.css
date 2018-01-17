@@ -496,27 +496,6 @@ input[type="search"].sb-search-input {
     font-style: normal;
 }
 
-.overlayControl.ng-hide {
-    bottom: 80vh;
-}
-
-.overlayControl.ng-hide-add,
-.overlayControl.ng-hide-remove {
-    /* this is required as of 1.3x to properly
-         apply all styling in a show/hide animation */
-    transition: 5s linear all;
-}
-
-.overlayControl.ng-hide-add-active,
-.overlayControl.ng-hide-remove-active {
-    /* -webkit-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 2s;
-        -moz-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 2s;
-        -o-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 2s;
-        transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 2s;
-    */
-    transition: all ease-in-out 0.2s;
-}
-
 .overlayControl.ng-show-add-active {
     display: block;
 }
