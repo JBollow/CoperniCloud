@@ -7,7 +7,7 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
     $scope.thereIsAnOverlay = false;
     $scope.overlayName = "";
     $scope.opacityValue = 100;
-    $scope.overlayFaded = false;
+    $scope.overlayVisible = true;
 
     var dataType = "";
     var tilesServer = "tiles";
@@ -393,7 +393,7 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
     }
 
     $scope.fadeOverlay = function () {
-        if ($scope.overlayFaded) {
+        if ($scope.overlayVisible) {
             var opacity = $scope.opacityValue / 100;
             $scope.tilesLayer.setOpacity(opacity);
         } else {
