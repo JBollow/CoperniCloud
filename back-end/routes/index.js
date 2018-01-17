@@ -1,4 +1,5 @@
 var express = require('express');
+var gdal = require("gdal");
 var router = express.Router();
 var xml2js = require('xml2js');
 var util = require('util');
@@ -177,5 +178,21 @@ router.get('/search', function (req, res) {
         res.json(results);
     }
 })
+
+/**
+ * Handles coordinates of clicked location to the backend
+ * for use with GDAL
+ */
+router.post('/set_coordinates', function (req, res) {
+
+    var lat = req.query.lat;
+    var lng = req.query.lng;
+
+    // here comes the GDAL
+    // console.log("number of bands: " + dataset.bands.count());
+    var popup_content = "You clicked at " + lat + ", " + lng;
+
+    res(popup_content);
+});
 
 module.exports = router;
