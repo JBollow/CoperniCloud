@@ -253,16 +253,18 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
         });
         $scope.overlayName = folderName;
         $scope.thereIsAnOverlay = true;
+        $scope.selectedBand = "TCI";
     };
-
+    
     $scope.changeBand = function () {
         $scope.thereIsAnOverlay = false;
+        bandType = $scope.selectedBand;
 
         if ($scope.tilesLayer) {
             $scope.baseMap.removeLayer($scope.tilesLayer);
         }
 
-        bandType = band.value;
+        // bandType = band.value;
         folderName = $scope.selected.name;
 
         // Different tile path for 1C and 2A        

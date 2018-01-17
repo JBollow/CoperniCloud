@@ -120,7 +120,7 @@
 
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{overlayName}}&nbsp;&nbsp; Band:
                     <!-- bitte überarbeiten ng-click ist bestimmt nicht richtig -->
-                    <select id="band" class="band" ng-click="changeBand()">
+                    <select id="band" class="band" ng-model="selectedBand" ng-change="changeBand()">
                         <option value="B01">Band 1</option>
                         <option value="B02">Band 2</option>
                         <option value="B03">Band 3</option>
@@ -134,7 +134,7 @@
                         <option value="B10">Band 10</option>
                         <option value="B11">Band 11</option>
                         <option value="B12">Band 12</option>
-                        <option value="TCI" selected="selected">TCI</option>
+                        <option value="TCI">TCI</option>
                     </select>
 
                     &nbsp;
