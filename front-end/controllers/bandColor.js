@@ -19,6 +19,41 @@ coperniCloud.controller('bandColor', function ($scope, $uibModalInstance) {
 
     };
 
+    /**
+     * TRUE COLOR preset for colorband operations
+     */
+    $scope.trueColor = function () {
+
+    };
+
+    /**
+     * False color preset for colorband operations
+     */
+    $scope.falseColor = function () {
+
+    };
+
+    /**
+     * Short-wave infrared preset for colorband operations
+     */
+    $scope.shortWaveInfrared = function () {
+
+    };
+
+    /**
+     * Near infrared preset for colorband operations
+     */
+    $scope.nearInfrared = function () {
+
+    };
+
+    /**
+     * Sends the colorband operations
+     */
+    $scope.sendColorBand = function () {
+
+    };
+
     // Adding more bands to the expression
     $scope.terms = [{
         operator: '',

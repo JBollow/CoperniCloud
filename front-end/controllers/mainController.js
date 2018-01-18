@@ -223,6 +223,9 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
         });
     };
 
+    /**
+     * Function to add tile layers to the map
+     */
     $scope.addTileServer = function (tilesServer, folderName, dataType, bandType) {
         $scope.tilesLayer = L.tileLayer(serverUrl + tilesServer + '/' + folderName + '.SAFE/' + dataType + bandType + '/{z}/{x}/{y}.png', {
             attribution: 'Tiles',
@@ -232,6 +235,9 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
         }).addTo($scope.baseMap);
     };
 
+    /**
+     * Specifies what layer is added to the map
+     */
     $scope.addLayer = function (folderName, bounds) {
         $scope.thereIsAnOverlay = false;
 
@@ -242,11 +248,11 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
         // Different tile path for 1C and 2A        
         if (folderName.includes("MSIL1C")) {
             dataType = "";
-            $scope.bandOptions = ["B01","B02","B03","B04","B05","B06","B07","B08","B8A","B09","B10","B11","B12","TCI"];
+            $scope.bandOptions = ["B01", "B02", "B03", "B04", "B05", "B06", "B07", "B08", "B8A", "B09", "B10", "B11", "B12", "TCI"];
         }
         if (folderName.includes("MSIL2A")) {
             dataType = "R10m/";
-            $scope.bandOptions = ["AOT","B02","B03","B04","B08","TCI","WVP"];
+            $scope.bandOptions = ["AOT", "B02", "B03", "B04", "B08", "TCI", "WVP"];
         }
 
         $scope.addTileServer(tilesServer, folderName, dataType, bandType);
@@ -258,7 +264,10 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
         $scope.thereIsAnOverlay = true;
         $scope.selectedBand = "TCI";
     };
-    
+
+    /**
+     * Changes the band from the currently active sentinel2 image
+     */
     $scope.changeBand = function () {
         $scope.thereIsAnOverlay = false;
         bandType = $scope.selectedBand;
@@ -391,12 +400,18 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
         });
     };
 
+    /**
+     * Changes the opacity from the active tile layer
+     */
     $scope.changeOpacity = function () {
         console.log($scope.rangeValue);
         var opacity = $scope.opacityValue / 100;
         $scope.tilesLayer.setOpacity(opacity);
     };
 
+    /**
+     * Shows or hides the active tile layer
+     */
     $scope.fadeOverlay = function () {
         if ($scope.overlayVisible) {
             var opacity = $scope.opacityValue / 100;
@@ -406,4 +421,31 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
         }
     };
 
+    /**
+     * Saves the current image to the db
+     */
+    $scope.save = function () {
+
+    };
+
+    /**
+     * Loads a saved image from the db
+     */
+    $scope.load = function () {
+
+    };
+
+    /**
+     * Creates a link to share the current image
+     */
+    $scope.share = function () {
+
+    };
+
+    /**
+     * Returns the original senitel2 measurement values in a leaflet popup 
+     */
+    $scope.mouseClick = function () {
+
+    };
 }]);
