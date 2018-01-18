@@ -178,4 +178,111 @@ router.get('/search', function (req, res) {
     }
 })
 
+/**
+ * Objects for band color calculations
+ */
+router.post('/sendColorBand', function (req, res) {
+
+    // Set our internal DB variable
+    var db = req.db;
+
+    // Get our object
+    var object = req.body;
+
+    // Set our collection
+    var collection = db.get('copernicollection');
+
+    // Submit to the DB
+    collection.insert({
+        object
+    }, function (err, doc) {
+        if (err) {
+
+            // If it failed, return error
+            res.send("There was a problem adding the information to the database.");
+        } else {
+
+            // Or print object id
+            res.send(doc._id);
+        }
+    });
+});
+
+/**
+ * Objects for band compute calculations
+ */
+router.post('/sendComputeBand', function (req, res) {
+
+    // Set our internal DB variable
+    var db = req.db;
+
+    // Get our object
+    var object = req.body;
+
+    // Set our collection
+    var collection = db.get('copernicollection');
+
+    // Submit to the DB
+    collection.insert({
+        object
+    }, function (err, doc) {
+        if (err) {
+
+            // If it failed, return error
+            res.send("There was a problem adding the information to the database.");
+        } else {
+
+            // Or print object id
+            res.send(doc._id);
+        }
+    });
+});
+
+/**
+ * Saving a object to the db
+ */
+router.post('/save', function (req, res) {
+
+    // Set our internal DB variable
+    var db = req.db;
+
+    // Get our object
+    var object = req.body;
+
+    // Set our collection
+    var collection = db.get('copernicollection');
+
+    // Submit to the DB
+    collection.insert({
+        object
+    }, function (err, doc) {
+        if (err) {
+
+            // If it failed, return error
+            res.send("There was a problem adding the information to the database.");
+        } else {
+
+            // Or print object id
+            res.send(doc._id);
+        }
+    });
+});
+
+/**
+ * Loading a requested object from the db
+ */
+router.get('/load', function (req, res) {
+
+    // Set our internal DB variable
+    var db = req.db;
+
+    // Set our collection
+    var collection = db.get('copernicollection');
+
+    // Query from our DB
+    collection.find({}, {}, function (e, docs) {
+        res.json(docs);
+    });
+});
+
 module.exports = router;

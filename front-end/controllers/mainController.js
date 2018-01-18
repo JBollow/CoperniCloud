@@ -4,16 +4,22 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
     $scope.checked = false;
     $scope.input = {};
     $scope.requestsCounter = 0; //to avoid sending the request multiple times
-    $scope.thereIsAnOverlay = false;
+    $scope.overlayControl = false;
     $scope.overlayName = "";
     $scope.opacityValue = 100;
     $scope.overlayVisible = true;
     $scope.bandOptions = [];
+    $scope.isProcessing = false;
 
     var dataType = "";
     var tilesServer = "tiles";
     var bandType = "TCI";
     var serverUrl = "http://gis-bigdata:12015/";
+
+    // TODO muss das richitge speichern
+    var sendData = {
+        name: "Beispiel"
+    }
 
     //the map
     angular.extend($scope, {
@@ -94,7 +100,18 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
                     }
                 }
             },
+        },
+        events: {
+            map: {
+                enable: ['click'],
+                logic: 'emit'
+            }
         }
+    });
+
+    // TODO
+    $scope.$on('leafletDirectiveMap.click', function(event, args){
+        console.log("args.leafletEvent.latlng");
     });
 
     // A global reference is set.
@@ -425,27 +442,58 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
      * Saves the current image to the db
      */
     $scope.save = function () {
-
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:10002/save",
+            dataType: 'json',
+            data: sendData,
+            traditional: true,
+            cache: false,
+            success: function (id) {
+                swal({
+                    titel: 'Success',
+                    html: "<p style='font-size: 22px;font-weight: 400;'>Your image was saved to the DB!</P><br><p style='font-size: 18px;font-weight: 400;'>Please take a note of is ID:</p><p style='font-size: 14px;font-weight: 400; color: red;'>(required for loading)</p><p style='font-size: 20px;font-weight: 1000;'><br>" + id + "</p>",
+                    type: 'info',
+                    customClass: 'swalCc',
+                    buttonsStyling: false,
+                });
+            },
+            error: function (message) {
+                swal({
+                    titel: 'Error',
+                    html: "Something went wrong :( <br>" + message,
+                    type: 'error',
+                    customClass: 'swalCc',
+                    buttonsStyling: false,
+                });
+            }
+        });
     };
 
     /**
      * Loads a saved image from the db
      */
     $scope.load = function () {
-
+        swal({
+                type: 'info',
+                html: "<p style='font-size: 22px;font-weight: 400;'>Load a image from the DB</p><br><br><p style='font-size: 18px;font-weight: 400;'><b>ID: </b><input id='input-field'></p>",
+                showCancelButton: true,
+                closeOnConfirm: false,
+                customClass: 'swalCc',
+                buttonsStyling: false,
+            },
+            function () {
+                // TODO
+                // GET
+            });
     };
 
-    /**
-     * Creates a link to share the current image
-     */
-    $scope.share = function () {
 
-    };
 
     /**
      * Returns the original senitel2 measurement values in a leaflet popup 
      */
     $scope.mouseClick = function () {
-
+        $scope.isProcessing = true;
     };
 }]);

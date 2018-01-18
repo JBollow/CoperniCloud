@@ -5,6 +5,13 @@ coperniCloud.controller('bandColor', function ($scope, $uibModalInstance) {
     $scope.contrastValue = 255;
     $scope.brightnessValue = 255;
 
+    var sendData = {
+        image: "",
+        operations: [],
+        contrast: "",
+        brightness: "",
+    }
+
     // Close by pressing the Cancel button
     $scope.dismiss = function () {
         $uibModalInstance.dismiss('cancel');
@@ -12,46 +19,80 @@ coperniCloud.controller('bandColor', function ($scope, $uibModalInstance) {
 
     // Sends arithmetic expressions to backend
     $scope.ok = function () {
-        console.log($scope.terms);
 
         // TODO
-        // Use front_bracket_0,0_band,back_bracket_0,operator_x,front_bracket_x,x_band,back_bracket_x
-
+        // sendData.operations = 
+        sendData.contrast = $scope.contrastValue.toString();
+        sendData.brightness = $scope.brightnessValue.toString();
+        $scope.sendColorBand();
     };
 
     /**
      * TRUE COLOR preset for colorband operations
      */
     $scope.trueColor = function () {
-
+        sendData.operations = ["B01", "blue", "B03", "green", "B04", "red"];
+        sendData.contrast = $scope.contrastValue.toString();
+        sendData.brightness = $scope.brightnessValue.toString();
+        $scope.sendColorBand();
     };
 
     /**
      * False color preset for colorband operations
      */
     $scope.falseColor = function () {
-
+        sendData.operations = ["B03", "blue", "B04", "green", "B08", "red"];
+        sendData.contrast = $scope.contrastValue.toString();
+        sendData.brightness = $scope.brightnessValue.toString();
+        $scope.sendColorBand();
     };
 
     /**
      * Short-wave infrared preset for colorband operations
      */
     $scope.shortWaveInfrared = function () {
-
+        sendData.operations = ["B04", "blue", "B08", "green", "B12", "red"];
+        sendData.contrast = $scope.contrastValue.toString();
+        sendData.brightness = $scope.brightnessValue.toString();
+        $scope.sendColorBand();
     };
 
     /**
      * Near infrared preset for colorband operations
      */
     $scope.nearInfrared = function () {
-
+        sendData.operations = ["B04", "blue", "B08", "green", "B11", "red"];
+        sendData.contrast = $scope.contrastValue.toString();
+        sendData.brightness = $scope.brightnessValue.toString();
+        $scope.sendColorBand();
     };
 
     /**
      * Sends the colorband operations
      */
-    $scope.sendColorBand = function () {
-
+    $scope.sendColorBand = function () {    
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:10002/sendColorBand",
+            dataType: 'json',
+            data: sendData,
+            traditional: true,
+            cache: false,
+            success: function () {                
+                swal({                   
+                    type: 'success',
+                    text: "Calculation of your image is in progress!",
+                    showConfirmButton: false,
+                    timer: 1500,
+                    customClass: 'swalCc',
+                    buttonsStyling: false,
+                });                
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                sweetAlert('Oops...', 'Something went wrong!', 'error');
+            },
+            timeout: 3000
+        });
     };
 
     // Adding more bands to the expression
