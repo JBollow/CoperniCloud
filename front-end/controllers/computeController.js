@@ -15,6 +15,27 @@ coperniCloud.controller('computeController', function ($scope, $uibModalInstance
         // Use front_bracket_0,0_band,back_bracket_0,operator_x,front_bracket_x,x_band,back_bracket_x
 
     };
+    
+    /**
+     * NDVI preset for computebands expression
+     */
+    $scope.ndvi = function () {
+
+    };
+
+    /**
+     * NDSI preset for computebands expression
+     */
+    $scope.ndsi = function () {
+
+    };
+
+    /**
+     * Sends the computebands expression
+     */
+    $scope.sendComputeBands = function () {
+
+    };
 
     // Adding more bands to the expression
     $scope.terms = [{
