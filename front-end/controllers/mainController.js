@@ -15,11 +15,7 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
     var tilesServer = "tiles";
     var bandType = "TCI";
     var serverUrl = "http://gis-bigdata:12015/";
-
-    // TODO muss das richitge speichern
-    var sendData = {
-        name: "Beispiel"
-    }
+    var boundsData;
 
     //the map
     angular.extend($scope, {
@@ -110,7 +106,7 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
     });
 
     // TODO
-    $scope.$on('leafletDirectiveMap.click', function(event, args){
+    $scope.$on('leafletDirectiveMap.click', function (event, args) {
         console.log("args.leafletEvent.latlng");
     });
 
@@ -235,6 +231,7 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
             $scope.selected = meta.result;
             let bounds = meta.bounds;
             console.log($scope.selected.name);
+            $scope.overlayName = $scope.selected.name;
             //here open a window for image editing
             $scope.addLayer($scope.selected.name, bounds);
         });
@@ -274,12 +271,20 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
 
         $scope.addTileServer(tilesServer, folderName, dataType, bandType);
 
+        console.log("bounds");
+        console.log(bounds);
+
+        boundsData = bounds;
+
+        console.log("boundsData");
+        console.log(boundsData);
+
         $scope.baseMap.fitBounds(bounds, {
             padding: [150, 150]
         });
         $scope.overlayName = folderName;
-        $scope.thereIsAnOverlay = true;
         $scope.selectedBand = "TCI";
+        $scope.thereIsAnOverlay = true;
     };
 
     /**
@@ -287,14 +292,14 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
      */
     $scope.changeBand = function () {
         $scope.thereIsAnOverlay = false;
-        bandType = $scope.selectedBand;
 
         if ($scope.tilesLayer) {
             $scope.baseMap.removeLayer($scope.tilesLayer);
         }
 
         // bandType = band.value;
-        folderName = $scope.selected.name;
+        // folderName = $scope.selected.name;
+        folderName = $scope.overlayName;
 
         // Different tile path for 1C and 2A        
         if (folderName.includes("MSIL1C")) {
@@ -304,11 +309,12 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
             dataType = "R10m/";
         }
 
-        $scope.addTileServer(tilesServer, folderName, dataType, bandType);
+        $scope.addTileServer(tilesServer, folderName, dataType, $scope.selectedBand);
 
-        $scope.overlayName = folderName;
+        $scope.tilesLayer.setOpacity($scope.opacityValue / 100);
+
+        // $scope.overlayName = folderName;
         $scope.thereIsAnOverlay = true;
-
     };
 
     /**
@@ -421,7 +427,6 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
      * Changes the opacity from the active tile layer
      */
     $scope.changeOpacity = function () {
-        console.log($scope.rangeValue);
         var opacity = $scope.opacityValue / 100;
         $scope.tilesLayer.setOpacity(opacity);
     };
@@ -442,32 +447,58 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
      * Saves the current image to the db
      */
     $scope.save = function () {
-        $.ajax({
-            type: "POST",
-            url: "http://localhost:10002/save",
-            dataType: 'json',
-            data: sendData,
-            traditional: true,
-            cache: false,
-            success: function (id) {
-                swal({
-                    titel: 'Success',
-                    html: "<p style='font-size: 22px;font-weight: 400;'>Your image was saved to the DB!</P><br><p style='font-size: 18px;font-weight: 400;'>Please take a note of is ID:</p><p style='font-size: 14px;font-weight: 400; color: red;'>(required for loading)</p><p style='font-size: 20px;font-weight: 1000;'><br>" + id + "</p>",
-                    type: 'info',
-                    customClass: 'swalCc',
-                    buttonsStyling: false,
-                });
-            },
-            error: function (message) {
-                swal({
-                    titel: 'Error',
-                    html: "Something went wrong :( <br>" + message,
-                    type: 'error',
-                    customClass: 'swalCc',
-                    buttonsStyling: false,
-                });
+        if ($scope.overlayName) {
+            // TODO muss das richitge speichern
+            var sendData = {
+                tilesServer: "tiles",
+                folderName: $scope.overlayName,
+                bandType: $scope.selectedBand,
+                opacityValue: $scope.opacityValue,
+                bounds: boundsData
             }
-        });
+
+            if ($scope.overlayName.includes("MSIL1C")) {
+                sendData.dataType = "";
+            }
+            if ($scope.overlayName.includes("MSIL2A")) {
+                sendData.dataType = "R10m/";
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "http://localhost:10002/save",
+                dataType: 'json',
+                data: sendData,
+                success: function (id) {
+                    console.log("Object ID: " + id);
+                    swal({
+                        titel: 'Success',
+                        html: "<p style='font-size: 22px;font-weight: 400;'>Your image was saved to the DB!</P><br><p style='font-size: 18px;font-weight: 400;'>Please take a note of is ID:</p><p style='font-size: 14px;font-weight: 400; color: red;'>(required for loading)</p><p style='font-size: 20px;font-weight: 1000;'><br>" + id + "</p>",
+                        type: 'info',
+                        customClass: 'swalCc',
+                        buttonsStyling: false,
+                    });
+                },
+                error: function (message) {
+                    swal({
+                        titel: 'Error',
+                        html: "Something went wrong :( <br>" + message,
+                        type: 'error',
+                        customClass: 'swalCc',
+                        buttonsStyling: false,
+                    });
+                }
+            });
+        } else {
+            swal({
+                titel: 'Error',
+                html: "It looks like there is nothing to save.",
+                type: 'error',
+                customClass: 'swalCc',
+                buttonsStyling: false,
+            });
+        }
+
     };
 
     /**
@@ -475,22 +506,96 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
      */
     $scope.load = function () {
         swal({
-                type: 'info',
-                html: "<p style='font-size: 22px;font-weight: 400;'>Load a image from the DB</p><br><br><p style='font-size: 18px;font-weight: 400;'><b>ID: </b><input id='input-field'></p>",
-                showCancelButton: true,
-                closeOnConfirm: false,
-                customClass: 'swalCc',
-                buttonsStyling: false,
-            },
-            function () {
-                // TODO
-                // GET
-            });
-    };
+            type: 'info',
+            html: "<p style='font-size: 22px;font-weight: 400;'>Load a image from the DB</p><br><br><p style='font-size: 18px;font-weight: 400;'><b>ID: </b></p>",
+            input: 'text',
+            showCancelButton: true,
+            closeOnConfirm: false,
+            customClass: 'swalCc',
+            buttonsStyling: false,
+        }).then(function (input) {
+            if (input.value == undefined) {                
+            } else {
+                if (input.value == "") {
+                    swal({
+                        titel: 'Error',
+                        html: "You need to enter an ID.",
+                        type: 'info',
+                        customClass: 'swalCc',
+                        buttonsStyling: false,
+                    });
+                } else {
+                    var sendId = {
+                        id: input.value
+                    };
+                    $.ajax({
+                        type: "POST",
+                        url: "http://localhost:10002/load",
+                        dataType: 'json',
+                        data: sendId,
+                        success: function (array) {
+                            swal({
+                                type: 'success',
+                                text: "Here is your image.",
+                                showConfirmButton: false,
+                                timer: 1500,
+                                customClass: 'swalCc',
+                                buttonsStyling: false,
+                            });
+                            console.log(array[0].object);
 
+                            $scope.thereIsAnOverlay = false;
 
+                            $scope.selectedBand = array[0].object.bandType;
 
-    /**
+                            if ($scope.tilesLayer) {
+                                $scope.baseMap.removeLayer($scope.tilesLayer);
+                            }
+
+                            if (array[0].object.folderName.includes("MSIL1C")) {
+                                dataType = "";
+                                $scope.bandOptions = ["B01", "B02", "B03", "B04", "B05", "B06", "B07", "B08", "B8A", "B09", "B10", "B11", "B12", "TCI"];
+                            }
+                            if (array[0].object.folderName.includes("MSIL2A")) {
+                                dataType = "R10m/";
+                                $scope.bandOptions = ["AOT", "B02", "B03", "B04", "B08", "TCI", "WVP"];
+                            }
+
+                            console.log(array[0].object.bounds);
+                            // TODO klappt nicht
+                            // werden irgendwie anders gespeichert, also die DB macht das kaputt
+                            // $scope.baseMap.fitBounds(array[0].object.bounds, {
+                            //     padding: [150, 150]
+                            // });
+
+                            $scope.addTileServer(array[0].object.tilesServer, array[0].object.folderName, dataType, array[0].object.bandType);
+
+                            $scope.overlayName = array[0].object.folderName;
+                            $scope.selectedBand = array[0].object.bandType;
+
+                            // TODO klappt nicht richitg
+                            $scope.opacityValue = array[0].object.opacityValue;
+                            $scope.tilesLayer.setOpacity(array[0].object.opacityValue / 100);
+
+                            // TODO kommt erst verzögert
+                            $scope.thereIsAnOverlay = true;
+                        },
+                        error: function (message) {
+                            swal({
+                                titel: 'Error',
+                                html: "Something went wrong :(",
+                                type: 'error',
+                                customClass: 'swalCc',
+                                buttonsStyling: false,
+                            });
+                        }
+                    });
+                }
+            }
+        }).done();
+    }
+
+    /** 5a612251f8665c10a8137c7c
      * Returns the original senitel2 measurement values in a leaflet popup 
      */
     $scope.mouseClick = function () {

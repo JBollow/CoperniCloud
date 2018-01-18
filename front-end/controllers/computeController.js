@@ -5,7 +5,7 @@ coperniCloud.controller('computeController', function ($scope, $uibModalInstance
     var sendData = {
         image: "",
         operations: [],
-    }
+    };
 
     // Close by pressing the Cancel button
     $scope.dismiss = function () {

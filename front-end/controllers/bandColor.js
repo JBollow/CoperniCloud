@@ -10,7 +10,7 @@ coperniCloud.controller('bandColor', function ($scope, $uibModalInstance) {
         operations: [],
         contrast: "",
         brightness: "",
-    }
+    };
 
     // Close by pressing the Cancel button
     $scope.dismiss = function () {

@@ -36,7 +36,7 @@ fs.readdir(testFolder, (err, files) => {
             // console.log(util.inspect(nameObjects, false, null));
         });
     }
-})
+});
 
 /**
  * Creates an array of objects with metadata of each image
@@ -66,7 +66,7 @@ function readMetaData(folderName) {
                         metadataObjects[i].geometry.eastBoundLng = eastBoundLng,
                             metadataObjects[i].geometry.westBoundLng = westBoundLng,
                             metadataObjects[i].geometry.northBoundLat = northBoundLat,
-                            metadataObjects[i].geometry.southBoundLat = southBoundLat
+                            metadataObjects[i].geometry.southBoundLat = southBoundLat;
                     }
                 }
                 console.log(util.inspect(metadataObjects, false, null));
@@ -100,7 +100,7 @@ router.get('/searchCoordinates', function (req, res) {
 
     }
     res.json(results);
-})
+});
 
 /**
  * Helping function to search through the file name
@@ -176,7 +176,7 @@ router.get('/search', function (req, res) {
         //returning the results with just the name comparison
         res.json(results);
     }
-})
+});
 
 /**
  * Objects for band color calculations
@@ -271,16 +271,23 @@ router.post('/save', function (req, res) {
 /**
  * Loading a requested object from the db
  */
-router.get('/load', function (req, res) {
+router.post('/load', function (req, res) {
 
     // Set our internal DB variable
     var db = req.db;
 
+    // Get our object
+    var object = req.body;
+
     // Set our collection
     var collection = db.get('copernicollection');
 
+    console.log(object.id);
+
     // Query from our DB
-    collection.find({}, {}, function (e, docs) {
+    collection.find({
+        _id: object.id
+    }, function (e, docs) {
         res.json(docs);
     });
 });
