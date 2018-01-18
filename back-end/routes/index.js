@@ -188,9 +188,16 @@ router.post('/set_coordinates', function (req, res) {
     var lat = req.query.lat;
     var lng = req.query.lng;
 
-    // here comes the GDAL
-    // console.log("number of bands: " + dataset.bands.count());
-    var popup_content = "You clicked at " + lat + ", " + lng;
+    // GDAL usage to get valuea t clicked location as in:
+    // https://github.com/naturalatlas/node-gdal/issues/192
+    var satellite_image = gdal.open(filename);  // filename is supposed to point to image variable
+    var band = satellite_image.bands.get(1);
+    var coordinateTransform = new gdal.CoordinateTransformation(gdal.SpatialReference.fromEPSG(4326), satellite_image);
+    var pt = coordinateTransform.transformPoint(lng, lat);
+    var values_at_click = (band.pixels.get(pt.x, pt.y));
+
+    var popup_content = "You clicked at " + lat + ", " + lng + ". " +
+                        "The values at this location are: " + values_at_click;
 
     res(popup_content);
 });
