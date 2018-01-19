@@ -2,8 +2,13 @@
 
 coperniCloud.controller('computeController', function ($scope, $uibModalInstance) {
 
+    // TODO Variabeln müssen vom mainController hierhin gereicht werden
+    $scope.overlayName = "";
+    $scope.isProcessing = false; 
+    $scope.hasInfo = false;
+
     var sendData = {
-        image: "",
+        image: $scope.overlayName,
         operations: [],
     };
 
@@ -40,6 +45,7 @@ coperniCloud.controller('computeController', function ($scope, $uibModalInstance
      * Sends the computebands expression
      */
     $scope.sendComputeBand = function () {
+        console.log(sendData);
         $.ajax({
             type: "POST",
             url: "http://localhost:10002/sendComputeBand",
@@ -47,7 +53,7 @@ coperniCloud.controller('computeController', function ($scope, $uibModalInstance
             data: sendData,
             traditional: true,
             cache: false,
-            success: function () {
+            success: function (object) {
                 swal({                   
                     type: 'success',
                     text: "Calculation of your image is in progress!",
@@ -57,6 +63,14 @@ coperniCloud.controller('computeController', function ($scope, $uibModalInstance
                     buttonsStyling: false,
                 });
                 $uibModalInstance.dismiss('sendComputeBand');
+                $scope.isProcessing = true;
+                $scope.hasInfo = false;
+
+                // TODO
+                // something like load
+
+                $scope.hasInfo = true;
+                $scope.isProcessing = false;
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 sweetAlert('Oops...', 'Something went wrong!', 'error');

@@ -2,11 +2,17 @@
 
 coperniCloud.controller('bandColor', function ($scope, $uibModalInstance) {
 
+    // TODO wie speichere ich verschiedene?
     $scope.contrastValue = 255;
     $scope.brightnessValue = 255;
 
+    // TODO Variabeln müssen vom mainController hierhin gereicht werden
+    $scope.overlayName = "";
+    $scope.isProcessing = false;
+    $scope.hasInfo = false;
+
     var sendData = {
-        image: "",
+        image: $scope.overlayName,
         operations: [],
         contrast: "",
         brightness: "",
@@ -70,7 +76,8 @@ coperniCloud.controller('bandColor', function ($scope, $uibModalInstance) {
     /**
      * Sends the colorband operations
      */
-    $scope.sendColorBand = function () {    
+    $scope.sendColorBand = function () {
+        console.log(sendData);    
         $.ajax({
             type: "POST",
             url: "http://localhost:10002/sendColorBand",
@@ -87,7 +94,15 @@ coperniCloud.controller('bandColor', function ($scope, $uibModalInstance) {
                     customClass: 'swalCc',
                     buttonsStyling: false,
                 });
-                $uibModalInstance.dismiss("sendColorBand");               
+                $uibModalInstance.dismiss("sendColorBand");            
+                $scope.isProcessing = true;
+                $scope.hasInfo = false;
+
+                // TODO
+                // something like load
+
+                $scope.hasInfo = true;
+                $scope.isProcessing = false;   
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 sweetAlert('Oops...', 'Something went wrong!', 'error');

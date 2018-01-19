@@ -440,7 +440,7 @@ input[type="search"].sb-search-input {
     top: 0px;
     left: -5px;
     width: 400px;
-    background: rgba(255, 255, 255, 0.9);
+    background: rgba(255, 255, 255, 0.6);
     ;
     border: 1px solid black;
     padding-left: 10px;
@@ -483,7 +483,7 @@ input[type="search"].sb-search-input {
     bottom: 8px;
     left: 55px;
     width: 895px;
-    background: rgba(255, 255, 255, 0.9);
+    background: rgba(255, 255, 255, 0.6);
     height: 40px;
     border: 1px solid black;
     padding-left: 10px;
@@ -1382,11 +1382,11 @@ option.ingrey {
 }
 
 .loader {
-    border: 8px solid rgba(0, 0, 20, 0.25);
+    border: 11px solid rgba(0, 0, 20, 0.25);
     border-radius: 50%;
-    border-top: 8px solid #3498db;
-    width: 40px;
-    height: 40px;
+    border-top: 11px solid #3498db;
+    width: 56px;
+    height: 56px;
     -webkit-animation: spin 2s linear infinite;
     /* Safari */
     animation: spin 2s linear infinite;
@@ -1418,8 +1418,8 @@ div.processing {
     bottom: 10px;
     right: 50px;
     z-index: 500;
-    width: 145px;
-    height: 48px;
+    width: 161px;
+    height: 64px;
     padding: 2px;
     background-color: rgba(255, 255, 255, 0.6);
     border: 2px solid rgba(0, 0, 20, 0.25);
@@ -1444,4 +1444,16 @@ h4 {
 
 .leaflet-control-zoom {
     border-radius: 0px;
+}
+
+div.infobox {
+    position: absolute;
+    bottom: 80px;
+    right: 10px;
+    z-index: 500;
+    width: 201px;
+    height: 148px;
+    padding: 2px;
+    background-color: rgba(255, 255, 255, 0.6);
+    border: 2px solid rgba(0, 0, 20, 0.25);
 }

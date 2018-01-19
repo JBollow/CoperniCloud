@@ -10,6 +10,8 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
     $scope.overlayVisible = true;
     $scope.bandOptions = [];
     $scope.isProcessing = false;
+    $scope.hasInfo = false;
+    $scope.layerInfo = "";
 
     var dataType = "";
     var tilesServer;
@@ -254,6 +256,7 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
      */
     $scope.addLayer = function (folderName, bounds) {
         $scope.thereIsAnOverlay = false;
+        $scope.hasInfo = false;
 
         if ($scope.tilesLayer) {
             $scope.baseMap.removeLayer($scope.tilesLayer);
@@ -540,6 +543,7 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
                                 buttonsStyling: false,
                             });
                             $scope.thereIsAnOverlay = false;
+                            $scope.hasInfo = false;
                             $scope.selectedBand = array[0].object.bandType;
 
                             if ($scope.tilesLayer) {
@@ -555,10 +559,13 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
                                 $scope.bandOptions = ["AOT", "B02", "B03", "B04", "B08", "TCI", "WVP"];
                             }
 
-                            var boundsData = [[array[0].object.bounds00,array[0].object.bounds01],[array[0].object.bounds10,array[0].object.bounds11]]
+                            var boundsData = [
+                                [array[0].object.bounds00, array[0].object.bounds01],
+                                [array[0].object.bounds10, array[0].object.bounds11]
+                            ]
                             $scope.baseMap.fitBounds(boundsData, {
                                 padding: [150, 150]
-                            });                
+                            });
 
                             // TODO
                             // Bei UserRequests muss noch etwas her!
@@ -573,7 +580,8 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
                             $scope.opacityValue = array[0].object.opacityValue;
                             $scope.tilesLayer.setOpacity(array[0].object.opacityValue / 100);
 
-                            // TODO kommt erst verzögert
+                            // TODO bei custom anders
+                            $scope.hasInfo = false;
                             $scope.thereIsAnOverlay = true;
                         },
                         error: function (message) {
@@ -595,6 +603,13 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
      * Returns the original senitel2 measurement values in a leaflet popup 
      */
     $scope.mouseClick = function () {
+
+        // TODO
+        // hier muss an der stelle ein Leafletpopup erscheinen mit den angeforderten daten
+
+
+        // muss weg ist nur zur demo
         $scope.isProcessing = true;
+        $scope.hasInfo = true;
     };
 }]);
