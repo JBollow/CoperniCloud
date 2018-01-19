@@ -482,7 +482,7 @@ input[type="search"].sb-search-input {
     position: absolute;
     bottom: 8px;
     left: 55px;
-    width: 925px;
+    width: 895px;
     background: rgba(255, 255, 255, 0.9);
     height: 40px;
     border: 1px solid black;
@@ -970,8 +970,9 @@ select.band {
     border: 1px solid #bbb;
     display: inline-block;
     padding: 2px;
+    height: 26px;
     position: relative;
-    bottom: 2px;
+    bottom: 3px;
     background-color: white;
     background-image: url(select-arrow.png);
     background-position: right;
