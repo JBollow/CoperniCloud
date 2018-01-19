@@ -12,7 +12,7 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
     $scope.isProcessing = false;
 
     var dataType = "";
-    var tilesServer = "tiles";
+    var tilesServer;
     var bandType = "TCI";
     var serverUrl = "http://gis-bigdata:12015/";
     var boundsData;
@@ -269,6 +269,8 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
             $scope.bandOptions = ["AOT", "B02", "B03", "B04", "B08", "TCI", "WVP"];
         }
 
+        tilesServer = "tiles";
+
         $scope.addTileServer(tilesServer, folderName, dataType, bandType);
 
         console.log("bounds");
@@ -450,7 +452,7 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
         if ($scope.overlayName) {
             // TODO muss das richitge speichern
             var sendData = {
-                tilesServer: "tiles",
+                tilesServer: tilesServer,
                 folderName: $scope.overlayName,
                 bandType: $scope.selectedBand,
                 opacityValue: $scope.opacityValue,
@@ -463,6 +465,9 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
             if ($scope.overlayName.includes("MSIL2A")) {
                 sendData.dataType = "R10m/";
             }
+
+            // TODO
+            // Bei UserRequests muss noch etwas her!
 
             $.ajax({
                 type: "POST",
@@ -514,8 +519,7 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
             customClass: 'swalCc',
             buttonsStyling: false,
         }).then(function (input) {
-            if (input.value == undefined) {                
-            } else {
+            if (input.value == undefined) {} else {
                 if (input.value == "") {
                     swal({
                         titel: 'Error',
@@ -568,6 +572,9 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
                             //     padding: [150, 150]
                             // });
 
+                            // TODO
+                            // Bei UserRequests muss noch etwas her!
+
                             $scope.addTileServer(array[0].object.tilesServer, array[0].object.folderName, dataType, array[0].object.bandType);
 
                             $scope.overlayName = array[0].object.folderName;
@@ -595,7 +602,7 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
         }).done();
     }
 
-    /** 5a612251f8665c10a8137c7c
+    /**
      * Returns the original senitel2 measurement values in a leaflet popup 
      */
     $scope.mouseClick = function () {
