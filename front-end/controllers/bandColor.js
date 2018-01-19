@@ -86,7 +86,8 @@ coperniCloud.controller('bandColor', function ($scope, $uibModalInstance) {
                     timer: 1500,
                     customClass: 'swalCc',
                     buttonsStyling: false,
-                });                
+                });
+                $uibModalInstance.dismiss("sendColorBand");               
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 sweetAlert('Oops...', 'Something went wrong!', 'error');

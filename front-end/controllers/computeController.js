@@ -56,6 +56,7 @@ coperniCloud.controller('computeController', function ($scope, $uibModalInstance
                     customClass: 'swalCc',
                     buttonsStyling: false,
                 });
+                $uibModalInstance.dismiss('sendComputeBand');
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 sweetAlert('Oops...', 'Something went wrong!', 'error');
