@@ -252,6 +252,8 @@ router.post('/save', function (req, res) {
     // Set our collection
     var collection = db.get('copernicollection');
 
+    console.log(object);
+
     // Submit to the DB
     collection.insert({
         object

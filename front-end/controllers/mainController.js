@@ -270,16 +270,8 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
         }
 
         tilesServer = "tiles";
-
         $scope.addTileServer(tilesServer, folderName, dataType, bandType);
-
-        console.log("bounds");
-        console.log(bounds);
-
         boundsData = bounds;
-
-        console.log("boundsData");
-        console.log(boundsData);
 
         $scope.baseMap.fitBounds(bounds, {
             padding: [150, 150]
@@ -299,8 +291,6 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
             $scope.baseMap.removeLayer($scope.tilesLayer);
         }
 
-        // bandType = band.value;
-        // folderName = $scope.selected.name;
         folderName = $scope.overlayName;
 
         // Different tile path for 1C and 2A        
@@ -312,10 +302,7 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
         }
 
         $scope.addTileServer(tilesServer, folderName, dataType, $scope.selectedBand);
-
         $scope.tilesLayer.setOpacity($scope.opacityValue / 100);
-
-        // $scope.overlayName = folderName;
         $scope.thereIsAnOverlay = true;
     };
 
@@ -450,14 +437,20 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
      */
     $scope.save = function () {
         if ($scope.overlayName) {
-            // TODO muss das richitge speichern
+            console.log(boundsData);
+
             var sendData = {
                 tilesServer: tilesServer,
                 folderName: $scope.overlayName,
                 bandType: $scope.selectedBand,
                 opacityValue: $scope.opacityValue,
-                bounds: boundsData
+                bounds00: boundsData[0][0],
+                bounds01: boundsData[0][1],
+                bounds10: boundsData[1][0],
+                bounds11: boundsData[1][1],
             }
+
+            console.log(sendData);
 
             if ($scope.overlayName.includes("MSIL1C")) {
                 sendData.dataType = "";
@@ -546,10 +539,7 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
                                 customClass: 'swalCc',
                                 buttonsStyling: false,
                             });
-                            console.log(array[0].object);
-
                             $scope.thereIsAnOverlay = false;
-
                             $scope.selectedBand = array[0].object.bandType;
 
                             if ($scope.tilesLayer) {
@@ -565,22 +555,21 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
                                 $scope.bandOptions = ["AOT", "B02", "B03", "B04", "B08", "TCI", "WVP"];
                             }
 
-                            console.log(array[0].object.bounds);
-                            // TODO klappt nicht
-                            // werden irgendwie anders gespeichert, also die DB macht das kaputt
-                            // $scope.baseMap.fitBounds(array[0].object.bounds, {
-                            //     padding: [150, 150]
-                            // });
+                            var boundsData = [[array[0].object.bounds00,array[0].object.bounds01],[array[0].object.bounds10,array[0].object.bounds11]]
+                            $scope.baseMap.fitBounds(boundsData, {
+                                padding: [150, 150]
+                            });                
 
                             // TODO
                             // Bei UserRequests muss noch etwas her!
 
                             $scope.addTileServer(array[0].object.tilesServer, array[0].object.folderName, dataType, array[0].object.bandType);
+                            tilesServer = array[0].object.tilesServer;
 
                             $scope.overlayName = array[0].object.folderName;
                             $scope.selectedBand = array[0].object.bandType;
 
-                            // TODO klappt nicht richitg
+                            // TODO klappt nicht richitg, Regler falsch
                             $scope.opacityValue = array[0].object.opacityValue;
                             $scope.tilesLayer.setOpacity(array[0].object.opacityValue / 100);
 
