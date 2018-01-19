@@ -474,7 +474,7 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
                     console.log("Object ID: " + id);
                     swal({
                         titel: 'Success',
-                        html: "<p style='font-size: 22px;font-weight: 400;'>Your image was saved to the DB!</P><br><p style='font-size: 18px;font-weight: 400;'>Please take a note of is ID:</p><p style='font-size: 14px;font-weight: 400; color: red;'>(required for loading)</p><p style='font-size: 20px;font-weight: 1000;'><br>" + id + "</p>",
+                        html: "<p style='font-size: 22px;font-weight: 400;'>Your image was saved to the DB!</P><br><p style='font-size: 18px;font-weight: 400;'>Please take a note of is ID:</p><p style='font-size: 14px;font-weight: 400; color: red;'>(required for loading)</p><br><p style='font-size: 20px;font-weight: 1000;' id='saveID'>" + id + "</p>",
                         type: 'info',
                         customClass: 'swalCc',
                         buttonsStyling: false,
