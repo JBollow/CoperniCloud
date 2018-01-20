@@ -22,6 +22,7 @@ angular.module('coperniCloud').directive('uiSearch', function () {
             };
             $scope.updateInput = function(){
                 $scope.searched= search.value;
+                search.value = '';
             }
         }],
 

@@ -117,20 +117,20 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
      */
     $scope.$watch('searchedItem', function () {
         if ($scope.searchedItem !== "") {
-            let input = {
+            $scope.input = {
                 name: $scope.searchedItem
             };
-            $scope.startSearch(input);
+            $scope.startSearch();
         }
     });
 
     /**
      * Sending the search form if enter is clicked
-     * @param {*}  event
+     * @param {*} event
      */
     $scope.triggerEnter = function ($event) {
         if (event.keyCode == 13) { // '13' is the key code for enter
-            // $scope.startSearch(input);
+            // $scope.startSearch($scope.input);
             $timeout(function () {
                 document.querySelector('#searchButton').click();
             }, 0);
@@ -138,27 +138,70 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
     };
 
     /**
+     * Enables drawing a rectangle and starts a search when finished
+     */
+    $scope.createBoundingBox = function () {
+        $scope.requestsCounter = 0;
+        var polygonDrawer = new L.Draw.Rectangle($scope.baseMap);
+        polygonDrawer.enable();
+
+        $scope.baseMap.on('draw:created', function (e) {
+            var type = e.layerType,
+                layer = e.layer;
+            $scope.boundingbox = e.layer._latlngs;
+
+            // console.log(boundingbox);
+            $scope.findCoord($scope.boundingbox);
+        });
+    };
+
+    /**
+     * Sends coordinates as search parameters
+     * @param {*} boundingbox 
+     */
+    $scope.findCoord = function (boundingbox) {
+        if ($scope.requestsCounter === 0) {
+            $scope.startSearch();
+            $scope.requestsCounter++;
+        }
+    };
+
+    /**
      * Function that searches for values in the passed object
      */
-    $scope.startSearch = function (input) {
-        var parsedBefore, parsedAfter, name;
-        //Sending zeroes when an imput is empty to make checking in backend easier
-        if (input.before !== undefined && input.before !== null) {
-            parsedBefore = Date.parse(input.before);
-        } else {
-            parsedBefore = '0';
+    $scope.startSearch = function () {
+        var parsedBefore, parsedAfter, name, maxLat, minLat, maxLng, minLng;
+        if ($scope.input) {
+            //Sending zeroes when an imput is empty to make checking in backend easier
+            if ($scope.input.before !== undefined && $scope.input.before !== null) {
+                parsedBefore = Date.parse($scope.input.before);
+            } else {
+                parsedBefore = '0';
+            }
+
+            if ($scope.input.after !== undefined && $scope.input.after !== null) {
+                parsedAfter = Date.parse($scope.input.after);
+            } else {
+                parsedAfter = '0';
+            }
+
+            if ($scope.input.name !== undefined && $scope.input.name !== null) {
+                name = $scope.input.name.toUpperCase();
+            } else {
+                name = '0';
+            }
         }
 
-        if (input.after !== undefined && input.after !== null) {
-            parsedAfter = Date.parse(input.after);
+        if ($scope.boundingbox !== undefined && $scope.boundingbox !== null) {
+            maxLat = $scope.boundingbox[0][1].lat;
+            minLat = $scope.boundingbox[0][0].lat;
+            maxLng = $scope.boundingbox[0][2].lng;
+            minLng = $scope.boundingbox[0][0].lng;
         } else {
-            parsedAfter = '0';
-        }
-
-        if (input.name !== undefined && input.name !== null) {
-            name = input.name.toUpperCase();
-        } else {
-            name = '0';
+            maxLat = '0';
+            minLat = '0';
+            maxLng = '0';
+            minLng = '0';
         }
 
         $.ajax({
@@ -167,7 +210,11 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
             data: {
                 name: name,
                 before: parsedBefore,
-                after: parsedAfter
+                after: parsedAfter,
+                maxLat: maxLat,
+                minLat: minLat,
+                maxLng: maxLng,
+                minLng: minLng
             },
             success: function (data) {
                 if (data.length !== 0) {
@@ -186,7 +233,7 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
             error: function (message) {
                 swal({
                     titel: 'Error',
-                    text: message,
+                    text: message.statusText,
                     type: 'error',
                     customClass: 'swalCc',
                     buttonsStyling: false,
@@ -194,6 +241,8 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
             }
         });
         $scope.searchedItem = '';
+        $scope.boundingbox = null;
+        $scope.input = {};
     };
 
     /**
@@ -217,9 +266,11 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
         modalInstance.result.then(function (meta) {
             $scope.selected = meta.result;
             let bounds = meta.bounds;
-            console.log($scope.selected.name);
-            //here open a window for image editing
-            $scope.addLayer($scope.selected.name, bounds);
+            if ($scope.selected) {
+                console.log($scope.selected.name);
+                //here open a window for image editing
+                $scope.addLayer($scope.selected.name, bounds);
+            }
         });
     };
 
@@ -242,11 +293,11 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
         // Different tile path for 1C and 2A        
         if (folderName.includes("MSIL1C")) {
             dataType = "";
-            $scope.bandOptions = ["B01","B02","B03","B04","B05","B06","B07","B08","B8A","B09","B10","B11","B12","TCI"];
+            $scope.bandOptions = ["B01", "B02", "B03", "B04", "B05", "B06", "B07", "B08", "B8A", "B09", "B10", "B11", "B12", "TCI"];
         }
         if (folderName.includes("MSIL2A")) {
             dataType = "R10m/";
-            $scope.bandOptions = ["AOT","B02","B03","B04","B08","TCI","WVP"];
+            $scope.bandOptions = ["AOT", "B02", "B03", "B04", "B08", "TCI", "WVP"];
         }
 
         $scope.addTileServer(tilesServer, folderName, dataType, bandType);
@@ -258,7 +309,7 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
         $scope.thereIsAnOverlay = true;
         $scope.selectedBand = "TCI";
     };
-    
+
     $scope.changeBand = function () {
         $scope.thereIsAnOverlay = false;
         bandType = $scope.selectedBand;
@@ -282,71 +333,6 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
 
         $scope.overlayName = folderName;
         $scope.thereIsAnOverlay = true;
-
-    };
-
-    /**
-     * Enables drawing a rectangle and starts a search when finished
-     */
-    $scope.createBoundingBox = function () {
-        $scope.requestsCounter = 0;
-        var polygonDrawer = new L.Draw.Rectangle($scope.baseMap);
-        polygonDrawer.enable();
-
-        $scope.baseMap.on('draw:created', function (e) {
-            var type = e.layerType,
-                layer = e.layer;
-            boundingbox = e.layer._latlngs;
-            console.log(boundingbox);
-            $scope.findCoord(boundingbox);
-        });
-    };
-
-    /**
-     * Sends coordinates as search parameters
-     * @param {*} boundingbox 
-     */
-    $scope.findCoord = function (boundingbox) {
-
-        if ($scope.requestsCounter === 0) {
-            var maxLat = boundingbox[0][1].lat;
-            var minLat = boundingbox[0][0].lat;
-            var maxLng = boundingbox[0][2].lng;
-            var minLng = boundingbox[0][0].lng;
-            $.ajax({
-                url: 'http://localhost:10002/searchCoordinates',
-                type: 'get',
-                data: {
-                    maxLat: maxLat,
-                    minLat: minLat,
-                    maxLng: maxLng,
-                    minLng: minLng
-                },
-                success: function (data) {
-                    if (data.length !== 0) {
-                        $scope.showResults(data);
-                    } else {
-                        swal({
-                            titel: 'Error',
-                            text: "No results!",
-                            type: 'error',
-                            customClass: 'swalCc',
-                            buttonsStyling: false,
-                        });
-                    }
-                },
-                error: function (message) {
-                    swal({
-                        titel: 'Error',
-                        text: message,
-                        type: 'error',
-                        customClass: 'swalCc',
-                        buttonsStyling: false,
-                    });
-                }
-            });
-            $scope.requestsCounter++;
-        }
 
     };
 

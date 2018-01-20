@@ -6,9 +6,9 @@ var parser = new xml2js.Parser();
 
 // const testFolder = '';
 // Jan-Patrick
-const testFolder = 'Y:/OneDrive/Dokumente/Uni/Uni Münster/WS17/Geosoft 2/Projekt/Testdaten/opt/sentinel2';
+// const testFolder = 'Y:/OneDrive/Dokumente/Uni/Uni Münster/WS17/Geosoft 2/Projekt/Testdaten/opt/sentinel2';
 // Anna
-// const testFolder = 'F:/Dokumente/Uni/WS_2017/Geosoft2/Testdaten/opt/sentinel2';
+const testFolder = 'F:/Dokumente/Uni/WS_2017/Geosoft2/Testdaten/opt/sentinel2';
 
 //filesearch
 const fs = require('fs');
@@ -80,27 +80,27 @@ function readMetaData(folderName) {
  * Searches in the metadata for the coordinates
  */
 router.get('/searchCoordinates', function (req, res) {
-    var results = [];
-    //saving the request parameters
-    var maxLat = req.query.maxLat;
-    var minLat = req.query.minLat;
-    var maxLng = req.query.maxLng;
-    var minLng = req.query.minLng;
-    for (let i = 0; i < metadataObjects.length; i++) {
-        if (metadataObjects[i].geometry) {
+    
+    res.json(results);
+})
+
+function searchInTheBoundingBox(minLat, minLng, maxLat, maxLng, objects) {
+    var boundingBoxResults = [];
+    
+    for (let i = 0; i < objects.length; i++) {
+        if (objects[i].geometry) {
             //comparing to check whether at least one of the points is inside the bounding box
-            if (((metadataObjects[i].geometry.northBoundLat > minLat && metadataObjects[i].geometry.northBoundLat < maxLat) || (metadataObjects[i].geometry.southBoundLat > minLat && metadataObjects[i].geometry.southBoundLat < maxLat)) && ((metadataObjects[i].geometry.westBoundLng > minLng && metadataObjects[i].geometry.westBoundLng < maxLng) || (metadataObjects[i].geometry.eastBoundLng > minLng && metadataObjects[i].geometry.eastBoundLng < maxLng))) {
-                results.push(metadataObjects[i]);
-                console.log(util.inspect(results, false, null));
+            if (((objects[i].geometry.northBoundLat > minLat && objects[i].geometry.northBoundLat < maxLat) || (objects[i].geometry.southBoundLat > minLat && objects[i].geometry.southBoundLat < maxLat)) && ((objects[i].geometry.westBoundLng > minLng && objects[i].geometry.westBoundLng < maxLng) || (objects[i].geometry.eastBoundLng > minLng && objects[i].geometry.eastBoundLng < maxLng))) {
+                boundingBoxResults.push(objects[i]);
+                console.log(util.inspect(boundingBoxResults, false, null));
             }
             //for debugging purposes
             // console.log("bounding box: " + maxLat + " " + minLat + " " + maxLng + " " + minLng);
             // console.log("image bounds: " + northBoundLat + " " + southBoundLat + " " + eastBoundLng + " " + westBoundLng);
         }
-
     }
-    res.json(results);
-})
+    return boundingBoxResults;
+}
 
 /**
  * Helping function to search through the file name
@@ -117,12 +117,23 @@ function arrayContainsArray(big, small) {
 }
 
 /**
- * Searches in the file name
+ * Searches in the file name and coordinates
  */
 router.get('/search', function (req, res) {
     var results = [];
+    var coordinateSearch = false;
+    var maxLat, maxLng, minLat, minLng;
+    
+    //query to know whether to start the coordinate search later
+    if (req.query.maxLat !== '0' && req.query.minLat !== '0' && req.query.maxLng !== '0' && req.query.minLng !== '0') {
+        maxLat = req.query.maxLat;
+        minLat = req.query.minLat;
+        maxLng = req.query.maxLng;
+        minLng = req.query.minLng;
+        coordinateSearch = true;
+    }
     //if there's a name to look for
-    if (req.query.name !== 0) {
+    if (req.query.name !== '0') {
         var name = req.query.name.toUpperCase();
         var nameSubstrings = name.replace("_", " ").split(' ');
         for (var i = 0; i < metadataObjects.length; i++) {
@@ -170,11 +181,21 @@ router.get('/search', function (req, res) {
                 }
             }
         }
+        if (coordinateSearch === true) {
+            var fullResults = searchInTheBoundingBox(minLat, minLng, maxLat, maxLng, resultsWithDate);
+            res.json(fullResults);
+        } else {
+            res.json(resultsWithDate);
+        }
         //returning the results when done
-        res.json(resultsWithDate);
     } else {
-        //returning the results with just the name comparison
-        res.json(results);
+        if (coordinateSearch === true) {
+            var fullResults = searchInTheBoundingBox(minLat, minLng, maxLat, maxLng, results);
+            res.json(fullResults);
+        } else {
+            //returning the results with just the name comparison
+            res.json(results);
+        }
     }
 })
 
