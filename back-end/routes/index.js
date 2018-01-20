@@ -36,7 +36,7 @@ fs.readdir(testFolder, (err, files) => {
             // console.log(util.inspect(nameObjects, false, null));
         });
     }
-})
+});
 
 /**
  * Creates an array of objects with metadata of each image
@@ -66,7 +66,7 @@ function readMetaData(folderName) {
                         metadataObjects[i].geometry.eastBoundLng = eastBoundLng,
                             metadataObjects[i].geometry.westBoundLng = westBoundLng,
                             metadataObjects[i].geometry.northBoundLat = northBoundLat,
-                            metadataObjects[i].geometry.southBoundLat = southBoundLat
+                            metadataObjects[i].geometry.southBoundLat = southBoundLat;
                     }
                 }
                 console.log(util.inspect(metadataObjects, false, null));
@@ -75,14 +75,6 @@ function readMetaData(folderName) {
     });
 
 }
-
-/**
- * Searches in the metadata for the coordinates
- */
-router.get('/searchCoordinates', function (req, res) {
-    
-    res.json(results);
-})
 
 function searchInTheBoundingBox(minLat, minLng, maxLat, maxLng, objects) {
     var boundingBoxResults = [];
@@ -197,6 +189,122 @@ router.get('/search', function (req, res) {
             res.json(results);
         }
     }
-})
+});
+
+/**
+ * Objects for band color calculations
+ */
+router.post('/sendColorBand', function (req, res) {
+
+    // Set our internal DB variable
+    var db = req.db;
+
+    // Get our object
+    var object = req.body;
+
+    // Set our collection
+    var collection = db.get('copernicollectioncolorband');
+
+    // Submit to the DB
+    collection.insert({
+        object
+    }, function (err, doc) {
+        if (err) {
+
+            // If it failed, return error
+            res.send("There was a problem adding the information to the database.");
+        } else {
+
+            // Or print object id
+            res.send(doc._id);
+        }
+    });
+});
+
+/**
+ * Objects for band compute calculations
+ */
+router.post('/sendComputeBand', function (req, res) {
+
+    // Set our internal DB variable
+    var db = req.db;
+
+    // Get our object
+    var object = req.body;
+
+    // Set our collection
+    var collection = db.get('copernicollectioncomputeband');
+
+    // Submit to the DB
+    collection.insert({
+        object
+    }, function (err, doc) {
+        if (err) {
+
+            // If it failed, return error
+            res.send("There was a problem adding the information to the database.");
+        } else {
+
+            // Or print object id
+            res.send(doc._id);
+        }
+    });
+});
+
+/**
+ * Saving a object to the db
+ */
+router.post('/save', function (req, res) {
+
+    // Set our internal DB variable
+    var db = req.db;
+
+    // Get our object
+    var object = req.body;
+
+    // Set our collection
+    var collection = db.get('copernicollection');
+
+    console.log(object);
+
+    // Submit to the DB
+    collection.insert({
+        object
+    }, function (err, doc) {
+        if (err) {
+
+            // If it failed, return error
+            res.send("There was a problem adding the information to the database.");
+        } else {
+
+            // Or print object id
+            res.send(doc._id);
+        }
+    });
+});
+
+/**
+ * Loading a requested object from the db
+ */
+router.post('/load', function (req, res) {
+
+    // Set our internal DB variable
+    var db = req.db;
+
+    // Get our object
+    var object = req.body;
+
+    // Set our collection
+    var collection = db.get('copernicollection');
+
+    console.log(object.id);
+
+    // Query from our DB
+    collection.find({
+        _id: object.id
+    }, function (e, docs) {
+        res.json(docs);
+    });
+});
 
 module.exports = router;

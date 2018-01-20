@@ -1,7 +1,7 @@
 <!-- home.html -->
 <div class="jumbotron text-center" data-ng-init="initExtended()">
     <div id="outer">
-        <leaflet lf-center="center" id="map" markers="markers" layers="layers" defaults="defaults"></leaflet>
+        <leaflet lf-center="center" id="map" markers="markers" layers="layers" defaults="defaults" events="events" event-broadcast="events"></leaflet>
     </div>
 
     <div class="container-fluid">
@@ -67,18 +67,11 @@
             </div>
         </div>
 
-        <div class="row search bottom5">
-            <div class="col-sm-4">
-                <button type="button" title="Show pixel information" class="advsearch" ng-click="share()">
-                    <i class="fa fa-magic" aria-hidden="true"></i>
-                </button>
-            </div>
-        </div>
 
         <div class="row search bottom4">
             <div class="col-sm-4">
-                <button type="button" title="Share your image." class="advsearch" ng-click="share()">
-                    <i class="fa fa-share-alt" aria-hidden="true"></i>
+                <button type="button" title="Show pixel information" class="advsearch" ng-click="mouseClick()">
+                    <i class="fa fa-magic" aria-hidden="true"></i>
                 </button>
             </div>
         </div>
@@ -106,14 +99,15 @@
                     <i class="fa fa-question-circle" aria-hidden="true"></i>
                 </button>
             </div>
+
         </div>
 
         <div style="text-align:center">
             <div class="overlayControl" ng-show="thereIsAnOverlay">
-                <p style="font-size: 14px; line-height: 32px;">
+                <p style="font-size: 14px; line-height: 16px;">
 
                     <label class="checkcontainer">
-                        <input class="" type="checkbox" ng-change="fadeOverlay()" ng-model="overlayVisible"/>
+                        <input class="" type="checkbox" ng-change="fadeOverlay()" ng-model="overlayVisible" />
                         <span class="checkmark"></span>
                     </label>
 
@@ -140,5 +134,23 @@
             </div>
         </div>
 
+        <div class="processing" ng-show="isProcessing">
+            <table>
+                <tr>
+                    <td>
+                        <h4>Processing...&nbsp;</h4>
+                    </td>
+                    <td>
+                        <div class="loader"></div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="infobox" ng-show="hasInfo">
+            {{layerInfo}}
+
+            <button class="copy" ngclipboard="" data-clipboard-text="5a62524a11458b2de4fff342"><i class="fa fa-clipboard" aria-hidden="true"></i></button>
+        </div>
     </div>
 </div>

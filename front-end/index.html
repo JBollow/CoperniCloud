@@ -47,8 +47,6 @@
     <!-- load angular and angular route via CDN -->
     <script src="./node_modules/angular/angular.min.js"></script>
     <script src="./node_modules/angular-animate/angular-animate.js"></script>
-    <script src="./node_modules/jsnlog/jsnlog.min.js"></script>
-    <script src="./node_modules/jsnlog/jsnlog.js"></script>
     <script src="./node_modules/leaflet/dist/leaflet.js"></script>
     <script src="./node_modules/ui-leaflet/dist/ui-leaflet.min.js"></script>
     <!-- <script src="./node_modules/ui-leaflet/dist/ui-leaflet.js"></script> -->
@@ -70,6 +68,11 @@
     <!-- Include a polyfill for ES6 Promises (optional) for IE11, UC Browser and Android browser support -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
 
+    <!-- Clipboard -->
+    <script src="https://cdn.rawgit.com/zenorocha/clipboard.js/master/dist/clipboard.min.js"></script>
+    <script src="./node_modules/ngclipboard/dist/ngclipboard.js"></script>
+    <script src="./node_modules/ngclipboard/dist/ngclipboard.min.js"></script>
+
     <!-- local files -->
     <script src="script.js"></script>
     <script src="./config/routeProvider.js"></script>
@@ -80,7 +83,7 @@
     <script src="controllers/helpController.js"></script>
     <script src="controllers/computeController.js"></script>
     <script src="controllers/bandColor.js"></script>
-    <script src="directives/ui-search.js"></script>   
+    <script src="directives/ui-search.js"></script>
 
 </head>
 
@@ -99,8 +102,6 @@
 
 
 <!-- local scripts -->
-<script src="js/jsnlog.js"></script>
-
 <script src="js/modernizr.custom.js"></script>
 <script src="js/classie.js"></script>
 <script src="js/modalEffects.js"></script>

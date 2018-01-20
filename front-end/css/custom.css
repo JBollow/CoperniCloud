@@ -132,6 +132,32 @@ p {
     transform: translateY(0px);
 }
 
+.copy {
+    font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 100;
+    display: inline;
+    margin-left: 10px;
+    background-color: #008dc5;
+    color: white;
+    border: 1px solid black;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+}
+
+.copy:hover {
+    border: none;
+    background-color: #0074a1;
+    color: white;
+}
+
+.copy:active {
+    background-color: #008dc5;
+    transform: translateY(0px);
+}
+
 .compbutton {
     font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif;
     font-size: 22px;
@@ -440,7 +466,7 @@ input[type="search"].sb-search-input {
     top: 0px;
     left: -5px;
     width: 400px;
-    background: rgba(255, 255, 255, 0.9);
+    background: rgba(255, 255, 255, 0.6);
     ;
     border: 1px solid black;
     padding-left: 10px;
@@ -482,8 +508,8 @@ input[type="search"].sb-search-input {
     position: absolute;
     bottom: 8px;
     left: 55px;
-    width: 925px;
-    background: rgba(255, 255, 255, 0.9);
+    width: 895px;
+    background: rgba(255, 255, 255, 0.6);
     height: 40px;
     border: 1px solid black;
     padding-left: 10px;
@@ -494,27 +520,6 @@ input[type="search"].sb-search-input {
     font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif;
     font-weight: 100;
     font-style: normal;
-}
-
-.overlayControl.ng-hide {
-    bottom: 80vh;
-}
-
-.overlayControl.ng-hide-add,
-.overlayControl.ng-hide-remove {
-    /* this is required as of 1.3x to properly
-         apply all styling in a show/hide animation */
-    transition: 5s linear all;
-}
-
-.overlayControl.ng-hide-add-active,
-.overlayControl.ng-hide-remove-active {
-    /* -webkit-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 2s;
-        -moz-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 2s;
-        -o-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 2s;
-        transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 2s;
-    */
-    transition: all ease-in-out 0.2s;
 }
 
 .overlayControl.ng-show-add-active {
@@ -534,6 +539,7 @@ div.helpbuttons2 {
     min-height: 40px;
     padding-left: -5px;
 }
+
 
 /* Form */
 
@@ -866,6 +872,31 @@ table.sentinelTable tfoot td {
     background-color: #0074a1 !important;
 }
 
+.swal2-cancel {
+    font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif!important;
+    font-size: 18px!important;
+    font-style: normal!important;
+    font-weight: 100!important;
+    line-height: 20px!important;
+    height: 40px!important;
+    width: 140px!important;
+    margin-top: 20px!important;
+    margin-bottom: 0px!important;
+    margin-left: 10px!important;
+    padding-top: 0px!important;
+    padding-bottom: 0px!important;
+    color: #fff!important;
+    border: none!important;
+    cursor: pointer!important;
+    border: 1px solid black !important;
+    border-radius: 0px !important;
+    background-color: #008dc5 !important;
+}
+
+.swal2-cancel:hover {
+    background-color: #0074a1 !important;
+}
+
 .searchRow {
     margin-bottom: 20px;
 }
@@ -965,8 +996,9 @@ select.band {
     border: 1px solid #bbb;
     display: inline-block;
     padding: 2px;
+    height: 26px;
     position: relative;
-    bottom: 2px;
+    bottom: 3px;
     background-color: white;
     background-image: url(select-arrow.png);
     background-position: right;
@@ -1366,9 +1398,88 @@ option.inred {
 option.ingreen {
     background-color: rgb(70, 210, 70);
 }
+
 option.inblue {
     background-color: rgb(70, 70, 210);
 }
+
 option.ingrey {
     background-color: rgb(117, 117, 117);
+}
+
+.loader {
+    border: 11px solid rgba(0, 0, 20, 0.25);
+    border-radius: 50%;
+    border-top: 11px solid #3498db;
+    width: 56px;
+    height: 56px;
+    -webkit-animation: spin 2s linear infinite;
+    /* Safari */
+    animation: spin 2s linear infinite;
+}
+
+
+/* Safari */
+
+@-webkit-keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+div.processing {
+    position: absolute;
+    bottom: 10px;
+    right: 50px;
+    z-index: 500;
+    width: 161px;
+    height: 64px;
+    padding: 2px;
+    background-color: rgba(255, 255, 255, 0.6);
+    border: 2px solid rgba(0, 0, 20, 0.25);
+}
+
+h4 {
+    font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 500;
+    color: #404040;
+    z-index: 500;
+    /* position: relative;
+    bottom: -10px; */
+}
+
+.leaflet-control-attribution {
+    position: absolute;
+    bottom: -99px;
+}
+
+.leaflet-control-zoom {
+    border-radius: 0px;
+}
+
+div.infobox {
+    position: absolute;
+    bottom: 80px;
+    right: 10px;
+    z-index: 500;
+    width: 201px;
+    height: 148px;
+    padding: 2px;
+    background-color: rgba(255, 255, 255, 0.6);
+    border: 2px solid rgba(0, 0, 20, 0.25);
 }
