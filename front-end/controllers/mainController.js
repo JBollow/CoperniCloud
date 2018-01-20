@@ -600,11 +600,30 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
 
     /**
      * Returns the original senitel2 measurement values in a leaflet popup 
+     * https://github.com/grantHarris/leaflet-popup-angular
+     * with controller?
      */
     $scope.mouseClick = function () {
+        $scope.baseMap.once('click', function (e) {
+            console.log(e.latlng);
+            var popup = L.popup.angular({
+                    template: `
+                    <div>
+                        <h1><small>{{$content.title}}</small></h1>
+                        <div>{{$content.lat}} {{$content.lng}}</div>
+                    </div>
+                `,
+                }).setLatLng(e.latlng).setContent({
+                    'lat': e.latlng.lat,
+                    'lng': e.latlng.lng,
+                    'title': 'Popup!'
+                })
+                .openOn($scope.baseMap);
+
+        });
 
         // TODO
-        // hier muss an der stelle ein Leafletpopup erscheinen mit den angeforderten daten
+        // Daten bekommen?
 
 
         // muss weg ist nur zur demo

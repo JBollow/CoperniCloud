@@ -20,6 +20,7 @@
     "font-awesome": "github:FortAwesome/Font-Awesome",
     "leaflet": "^1.2.0",
     "leaflet-draw": "^0.4.13",
+    "leaflet-popup-angular": "^1.0.3",
     "ngclipboard": "^1.1.2",
     "sweetalert2": "^7.1.0",
     "ui-bootstrap": "^0.1.10",
