@@ -65,7 +65,6 @@ coperniCloud.controller('bandColorController', function ($scope, $uibModalInstan
         $uibModalInstance.dismiss('nearInfrared');
     };
 
-    // TODO
     // Adding more bands to the expression
     $scope.terms = [{
         band: '',
