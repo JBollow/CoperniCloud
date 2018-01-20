@@ -2,13 +2,7 @@
 
 coperniCloud.controller('computeController', function ($scope, $uibModalInstance) {
 
-    // TODO Variabeln müssen vom mainController hierhin gereicht werden
-    $scope.overlayName = "";
-    $scope.isProcessing = false; 
-    $scope.hasInfo = false;
-
     var sendData = {
-        image: $scope.overlayName,
         operations: [],
     };
 
@@ -19,10 +13,17 @@ coperniCloud.controller('computeController', function ($scope, $uibModalInstance
 
     // Sends arithmetic expressions to backend
     $scope.ok = function () {
-
-        // TODO
-        // sendData.operations = 
-        $scope.sendComputeBand();
+        var newArray = $scope.terms.map(function (el) {
+            return [el.operator, el.front, el.band, el.back];
+        });
+        for (var i = 0; i < newArray.length; i++) {
+            sendData.operations.push(newArray[i][0]);
+            sendData.operations.push(newArray[i][1]);
+            sendData.operations.push(newArray[i][2]);
+            sendData.operations.push(newArray[i][3]);
+        }
+        $uibModalInstance.close(sendData);
+        $uibModalInstance.dismiss('ok');
     };
 
     /**
@@ -30,7 +31,8 @@ coperniCloud.controller('computeController', function ($scope, $uibModalInstance
      */
     $scope.ndvi = function () {
         sendData.operations = ["(", "B08", "-", "B04", ")", "/", "(", "B08", "+", "B04", ")"];
-        $scope.sendComputeBand();
+        $uibModalInstance.close(sendData);
+        $uibModalInstance.dismiss('ndvi');
     };
 
     /**
@@ -38,45 +40,8 @@ coperniCloud.controller('computeController', function ($scope, $uibModalInstance
      */
     $scope.ndsi = function () {
         sendData.operations = ["(", "B03", "-", "B11", ")", "/", "(", "B03", "+", "B11", ")"];
-        $scope.sendComputeBand();
-    };
-
-    /**
-     * Sends the computebands expression
-     */
-    $scope.sendComputeBand = function () {
-        console.log(sendData);
-        $.ajax({
-            type: "POST",
-            url: "http://localhost:10002/sendComputeBand",
-            dataType: 'json',
-            data: sendData,
-            traditional: true,
-            cache: false,
-            success: function (object) {
-                swal({                   
-                    type: 'success',
-                    text: "Calculation of your image is in progress!",
-                    showConfirmButton: false,
-                    timer: 1500,
-                    customClass: 'swalCc',
-                    buttonsStyling: false,
-                });
-                $uibModalInstance.dismiss('sendComputeBand');
-                $scope.isProcessing = true;
-                $scope.hasInfo = false;
-
-                // TODO
-                // something like load
-
-                $scope.hasInfo = true;
-                $scope.isProcessing = false;
-            },
-            error: function (XMLHttpRequest, textStatus, errorThrown) {
-                sweetAlert('Oops...', 'Something went wrong!', 'error');
-            },
-            timeout: 3000
-        });        
+        $uibModalInstance.close(sendData);
+        $uibModalInstance.dismiss('ndsi');
     };
 
     // Adding more bands to the expression
@@ -86,6 +51,7 @@ coperniCloud.controller('computeController', function ($scope, $uibModalInstance
         band: '',
         back: ''
     }];
+
     $scope.addff = function () {
         if ($scope.terms.length < 11) {
             $scope.terms.push({

@@ -107,11 +107,6 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
         }
     });
 
-    // TODO
-    $scope.$on('leafletDirectiveMap.click', function (event, args) {
-        console.log("args.leafletEvent.latlng");
-    });
-
     // A global reference is set.
     leafletData.getMap('map').then(function (m) {
         $scope.baseMap = m;
@@ -306,6 +301,7 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
     $scope.addLayer = function (folderName, bounds) {
         $scope.thereIsAnOverlay = false;
         $scope.hasInfo = false;
+        $scope.isProcessing = false;
 
         if ($scope.tilesLayer) {
             $scope.baseMap.removeLayer($scope.tilesLayer);
@@ -385,6 +381,13 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
             controller: 'computeController',
             size: 'lg'
         });
+
+        //for when the modal is closed
+        modalInstance.result.then(function (operationsObject) {
+            operationsObject.image = $scope.overlayName;
+            console.log(operationsObject);
+            $scope.sendComputeBand(operationsObject);
+        });
     };
 
     /**
@@ -396,6 +399,16 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
             templateUrl: '../templates/popups/bandColor.html',
             controller: 'bandColor',
             size: 'lg'
+        });
+
+        //for when the modal is closed
+        modalInstance.result.then(function (meta) {
+            $scope.selected = meta.result;
+            let bounds = meta.bounds;
+            console.log($scope.selected.name);
+            $scope.overlayName = $scope.selected.name;
+            //here open a window for image editing
+            $scope.addLayer($scope.selected.name, bounds);
         });
     };
 
@@ -426,7 +439,7 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
         if ($scope.overlayName) {
             console.log(boundsData);
 
-            
+
             var sendData = {
                 tilesServer: tilesServer,
                 folderName: $scope.overlayName,
@@ -451,7 +464,7 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
             // Bei UserRequests muss noch etwas her!
 
             // TODO
-            // ngcopy klappt nicht im swal?
+            // ngclipboard klappt nicht im swal?
             $.ajax({
                 type: "POST",
                 url: "http://localhost:10002/save",
@@ -531,6 +544,7 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
                             });
                             $scope.thereIsAnOverlay = false;
                             $scope.hasInfo = false;
+                            $scope.isProcessing = false;
                             $scope.selectedBand = array[0].object.bandType;
 
                             if ($scope.tilesLayer) {
@@ -569,6 +583,7 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
 
                             // TODO bei custom anders
                             $scope.hasInfo = false;
+                            // $scope.isProcessing = ;
                             $scope.thereIsAnOverlay = true;
                         },
                         error: function (message) {
@@ -598,5 +613,43 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
         // muss weg ist nur zur demo
         $scope.isProcessing = true;
         $scope.hasInfo = true;
+    };
+
+    /**
+     * Sends the computebands expression
+     */
+    $scope.sendComputeBand = function (sendData) {
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:10002/sendComputeBand",
+            dataType: 'json',
+            data: sendData,
+            traditional: true,
+            cache: false,
+            success: function (object) {
+                swal({
+                    type: 'success',
+                    text: "Calculation of your image is in progress!",
+                    showConfirmButton: false,
+                    timer: 1500,
+                    customClass: 'swalCc',
+                    buttonsStyling: false,
+                });
+                $scope.isProcessing = true;
+                $scope.hasInfo = false;
+
+                // TODO
+                // something like load
+
+                $scope.hasInfo = true;
+                $scope.isProcessing = false;
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                sweetAlert('Oops...', 'Something went wrong!', 'error');
+                $scope.hasInfo = true;
+                $scope.isProcessing = false;
+            },
+            timeout: 3000
+        });
     };
 }]);
