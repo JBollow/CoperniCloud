@@ -391,24 +391,21 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
     };
 
     /**
-     * A pop-up for bandcolors
+     * A pop-up for bandColorControllers
      */
-    $scope.bandColor = function () {
+    $scope.bandColorController = function () {
         var modalInstance = $uibModal.open({
             animation: true,
-            templateUrl: '../templates/popups/bandColor.html',
-            controller: 'bandColor',
+            templateUrl: '../templates/popups/bandColorController.html',
+            controller: 'bandColorController',
             size: 'lg'
         });
 
         //for when the modal is closed
-        modalInstance.result.then(function (meta) {
-            $scope.selected = meta.result;
-            let bounds = meta.bounds;
-            console.log($scope.selected.name);
-            $scope.overlayName = $scope.selected.name;
-            //here open a window for image editing
-            $scope.addLayer($scope.selected.name, bounds);
+        modalInstance.result.then(function (operationsObject) {
+            operationsObject.image = $scope.overlayName;
+            console.log(operationsObject);
+            $scope.sendColorBand(operationsObject);
         });
     };
 
@@ -648,6 +645,44 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
                 sweetAlert('Oops...', 'Something went wrong!', 'error');
                 $scope.hasInfo = true;
                 $scope.isProcessing = false;
+            },
+            timeout: 3000
+        });
+    };
+
+
+    /**
+     * Sends the colorband operations
+     */
+    $scope.sendColorBand = function (sendData) {
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:10002/sendColorBand",
+            dataType: 'json',
+            data: sendData,
+            traditional: true,
+            cache: false,
+            success: function () {
+                swal({
+                    type: 'success',
+                    text: "Calculation of your image is in progress!",
+                    showConfirmButton: false,
+                    timer: 1500,
+                    customClass: 'swalCc',
+                    buttonsStyling: false,
+                });
+
+                $scope.isProcessing = true;
+                $scope.hasInfo = false;
+
+                // TODO
+                // something like load
+
+                $scope.hasInfo = true;
+                $scope.isProcessing = false;
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                sweetAlert('Oops...', 'Something went wrong!', 'error');
             },
             timeout: 3000
         });

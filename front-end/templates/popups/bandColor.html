@@ -27,7 +27,7 @@
                         <option value="TCI">TCI</option>
                     </select>
                     <p style="font-size: 14px; display: inline;">&nbsp;in</p>
-                    <select ng-model="x.back">
+                    <select ng-model="x.color">
                         <option class="inred" value="red">Red</option>
                         <option class="ingreen" value="green">Green</option>
                         <option class="inblue" value="blue">Blue</option>
@@ -36,17 +36,17 @@
 
                     <span style="display: inline-block;">
                         <p style="font-size: 16px; line-height: 32px; display: inline;">&nbsp;Contrast:</p>
-                        <input style="display: inline-block; width: 100px;" type="range" name="range" ng-model="contrastValue" min="0" max="255">
+                        <input style="display: inline-block; width: 100px;" type="range" name="range" ng-model="x.contrastValue" min="0" max="255">
                         <div style="width: 30px; display: inline-block;">
-                            <p style="font-size: 14px; line-height: 32px; display: inline;">&nbsp;{{contrastValue}}</p>
+                            <p style="font-size: 14px; line-height: 32px; display: inline;">&nbsp;{{x.contrastValue}}</p>
                         </div>
                     </span>
 
                     <span style="display: inline-block;">
                         <p style="font-size: 16px; line-height: 32px; display: inline;">&nbsp;Brightness:</p>
-                        <input style="display: inline-block; width: 100px;" type="range" name="range" ng-model="brightnessValue" min="0" max="255">
+                        <input style="display: inline-block; width: 100px;" type="range" name="range" ng-model="x.brightnessValue" min="0" max="255">
                         <div style="width: 30px; display: inline-block;">
-                            <p style="font-size: 14px; line-height: 32px; display: inline;">&nbsp;{{brightnessValue}}</p>
+                            <p style="font-size: 14px; line-height: 32px; display: inline;">&nbsp;{{x.brightnessValue}}</p>
                         </div>
                     </span>
 
@@ -155,10 +155,14 @@
 
 <div class="row">
     <div class="modal-footer">
-            <button class="btn btnleft buttonwhite" type="button" ng-click="trueColor()">TRUE COLOR</button>
-            <button class="btn btnleft buttonwhite" type="button" ng-click="falseColor()">False color</button>
-            <button class="btn btnleft buttonwhite" type="button" ng-click="shortWaveInfrared()">Short-wave Infrared</button>
-            <button class="btn btnleft buttonwhite" type="button" ng-click="nearInfrared()">Near Infrared</button>
+        <button class="btn btnleft buttonwhite" type="button" ng-click="trueColor()">TRUE COLOR</button>
+        <button class="btn btnleft buttonwhite" type="button" ng-click="falseColor()">False color</button>
+        <button class="btn btnleft buttonwhite" type="button" ng-click="shortWaveInfrared()">Short-wave Infrared</button>
+        <button class="btn btnleft buttonwhite" type="button" ng-click="nearInfrared()">Near Infrared</button>
+        <p style="font-size: 14px; display: inline;">
+            <span ng-repeat="x in terms" style="display:inline;">{{x.band}} {{x.color}} {{x.contrastValue}} {{x.brightnessValue}} </span>
+        </p>
+        &nbsp;&nbsp;
         <button class="btn btn-primary buttonwhite" type="button" ng-click="ok()">OK</button>
         <button class="btn btn-primary buttonwhite" type="button" ng-click="dismiss()">Close</button>
     </div>

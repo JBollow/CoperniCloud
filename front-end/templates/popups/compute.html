@@ -149,10 +149,9 @@
         <button class="btn btnleft buttonwhite" type="button" ng-click="ndvi()">NDVI</button>
         <button class="btn btnleft buttonwhite" type="button" ng-click="ndsi()">NDSI</button>
         <p style="font-size: 14px; display: inline;">
-        <span ng-repeat="x in terms" style="display:inline;">{{x.operator}} {{x.front}} {{x.band}} {{x.back}} </span>
+            <span ng-repeat="x in terms" style="display:inline;">{{x.operator}} {{x.front}} {{x.band}} {{x.back}} </span>
         </p>
         &nbsp;&nbsp;
-
         <button class="btn btn-primary buttonwhite" type="button" ng-click="ok()">OK</button>
         <button class="btn btn-primary buttonwhite" type="button" ng-click="dismiss()">Close</button>
     </div>
