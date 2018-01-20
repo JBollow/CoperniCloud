@@ -18,6 +18,7 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
     var bandType = "TCI";
     var serverUrl = "http://gis-bigdata:12015/";
     var boundsData;
+    var userRequestName;
 
     //the map
     angular.extend($scope, {
@@ -385,8 +386,10 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
         //for when the modal is closed
         modalInstance.result.then(function (operationsObject) {
             operationsObject.image = $scope.overlayName;
+            userRequestName = $scope.overlayName;
             console.log(operationsObject);
-            $scope.sendComputeBand(operationsObject);
+            var type = "sendComputeBand";
+            $scope.sendCalc(operationsObject, type);
         });
     };
 
@@ -396,7 +399,7 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
     $scope.bandColorController = function () {
         var modalInstance = $uibModal.open({
             animation: true,
-            templateUrl: '../templates/popups/bandColorController.html',
+            templateUrl: '../templates/popups/bandColor.html',
             controller: 'bandColorController',
             size: 'lg'
         });
@@ -404,8 +407,10 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
         //for when the modal is closed
         modalInstance.result.then(function (operationsObject) {
             operationsObject.image = $scope.overlayName;
+            userRequestName = $scope.overlayName;
             console.log(operationsObject);
-            $scope.sendColorBand(operationsObject);
+            var type = "sendColorBand";
+            $scope.sendCalc(operationsObject, type);
         });
     };
 
@@ -436,12 +441,12 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
         if ($scope.overlayName) {
             console.log(boundsData);
 
-
             var sendData = {
                 tilesServer: tilesServer,
                 folderName: $scope.overlayName,
                 bandType: $scope.selectedBand,
                 opacityValue: $scope.opacityValue,
+                summarystats: $scope.layerInfo,
                 bounds00: boundsData[0][0],
                 bounds01: boundsData[0][1],
                 bounds10: boundsData[1][0],
@@ -449,16 +454,14 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
             }
 
             console.log(sendData);
-
-            if ($scope.overlayName.includes("MSIL1C")) {
-                sendData.dataType = "";
+            if (tilesServer != "userrequest") {
+                if ($scope.overlayName.includes("MSIL1C")) {
+                    sendData.dataType = "";
+                }
+                if ($scope.overlayName.includes("MSIL2A")) {
+                    sendData.dataType = "R10m/";
+                }
             }
-            if ($scope.overlayName.includes("MSIL2A")) {
-                sendData.dataType = "R10m/";
-            }
-
-            // TODO
-            // Bei UserRequests muss noch etwas her!
 
             // TODO
             // ngclipboard klappt nicht im swal?
@@ -565,22 +568,22 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
                                 padding: [150, 150]
                             });
 
-                            // TODO
-                            // Bei UserRequests muss noch etwas her!
-
                             $scope.addTileServer(array[0].object.tilesServer, array[0].object.folderName, dataType, array[0].object.bandType);
                             tilesServer = array[0].object.tilesServer;
 
                             $scope.overlayName = array[0].object.folderName;
                             $scope.selectedBand = array[0].object.bandType;
 
-                            // TODO klappt nicht richitg, Regler falsch
+                            $('#opacitiyValueId').val(array[0].object.opacityValue);
                             $scope.opacityValue = array[0].object.opacityValue;
                             $scope.tilesLayer.setOpacity(array[0].object.opacityValue / 100);
 
-                            // TODO bei custom anders
-                            $scope.hasInfo = false;
-                            // $scope.isProcessing = ;
+                            if (array[0].object.tilesServer == "userrequest") {
+                                $scope.layerInfo = array[0].object.summarystats;
+                                $scope.hasInfo = true;
+                            } else {
+                                $scope.hasInfo = false;
+                            }
                             $scope.thereIsAnOverlay = true;
                         },
                         error: function (message) {
@@ -632,12 +635,24 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
     };
 
     /**
-     * Sends the computebands expression
+     * Sends the calculations to the backend
      */
-    $scope.sendComputeBand = function (sendData) {
+    $scope.sendCalc = function (sendData, type) {
+        swal({
+            type: 'success',
+            text: "Calculation of your image is in progress!",
+            showConfirmButton: false,
+            timer: 1500,
+            customClass: 'swalCc',
+            buttonsStyling: false,
+        });
+
+        $scope.isProcessing = true;
+        $scope.hasInfo = false;
+
         $.ajax({
             type: "POST",
-            url: "http://localhost:10002/sendComputeBand",
+            url: "http://localhost:10002/" + type,
             dataType: 'json',
             data: sendData,
             traditional: true,
@@ -645,63 +660,45 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
             success: function (object) {
                 swal({
                     type: 'success',
-                    text: "Calculation of your image is in progress!",
+                    text: "Calculation done!",
                     showConfirmButton: false,
-                    timer: 1500,
+                    timer: 1000,
                     customClass: 'swalCc',
                     buttonsStyling: false,
                 });
-                $scope.isProcessing = true;
-                $scope.hasInfo = false;
+                if ($scope.tilesLayer) {
+                    $scope.baseMap.removeLayer($scope.tilesLayer);
+                }
+
+                $scope.bandOptions = [];
+                tilesServer = "userrequest";
+                folderName = $scope.overlayName;
+                dataType = "";
 
                 // TODO
-                // something like load
+                // Hier die ID
+                // $scope.selectedBand = ;
+
+                // Hier die summary statistics
+                // $scope.layerInfo = ;
+
+                $scope.baseMap.fitBounds(boundsData, {
+                    padding: [150, 150]
+                });
+
+                $scope.addTileServer(tilesServer, folderName, dataType, $scope.selectedBand);
+
+                $scope.opacityValue = 100;
+                $scope.tilesLayer.setOpacity(1);
 
                 $scope.hasInfo = true;
                 $scope.isProcessing = false;
+                $scope.thereIsAnOverlay = true;
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 sweetAlert('Oops...', 'Something went wrong!', 'error');
                 $scope.hasInfo = true;
                 $scope.isProcessing = false;
-            },
-            timeout: 3000
-        });
-    };
-
-
-    /**
-     * Sends the colorband operations
-     */
-    $scope.sendColorBand = function (sendData) {
-        $.ajax({
-            type: "POST",
-            url: "http://localhost:10002/sendColorBand",
-            dataType: 'json',
-            data: sendData,
-            traditional: true,
-            cache: false,
-            success: function () {
-                swal({
-                    type: 'success',
-                    text: "Calculation of your image is in progress!",
-                    showConfirmButton: false,
-                    timer: 1500,
-                    customClass: 'swalCc',
-                    buttonsStyling: false,
-                });
-
-                $scope.isProcessing = true;
-                $scope.hasInfo = false;
-
-                // TODO
-                // something like load
-
-                $scope.hasInfo = true;
-                $scope.isProcessing = false;
-            },
-            error: function (XMLHttpRequest, textStatus, errorThrown) {
-                sweetAlert('Oops...', 'Something went wrong!', 'error');
             },
             timeout: 3000
         });

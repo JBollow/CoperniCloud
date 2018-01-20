@@ -57,8 +57,7 @@
                         </table>
                         <br>
                         <p>
-                            <input type="button" id="searchButton" style="width: 100%;" value="Search" class="buttonwhite" ng-click="startSearch()"
-                            />
+                            <input type="button" id="searchButton" style="width: 100%;" value="Search" class="buttonwhite" ng-click="startSearch()" />
                         </p>
                     </form>
                 </div>
@@ -125,7 +124,8 @@
                     &nbsp;&nbsp;
 
                     <span style="display: inline-block;">Opacity:
-                        <input style="display: inline-block; width: 100px;" type="range" name="range" ng-model="opacityValue" min="0" max="100" ng-change="changeOpacity()"> {{opacityValue}}%</span>
+                        <input style="display: inline-block; width: 100px;" id="opacitiyValueId" type="range" name="range" ng-model="opacityValue"
+                            min="0" max="100" ng-change="changeOpacity()"> {{opacityValue}}%</span>
 
                     <button type="button" title="Compute?" class="compbutton" ng-click="compute()">
                         <i class="fa fa-cogs" aria-hidden="true"></i>
@@ -150,7 +150,9 @@
         <div class="infobox" ng-show="hasInfo">
             {{layerInfo}}
 
-            <button class="copy" ngclipboard="" data-clipboard-text="5a62524a11458b2de4fff342"><i class="fa fa-clipboard" aria-hidden="true"></i></button>
+            <button class="copy" ngclipboard="" data-clipboard-text="5a62524a11458b2de4fff342">
+                <i class="fa fa-clipboard" aria-hidden="true"></i>
+            </button>
         </div>
     </div>
 </div>
