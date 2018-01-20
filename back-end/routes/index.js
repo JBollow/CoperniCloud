@@ -1,4 +1,5 @@
 var express = require('express');
+var gdal = require("gdal");
 var router = express.Router();
 var xml2js = require('xml2js');
 var util = require('util');
@@ -78,7 +79,7 @@ function readMetaData(folderName) {
 
 function searchInTheBoundingBox(minLat, minLng, maxLat, maxLng, objects) {
     var boundingBoxResults = [];
-    
+
     for (let i = 0; i < objects.length; i++) {
         if (objects[i].geometry) {
             //comparing to check whether at least one of the points is inside the bounding box
@@ -115,7 +116,7 @@ router.get('/search', function (req, res) {
     var results = [];
     var coordinateSearch = false;
     var maxLat, maxLng, minLat, minLng;
-    
+
     //query to know whether to start the coordinate search later
     if (req.query.maxLat !== '0' && req.query.minLat !== '0' && req.query.maxLng !== '0' && req.query.minLng !== '0') {
         maxLat = req.query.maxLat;
@@ -305,6 +306,31 @@ router.post('/load', function (req, res) {
     }, function (e, docs) {
         res.json(docs);
     });
+});
+
+/**
+ * Handles coordinates of clicked location to the backend
+ * for use with GDAL
+ */
+router.post('/set_coordinates', function (req, res) {
+
+    var lat = req.body.lat;
+    var lng = req.body.lng;
+
+    // GDAL usage to get valuea t clicked location as in:
+    // https://github.com/naturalatlas/node-gdal/issues/192
+    // var satellite_image = gdal.open(filename); // filename is supposed to point to image variable
+    // var band = satellite_image.bands.get(1);
+    // var coordinateTransform = new gdal.CoordinateTransformation(gdal.SpatialReference.fromEPSG(4326), satellite_image);
+    // var pt = coordinateTransform.transformPoint(lng, lat);
+    // var values_at_click = (band.pixels.get(pt.x, pt.y));
+
+    var values_at_click = "something something";
+
+    var popup_content = {message: "You clicked at " + lat + ", " + lng + ". " +
+        "The values at this location are: " + values_at_click}
+
+    res.send(popup_content);
 });
 
 module.exports = router;
