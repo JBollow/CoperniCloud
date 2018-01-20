@@ -609,19 +609,45 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
     $scope.mouseClick = function () {
         $scope.baseMap.once('click', function (e) {
             console.log(e.latlng);
-            var popup = L.popup.angular({
-                    template: `
-                    <div>
-                        <h1><small>{{$content.title}}</small></h1>
-                        <div>{{$content.lat}} {{$content.lng}}</div>
-                    </div>
-                `,
-                }).setLatLng(e.latlng).setContent({
-                    'lat': e.latlng.lat,
-                    'lng': e.latlng.lng,
-                    'title': 'Popup!'
-                })
-                .openOn($scope.baseMap);
+            var coordToSend = {
+                lat: e.latlng.lat,
+                lng: e.latlng.lng
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "http://localhost:10002/set_coordinates",
+                dataType: 'json',
+                data: coordToSend,
+                success: function (data) {
+                    var popup = L.popup.angular({
+                            template: `
+                        <div>
+                            <h1><small>Hello ;)</small></h1>
+                            <div>{{$content.message}}</div>
+                        </div>
+                    `,
+                        }).setLatLng(e.latlng).setContent({
+                            'lat': e.latlng.lat,
+                            'lng': e.latlng.lng,
+                            'message': data.message
+                        })
+                        .openOn($scope.baseMap);
+                },
+                error: function (message) {
+                    swal({
+                        titel: 'Error',
+                        html: "Something went wrong :( <br>" + message,
+                        type: 'error',
+                        customClass: 'swalCc',
+                        buttonsStyling: false,
+                    });
+                }
+            });
+
+
+
+
 
         });
 
