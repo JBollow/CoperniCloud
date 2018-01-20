@@ -190,7 +190,7 @@ router.post('/sendColorBand', function (req, res) {
     var object = req.body;
 
     // Set our collection
-    var collection = db.get('copernicollection');
+    var collection = db.get('copernicollectioncolorband');
 
     // Submit to the DB
     collection.insert({
@@ -220,7 +220,7 @@ router.post('/sendComputeBand', function (req, res) {
     var object = req.body;
 
     // Set our collection
-    var collection = db.get('copernicollection');
+    var collection = db.get('copernicollectioncomputeband');
 
     // Submit to the DB
     collection.insert({

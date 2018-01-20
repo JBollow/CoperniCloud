@@ -17,7 +17,6 @@ angular.module('coperniCloud').directive('uiSearch', function () {
             $scope.callUpdate = function () {
                 if (!$scope.search) {
                     $scope.search = new UISearch(document.getElementById('sb-search'));
-                    logger.info("Searchbar loaded");
                 }
             };
             $scope.updateInput = function(){

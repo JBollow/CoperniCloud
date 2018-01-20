@@ -76,5 +76,3 @@
     window.classie = classie;
   }
 })(window);
-// JSNLog
-logger.info("Classie loaded");
