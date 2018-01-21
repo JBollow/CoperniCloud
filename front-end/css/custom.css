@@ -897,6 +897,33 @@ table.sentinelTable tfoot td {
     background-color: #0074a1 !important;
 }
 
+.swalCc2 {
+    font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif !important;
+    background-color: rgba(255, 255, 255, 1.0)!important;
+    border: 1px solid black !important;
+    border-radius: 0px !important;
+}
+
+.swalCc2 .swal2-confirm {
+    font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif!important;
+    font-size: 18px!important;
+    font-style: normal!important;
+    font-weight: 100!important;
+    line-height: 20px!important;
+    height: 40px!important;
+    width: 140px!important;
+    margin-top: 20px!important;
+    margin-bottom: 0px!important;
+    padding-top: 0px!important;
+    padding-bottom: 0px!important;
+    color: #fff!important;
+    border: none!important;
+    cursor: pointer!important;
+    border: 1px solid black !important;
+    border-radius: 0px !important;
+    background-color: #008dc5 !important;
+}
+
 .searchRow {
     margin-bottom: 20px;
 }
