@@ -645,20 +645,10 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
                     });
                 }
             });
-
-
-
-
-
         });
 
         // TODO
         // Daten bekommen?
-
-
-        // muss weg ist nur zur demo
-        $scope.isProcessing = true;
-        $scope.hasInfo = true;
     };
 
     /**
