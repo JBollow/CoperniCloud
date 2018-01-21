@@ -459,8 +459,6 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
                 }
             }
 
-            // TODO
-            // ngclipboard klappt nicht im swal?
             $.ajax({
                 type: "POST",
                 url: "http://localhost:10002/save",
@@ -471,7 +469,7 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
                     swal({
                         type: 'success',
                         html: "<p style='font-size: 22px;font-weight: 400;'>Your image was saved to the DB!</P><br><p style='font-size: 18px;font-weight: 400;'>Please take a note of is ID:</p><p style='font-size: 14px;font-weight: 400; color: red;'>(required for loading)</p><br><p style='display: inline;font-size: 20px;font-weight: 1000;' class='saveID'>" + id + "</p>",
-                        customClass: 'swalCc',
+                        customClass: 'swalCc2',
                         showCancelButton: true,
                         cancelButtonText: "Ok",      
                         confirmButtonText: "<i class='fa fa-clipboard' aria-hidden='true'></i>",

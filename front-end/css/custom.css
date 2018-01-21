@@ -910,14 +910,45 @@ table.sentinelTable tfoot td {
     font-style: normal!important;
     font-weight: 100!important;
     line-height: 20px!important;
-    height: 40px!important;
-    width: 140px!important;
+    height: 30px!important;
+    width: 30px!important;
     margin-top: 20px!important;
     margin-bottom: 0px!important;
     padding-top: 0px!important;
     padding-bottom: 0px!important;
     color: #fff!important;
     border: none!important;
+    cursor: pointer!important;
+    border: 1px solid black !important;
+    position: relative;
+    top: -67px;
+    left: 195px;
+    border-radius: 0px !important;
+    background-color: #008dc5 !important;
+}
+
+.swalCc2 .saveID{
+    position: relative;
+    left: -40px;
+}
+
+.swalCc2 .swal2-cancel {
+    font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif!important;
+    font-size: 18px!important;
+    font-style: normal!important;
+    font-weight: 100!important;
+    line-height: 20px!important;
+    height: 40px!important;
+    width: 140px!important;
+    margin-top: 20px!important;
+    margin-bottom: 0px!important;
+    margin-left: 10px!important;
+    padding-top: 0px!important;
+    padding-bottom: 0px!important;
+    color: #fff!important;
+    border: none!important;
+    position: relative;
+    left: -30px;
     cursor: pointer!important;
     border: 1px solid black !important;
     border-radius: 0px !important;
