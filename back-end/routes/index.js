@@ -1,5 +1,4 @@
 var express = require('express');
-var gdal = require("gdal");
 var router = express.Router();
 var xml2js = require('xml2js');
 var util = require('util');
