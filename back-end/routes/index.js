@@ -205,6 +205,10 @@ router.post('/sendColorBand', function (req, res) {
     // Set our collection
     var collection = db.get('copernicollectioncolorband');
 
+    var returnObject = {
+        summary: ""
+    };
+
     // Submit to the DB
     collection.insert({
         object
@@ -214,11 +218,17 @@ router.post('/sendColorBand', function (req, res) {
             // If it failed, return error
             res.send("There was a problem adding the information to the database.");
         } else {
-
+            returnObject.id = doc._id;
             // Or print object id
-            res.send(doc._id);
+            res.send(returnObject);
         }
     });
+
+    // TODO
+    // Hier bitte die Berechnung für die colorbands einfügen
+    // ordnername bitte als doc._id
+    // zusätzlich zu der db id bitte auch die statistic summary zurück schicken
+
 });
 
 /**
@@ -235,6 +245,10 @@ router.post('/sendComputeBand', function (req, res) {
     // Set our collection
     var collection = db.get('copernicollectioncomputeband');
 
+    var returnObject = {
+        summary: ""
+    };
+
     // Submit to the DB
     collection.insert({
         object
@@ -244,11 +258,17 @@ router.post('/sendComputeBand', function (req, res) {
             // If it failed, return error
             res.send("There was a problem adding the information to the database.");
         } else {
-
+            returnObject.id = doc._id;
             // Or print object id
-            res.send(doc._id);
+            res.send(returnObject);
         }
     });
+
+    // TODO
+    // Hier bitte die Berechnung für die computebands einfügen
+    // ordnername bitte als doc._id
+    // zusätzlich zu der db id bitte auch die statistic summary zurück schicken
+
 });
 
 /**
@@ -326,10 +346,16 @@ router.post('/set_coordinates', function (req, res) {
 
     var values_at_click = "something something";
 
-    var popup_content = {message: "You clicked at " + lat + ", " + lng + ". " +
-        "The values at this location are: " + values_at_click}
+    var popup_content = {
+        message: "You clicked at " + lat + ", " + lng + ". " +
+            "The values at this location are: " + values_at_click
+    }
 
     res.send(popup_content);
+
+    // TODO
+    // Hier bitte die Sentinel-2 measurement values ermitteln und als popup_content zurück schicken
+
 });
 
 module.exports = router;

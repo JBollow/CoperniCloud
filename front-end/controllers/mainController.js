@@ -160,8 +160,6 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
             var type = e.layerType,
                 layer = e.layer;
             $scope.boundingbox = e.layer._latlngs;
-
-            // console.log(boundingbox);
             $scope.findCoord($scope.boundingbox);
         });
     };
@@ -439,8 +437,6 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
      */
     $scope.save = function () {
         if ($scope.overlayName) {
-            console.log(boundsData);
-
             var sendData = {
                 tilesServer: tilesServer,
                 folderName: $scope.overlayName,
@@ -452,7 +448,7 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
                 bounds10: boundsData[1][0],
                 bounds11: boundsData[1][1],
             }
-
+            
             console.log(sendData);
             if (tilesServer != "userrequest") {
                 if ($scope.overlayName.includes("MSIL1C")) {
@@ -561,10 +557,11 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
                                 }
                             }
 
-                            var boundsData = [
+                            boundsData = [
                                 [array[0].object.bounds00, array[0].object.bounds01],
                                 [array[0].object.bounds10, array[0].object.bounds11]
                             ]
+
                             $scope.baseMap.fitBounds(boundsData, {
                                 padding: [150, 150]
                             });
@@ -675,6 +672,7 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
             traditional: true,
             cache: false,
             success: function (object) {
+                console.log(object);
                 swal({
                     type: 'success',
                     text: "Calculation done!",
@@ -692,12 +690,8 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
                 folderName = $scope.overlayName;
                 dataType = "";
 
-                // TODO
-                // Hier die ID
-                // $scope.selectedBand = ;
-
-                // Hier die summary statistics
-                // $scope.layerInfo = ;
+                $scope.selectedBand = object.id;
+                $scope.layerInfo = object.summary;
 
                 $scope.baseMap.fitBounds(boundsData, {
                     padding: [150, 150]
