@@ -1003,7 +1003,7 @@ select.band {
     background-image: url(select-arrow.png);
     background-position: right;
     background-repeat: no-repeat;
-    width: 50px;
+    width: 60px;
 }
 
 select.band:hover {

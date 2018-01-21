@@ -474,7 +474,7 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
                     console.log("Object ID: " + id);
                     swal({
                         type: 'success',
-                        html: "<p style='font-size: 22px;font-weight: 400;'>Your image was saved to the DB!</P><br><p style='font-size: 18px;font-weight: 400;'>Please take a note of is ID:</p><p style='font-size: 14px;font-weight: 400; color: red;'>(required for loading)</p><br><p style='display: inline;font-size: 20px;font-weight: 1000;' id='saveID'>" + id + "</p><button class='copy' ngclipboard='' data-clipboard-text='" + id + "'><i class='fa fa-clipboard' aria-hidden='true'></i></button>",                        
+                        html: "<p style='font-size: 22px;font-weight: 400;'>Your image was saved to the DB!</P><br><p style='font-size: 18px;font-weight: 400;'>Please take a note of is ID:</p><p style='font-size: 14px;font-weight: 400; color: red;'>(required for loading)</p><br><p style='display: inline;font-size: 20px;font-weight: 1000;' id='saveID'>" + id + "</p><button class='copy' ngclipboard='' data-clipboard-text='" + id + "'><i class='fa fa-clipboard' aria-hidden='true'></i></button>",
                         customClass: 'swalCc',
                         buttonsStyling: false,
                     });
@@ -550,13 +550,15 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
                                 $scope.baseMap.removeLayer($scope.tilesLayer);
                             }
 
-                            if (array[0].object.folderName.includes("MSIL1C")) {
-                                dataType = "";
-                                $scope.bandOptions = ["B01", "B02", "B03", "B04", "B05", "B06", "B07", "B08", "B8A", "B09", "B10", "B11", "B12", "TCI"];
-                            }
-                            if (array[0].object.folderName.includes("MSIL2A")) {
-                                dataType = "R10m/";
-                                $scope.bandOptions = ["AOT", "B02", "B03", "B04", "B08", "TCI", "WVP"];
+                            if (array[0].object.tilesServer != "userrequest") {
+                                if (array[0].object.folderName.includes("MSIL1C")) {
+                                    dataType = "";
+                                    $scope.bandOptions = ["B01", "B02", "B03", "B04", "B05", "B06", "B07", "B08", "B8A", "B09", "B10", "B11", "B12", "TCI"];
+                                }
+                                if (array[0].object.folderName.includes("MSIL2A")) {
+                                    dataType = "R10m/";
+                                    $scope.bandOptions = ["AOT", "B02", "B03", "B04", "B08", "TCI", "WVP"];
+                                }
                             }
 
                             var boundsData = [
