@@ -672,7 +672,6 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
             traditional: true,
             cache: false,
             success: function (object) {
-                console.log(object);
                 swal({
                     type: 'success',
                     text: "Calculation done!",
@@ -690,8 +689,8 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
                 folderName = $scope.overlayName;
                 dataType = "";
 
-                $scope.selectedBand = object.id;
-                $scope.layerInfo = object.summary;
+                $scope.selectedBand = object._id;
+                $scope.layerInfo = object.object.summary;
 
                 $scope.baseMap.fitBounds(boundsData, {
                     padding: [150, 150]

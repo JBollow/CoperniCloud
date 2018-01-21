@@ -196,38 +196,37 @@ router.get('/search', function (req, res) {
  */
 router.post('/sendColorBand', function (req, res) {
 
+    // TODO
+    // Vor dem berechnen müsste geprüft werden, ob bereits schomal diese operation auf dieses bild ausgeführt wurde, falls ja einfach die vorhandene objektid zurück schicken
+
     // Set our internal DB variable
     var db = req.db;
 
     // Get our object
     var object = req.body;
+        
+    // TODO
+    // Hier bitte die Berechnung für die colorbands einfügen
+    // ordnername bitte als doc._id
+    // bitte summary einfügen
+
+    object.summary = "";
 
     // Set our collection
     var collection = db.get('copernicollectioncolorband');
-
-    var returnObject = {
-        summary: ""
-    };
 
     // Submit to the DB
     collection.insert({
         object
     }, function (err, doc) {
         if (err) {
-
             // If it failed, return error
             res.send("There was a problem adding the information to the database.");
         } else {
-            returnObject.id = doc._id;
             // Or print object id
-            res.send(returnObject);
+            res.send(doc);
         }
     });
-
-    // TODO
-    // Hier bitte die Berechnung für die colorbands einfügen
-    // ordnername bitte als doc._id
-    // zusätzlich zu der db id bitte auch die statistic summary zurück schicken
 
 });
 
@@ -241,13 +240,10 @@ router.post('/sendComputeBand', function (req, res) {
 
     // Get our object
     var object = req.body;
+    object.summary = "";
 
     // Set our collection
     var collection = db.get('copernicollectioncomputeband');
-
-    var returnObject = {
-        summary: ""
-    };
 
     // Submit to the DB
     collection.insert({
@@ -258,16 +254,15 @@ router.post('/sendComputeBand', function (req, res) {
             // If it failed, return error
             res.send("There was a problem adding the information to the database.");
         } else {
-            returnObject.id = doc._id;
             // Or print object id
-            res.send(returnObject);
+            res.send(doc);
         }
     });
 
     // TODO
     // Hier bitte die Berechnung für die computebands einfügen
     // ordnername bitte als doc._id
-    // zusätzlich zu der db id bitte auch die statistic summary zurück schicken
+    // bitte summary einfügen
 
 });
 
