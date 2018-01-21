@@ -191,6 +191,14 @@ router.get('/search', function (req, res) {
     }
 });
 
+function split(arr, n) {
+    var res = [];
+    while (arr.length) {
+        res.push(arr.splice(0, n));
+    }
+    return res;
+}
+
 /**
  * Objects for band color calculations
  */
@@ -204,7 +212,22 @@ router.post('/sendColorBand', function (req, res) {
 
     // Get our object
     var object = req.body;
-        
+
+    var arr = split(object.operations, 4);
+
+    var arrofObjects = [];
+
+    for (i = 0; i < arr.length; i++) {
+        arrofObjects.push({
+            "band": arr[i][0],
+            "color": arr[i][1],
+            "contrast": arr[i][2],
+            "brightness": arr[i][3]
+        });
+    }
+
+    console.log(arrofObjects);
+
     // TODO
     // Hier bitte die Berechnung für die colorbands einfügen
     // ordnername bitte als doc._id
