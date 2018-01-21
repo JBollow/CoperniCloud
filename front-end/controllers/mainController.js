@@ -470,9 +470,26 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
                     console.log("Object ID: " + id);
                     swal({
                         type: 'success',
-                        html: "<p style='font-size: 22px;font-weight: 400;'>Your image was saved to the DB!</P><br><p style='font-size: 18px;font-weight: 400;'>Please take a note of is ID:</p><p style='font-size: 14px;font-weight: 400; color: red;'>(required for loading)</p><br><p style='display: inline;font-size: 20px;font-weight: 1000;' id='saveID'>" + id + "</p><button class='copy' ngclipboard='' data-clipboard-text='" + id + "'><i class='fa fa-clipboard' aria-hidden='true'></i></button>",
+                        html: "<p style='font-size: 22px;font-weight: 400;'>Your image was saved to the DB!</P><br><p style='font-size: 18px;font-weight: 400;'>Please take a note of is ID:</p><p style='font-size: 14px;font-weight: 400; color: red;'>(required for loading)</p><br><p style='display: inline;font-size: 20px;font-weight: 1000;' class='saveID'>" + id + "</p>",
                         customClass: 'swalCc',
+                        showCancelButton: true,
+                        cancelButtonText: "Ok",      
+                        confirmButtonText: "<i class='fa fa-clipboard' aria-hidden='true'></i>",
                         buttonsStyling: false,
+                    }).then((result) => {
+                        if (result.value) {
+                            // a very clever part ;)
+                            var copyDiv = document.createElement('h5');
+                            copyDiv.contentEditable = true;
+                            document.body.appendChild(copyDiv);
+                            copyDiv.innerHTML = id;
+                            copyDiv.unselectable = "off";
+                            copyDiv.focus();
+                            document.execCommand('SelectAll');
+                            document.execCommand("Copy", false, null);
+                            window.getSelection().removeAllRanges();
+                            document.body.removeChild(copyDiv);
+                        }
                     });
                 },
                 error: function (message) {
