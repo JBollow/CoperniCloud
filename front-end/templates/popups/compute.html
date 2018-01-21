@@ -1,0 +1,158 @@
+<div class="row">
+    <div class="modal-header">
+        <h1 class="modal-title">Computeinterface</h1>
+    </div>
+</div>
+
+<div class="row searchRow">
+    <div class="modal-body">
+
+        <div class="col-sm-8 scrollbarDiv">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span ng-repeat="x in terms" class="bluebox" style="display:inline-block;">
+                <span>
+                    <select ng-if="$index>0" ng-model="x.operator">
+                        <option value="+">+</option>
+                        <option value="-">-</option>
+                        <option value="*">&#x00D7;</option>
+                        <option value="/">&#x00F7;</option>
+                    </select>
+                    <select ng-model="x.front">
+                        <option value=""> </option>
+                        <option value="(">(</option>
+                        <option value="root(">&radic;</option>
+                    </select>
+                    <select ng-model="x.band">
+                        <option value="B01">Band 1</option>
+                        <option value="B02">Band 2</option>
+                        <option value="B03">Band 3</option>
+                        <option value="B04">Band 4</option>
+                        <option value="B05">Band 5</option>
+                        <option value="B06">Band 6</option>
+                        <option value="B07">Band 7</option>
+                        <option value="B08">Band 8</option>
+                        <option value="B8A">Band 8A</option>
+                        <option value="B09">Band 9</option>
+                        <option value="B10">Band 10</option>
+                        <option value="B11">Band 11</option>
+                        <option value="B12">Band 12</option>
+                        <option value="TCI">TCI</option>
+                    </select>
+                    <select ng-model="x.back">
+                        <option value=""> </option>
+                        <option value=")">)</option>
+                        <option value=")^2">)²</option>
+                    </select>
+                    <button class="delete" ng-click="deleteff($index)" ng-if="terms.length>1">-</button>
+                    <button class="add_form_field" ng-click="addff()">
+                        <span style="font-size:16px; font-weight:bold;">+</span>
+                    </button>
+                </span>
+            </span>
+        </div>
+
+        <div class="col-sm-4 scrollbarDiv">
+            <table class="sentinelTable">
+                <tbody>
+                    <tr>
+                        <th>Sentinel-2 Bands</th>
+                        <th>Central Wavelength (µm)</th>
+                        <th>Resolution (m)</th>
+                        <th>Bandwidth (nm)</th>
+                    </tr>
+                    <tr>
+                        <td>Band 1 – Coastal aerosol</td>
+                        <td>0.443</td>
+                        <td>60</td>
+                        <td>20</td>
+                    </tr>
+                    <tr>
+                        <td>Band 2 – Blue</td>
+                        <td>0.490</td>
+                        <td>10</td>
+                        <td>65</td>
+                    </tr>
+                    <tr>
+                        <td>Band 3 – Green</td>
+                        <td>0.560</td>
+                        <td>10</td>
+                        <td>35</td>
+                    </tr>
+                    <tr>
+                        <td>Band 4 – Red</td>
+                        <td>0.665</td>
+                        <td>10</td>
+                        <td>30</td>
+                    </tr>
+                    <tr>
+                        <td>Band 5 – Vegetation Red Edge</td>
+                        <td>0.705</td>
+                        <td>20</td>
+                        <td>15</td>
+                    </tr>
+                    <tr>
+                        <td>Band 6 – Vegetation Red Edge</td>
+                        <td>0.740</td>
+                        <td>20</td>
+                        <td>15</td>
+                    </tr>
+                    <tr>
+                        <td>Band 7 – Vegetation Red Edge</td>
+                        <td>0.783</td>
+                        <td>20</td>
+                        <td>20</td>
+                    </tr>
+                    <tr>
+                        <td>Band 8 – NIR</td>
+                        <td>0.842</td>
+                        <td>10</td>
+                        <td>115</td>
+                    </tr>
+                    <tr>
+                        <td>Band 8A – Narrow NIR</td>
+                        <td>0.865</td>
+                        <td>20</td>
+                        <td>20</td>
+                    </tr>
+                    <tr>
+                        <td>Band 9 – Water vapour</td>
+                        <td>0.945</td>
+                        <td>60</td>
+                        <td>20</td>
+                    </tr>
+                    <tr>
+                        <td>Band 10 – SWIR – Cirrus</td>
+                        <td>1.375</td>
+                        <td>60</td>
+                        <td>20</td>
+                    </tr>
+                    <tr>
+                        <td>Band 11 – SWIR</td>
+                        <td>1.610</td>
+                        <td>20</td>
+                        <td>90</td>
+                    </tr>
+                    <tr>
+                        <td>Band 12 – SWIR</td>
+                        <td>2.190</td>
+                        <td>20</td>
+                        <td>180</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="modal-footer">
+        <button class="btn btnleft buttonwhite" type="button" ng-click="ndvi()">NDVI</button>
+        <button class="btn btnleft buttonwhite" type="button" ng-click="ndsi()">NDSI</button>
+        <p style="font-size: 14px; display: inline;">
+            <span ng-repeat="x in terms" style="display:inline;">{{x.operator}} {{x.front}} {{x.band}} {{x.back}} </span>
+        </p>
+        &nbsp;&nbsp;
+        <button class="btn btn-primary buttonwhite" type="button" ng-click="ok()">OK</button>
+        <button class="btn btn-primary buttonwhite" type="button" ng-click="dismiss()">Close</button>
+    </div>
+</div>

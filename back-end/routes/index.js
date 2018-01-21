@@ -36,7 +36,7 @@ fs.readdir(testFolder, (err, files) => {
             // console.log(util.inspect(nameObjects, false, null));
         });
     }
-})
+});
 
 /**
  * Creates an array of objects with metadata of each image
@@ -66,7 +66,7 @@ function readMetaData(folderName) {
                         metadataObjects[i].geometry.eastBoundLng = eastBoundLng,
                             metadataObjects[i].geometry.westBoundLng = westBoundLng,
                             metadataObjects[i].geometry.northBoundLat = northBoundLat,
-                            metadataObjects[i].geometry.southBoundLat = southBoundLat
+                            metadataObjects[i].geometry.southBoundLat = southBoundLat;
                     }
                 }
                 console.log(util.inspect(metadataObjects, false, null));
@@ -76,31 +76,23 @@ function readMetaData(folderName) {
 
 }
 
-/**
- * Searches in the metadata for the coordinates
- */
-router.get('/searchCoordinates', function (req, res) {
-    var results = [];
-    //saving the request parameters
-    var maxLat = req.query.maxLat;
-    var minLat = req.query.minLat;
-    var maxLng = req.query.maxLng;
-    var minLng = req.query.minLng;
-    for (let i = 0; i < metadataObjects.length; i++) {
-        if (metadataObjects[i].geometry) {
+function searchInTheBoundingBox(minLat, minLng, maxLat, maxLng, objects) {
+    var boundingBoxResults = [];
+
+    for (let i = 0; i < objects.length; i++) {
+        if (objects[i].geometry) {
             //comparing to check whether at least one of the points is inside the bounding box
-            if (((metadataObjects[i].geometry.northBoundLat > minLat && metadataObjects[i].geometry.northBoundLat < maxLat) || (metadataObjects[i].geometry.southBoundLat > minLat && metadataObjects[i].geometry.southBoundLat < maxLat)) && ((metadataObjects[i].geometry.westBoundLng > minLng && metadataObjects[i].geometry.westBoundLng < maxLng) || (metadataObjects[i].geometry.eastBoundLng > minLng && metadataObjects[i].geometry.eastBoundLng < maxLng))) {
-                results.push(metadataObjects[i]);
-                console.log(util.inspect(results, false, null));
+            if (((objects[i].geometry.northBoundLat > minLat && objects[i].geometry.northBoundLat < maxLat) || (objects[i].geometry.southBoundLat > minLat && objects[i].geometry.southBoundLat < maxLat)) && ((objects[i].geometry.westBoundLng > minLng && objects[i].geometry.westBoundLng < maxLng) || (objects[i].geometry.eastBoundLng > minLng && objects[i].geometry.eastBoundLng < maxLng))) {
+                boundingBoxResults.push(objects[i]);
+                console.log(util.inspect(boundingBoxResults, false, null));
             }
             //for debugging purposes
             // console.log("bounding box: " + maxLat + " " + minLat + " " + maxLng + " " + minLng);
             // console.log("image bounds: " + northBoundLat + " " + southBoundLat + " " + eastBoundLng + " " + westBoundLng);
         }
-
     }
-    res.json(results);
-})
+    return boundingBoxResults;
+}
 
 /**
  * Helping function to search through the file name
@@ -117,12 +109,23 @@ function arrayContainsArray(big, small) {
 }
 
 /**
- * Searches in the file name
+ * Searches in the file name and coordinates
  */
 router.get('/search', function (req, res) {
     var results = [];
+    var coordinateSearch = false;
+    var maxLat, maxLng, minLat, minLng;
+
+    //query to know whether to start the coordinate search later
+    if (req.query.maxLat !== '0' && req.query.minLat !== '0' && req.query.maxLng !== '0' && req.query.minLng !== '0') {
+        maxLat = req.query.maxLat;
+        minLat = req.query.minLat;
+        maxLng = req.query.maxLng;
+        minLng = req.query.minLng;
+        coordinateSearch = true;
+    }
     //if there's a name to look for
-    if (req.query.name !== 0) {
+    if (req.query.name !== '0') {
         var name = req.query.name.toUpperCase();
         var nameSubstrings = name.replace("_", " ").split(' ');
         for (var i = 0; i < metadataObjects.length; i++) {
@@ -170,12 +173,189 @@ router.get('/search', function (req, res) {
                 }
             }
         }
+        if (coordinateSearch === true) {
+            var fullResults = searchInTheBoundingBox(minLat, minLng, maxLat, maxLng, resultsWithDate);
+            res.json(fullResults);
+        } else {
+            res.json(resultsWithDate);
+        }
         //returning the results when done
-        res.json(resultsWithDate);
     } else {
-        //returning the results with just the name comparison
-        res.json(results);
+        if (coordinateSearch === true) {
+            var fullResults = searchInTheBoundingBox(minLat, minLng, maxLat, maxLng, results);
+            res.json(fullResults);
+        } else {
+            //returning the results with just the name comparison
+            res.json(results);
+        }
     }
-})
+});
+
+/**
+ * Objects for band color calculations
+ */
+router.post('/sendColorBand', function (req, res) {
+
+    // Set our internal DB variable
+    var db = req.db;
+
+    // Get our object
+    var object = req.body;
+
+    // Set our collection
+    var collection = db.get('copernicollectioncolorband');
+
+    var returnObject = {
+        summary: ""
+    };
+
+    // Submit to the DB
+    collection.insert({
+        object
+    }, function (err, doc) {
+        if (err) {
+
+            // If it failed, return error
+            res.send("There was a problem adding the information to the database.");
+        } else {
+            returnObject.id = doc._id;
+            // Or print object id
+            res.send(returnObject);
+        }
+    });
+
+    // TODO
+    // Hier bitte die Berechnung für die colorbands einfügen
+    // ordnername bitte als doc._id
+    // zusätzlich zu der db id bitte auch die statistic summary zurück schicken
+
+});
+
+/**
+ * Objects for band compute calculations
+ */
+router.post('/sendComputeBand', function (req, res) {
+
+    // Set our internal DB variable
+    var db = req.db;
+
+    // Get our object
+    var object = req.body;
+
+    // Set our collection
+    var collection = db.get('copernicollectioncomputeband');
+
+    var returnObject = {
+        summary: ""
+    };
+
+    // Submit to the DB
+    collection.insert({
+        object
+    }, function (err, doc) {
+        if (err) {
+
+            // If it failed, return error
+            res.send("There was a problem adding the information to the database.");
+        } else {
+            returnObject.id = doc._id;
+            // Or print object id
+            res.send(returnObject);
+        }
+    });
+
+    // TODO
+    // Hier bitte die Berechnung für die computebands einfügen
+    // ordnername bitte als doc._id
+    // zusätzlich zu der db id bitte auch die statistic summary zurück schicken
+
+});
+
+/**
+ * Saving a object to the db
+ */
+router.post('/save', function (req, res) {
+
+    // Set our internal DB variable
+    var db = req.db;
+
+    // Get our object
+    var object = req.body;
+
+    // Set our collection
+    var collection = db.get('copernicollection');
+
+    console.log(object);
+
+    // Submit to the DB
+    collection.insert({
+        object
+    }, function (err, doc) {
+        if (err) {
+
+            // If it failed, return error
+            res.send("There was a problem adding the information to the database.");
+        } else {
+
+            // Or print object id
+            res.send(doc._id);
+        }
+    });
+});
+
+/**
+ * Loading a requested object from the db
+ */
+router.post('/load', function (req, res) {
+
+    // Set our internal DB variable
+    var db = req.db;
+
+    // Get our object
+    var object = req.body;
+
+    // Set our collection
+    var collection = db.get('copernicollection');
+
+    console.log(object.id);
+
+    // Query from our DB
+    collection.find({
+        _id: object.id
+    }, function (e, docs) {
+        res.json(docs);
+    });
+});
+
+/**
+ * Handles coordinates of clicked location to the backend
+ * for use with GDAL
+ */
+router.post('/set_coordinates', function (req, res) {
+
+    var lat = req.body.lat;
+    var lng = req.body.lng;
+
+    // GDAL usage to get valuea t clicked location as in:
+    // https://github.com/naturalatlas/node-gdal/issues/192
+    // var satellite_image = gdal.open(filename); // filename is supposed to point to image variable
+    // var band = satellite_image.bands.get(1);
+    // var coordinateTransform = new gdal.CoordinateTransformation(gdal.SpatialReference.fromEPSG(4326), satellite_image);
+    // var pt = coordinateTransform.transformPoint(lng, lat);
+    // var values_at_click = (band.pixels.get(pt.x, pt.y));
+
+    var values_at_click = "something something";
+
+    var popup_content = {
+        message: "You clicked at " + lat + ", " + lng + ". " +
+            "The values at this location are: " + values_at_click
+    }
+
+    res.send(popup_content);
+
+    // TODO
+    // Hier bitte die Sentinel-2 measurement values ermitteln und als popup_content zurück schicken
+
+});
 
 module.exports = router;

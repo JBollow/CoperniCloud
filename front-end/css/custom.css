@@ -111,7 +111,7 @@ p {
     font-style: normal;
     font-weight: 100;
     margin-top: 0px;
-    margin-left: -5px;    
+    margin-left: -5px;
     float: left;
     background-color: #008dc5;
     color: white;
@@ -128,6 +128,116 @@ p {
 }
 
 .advsearch:active {
+    background-color: #008dc5;
+    transform: translateY(0px);
+}
+
+.copy {
+    font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 100;
+    display: inline;
+    margin-left: 10px;
+    background-color: #008dc5;
+    color: white;
+    border: 1px solid black;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+}
+
+.copy:hover {
+    border: none;
+    background-color: #0074a1;
+    color: white;
+}
+
+.copy:active {
+    background-color: #008dc5;
+    transform: translateY(0px);
+}
+
+.compbutton {
+    font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif;
+    font-size: 22px;
+    line-height: 20px;
+    font-style: normal;
+    font-weight: 100;
+    margin-top: -6px;
+    margin-right: -11px;
+    float: right;
+    background-color: #008dc5;
+    color: white;
+    border: 1px solid black;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    padding-top: 2px;
+}
+
+.compbutton:hover {
+    border: none;
+    background-color: #0074a1;
+    color: white;
+}
+
+.compbutton:active {
+    background-color: #008dc5;
+    transform: translateY(0px);
+}
+
+.compbutton2 {
+    font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif;
+    font-size: 22px;
+    line-height: 20px;
+    font-style: normal;
+    font-weight: 100;
+    float: left;
+    background-color: #008dc5;
+    color: white;
+    border: 1px solid black;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    margin-left: -5px;
+}
+
+.compbutton2:hover {
+    border: none;
+    background-color: #0074a1;
+    color: white;
+}
+
+.compbutton2:active {
+    background-color: #008dc5;
+    transform: translateY(0px);
+}
+
+.paintbutton {
+    font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif;
+    font-size: 22px;
+    line-height: 20px;
+    font-style: normal;
+    font-weight: 100;
+    margin-top: -6px;
+    margin-right: -11px;
+    background-color: #008dc5;
+    color: white;
+    border: 1px solid black;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    padding-top: 2px;
+}
+
+.paintbutton:hover {
+    border: none;
+    background-color: #0074a1;
+    color: white;
+}
+
+.paintbutton:active {
     background-color: #008dc5;
     transform: translateY(0px);
 }
@@ -159,6 +269,10 @@ p {
 .buttonwhite:active {
     background-color: #0074a1;
     transform: translateY(2px);
+}
+
+.btnleft {
+    float: left;
 }
 
 .ng-scope {
@@ -352,7 +466,7 @@ input[type="search"].sb-search-input {
     top: 0px;
     left: -5px;
     width: 400px;
-    background: rgba(255, 255, 255, 0.9);
+    background: rgba(255, 255, 255, 0.6);
     ;
     border: 1px solid black;
     padding-left: 10px;
@@ -388,6 +502,42 @@ input[type="search"].sb-search-input {
 
 .extended.ng-show-add-active {
     display: block;
+}
+
+.overlayControl {
+    position: absolute;
+    bottom: 8px;
+    left: 55px;
+    width: 905px;
+    background: rgba(255, 255, 255, 0.6);
+    height: 40px;
+    border: 1px solid black;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    text-align: left;
+    /* color: white; */
+    font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif;
+    font-weight: 100;
+    font-style: normal;
+}
+
+.overlayControl.ng-show-add-active {
+    display: block;
+}
+
+div.helprow {
+    min-height: 40px;
+}
+
+div.helpbuttons {
+    min-height: 40px;
+    padding-left: 5px;
+}
+
+div.helpbuttons2 {
+    min-height: 40px;
+    padding-left: -5px;
 }
 
 
@@ -443,8 +593,8 @@ input[type=text] {
 }
 
 input {
-    background-color: #00b7ff62;
-    color: white;
+    background-color: #fff;
+    color: #000;
 }
 
 input:hover {
@@ -481,7 +631,7 @@ input:hover {
 
 .leaflet-control-layers {
     border-radius: 0px;
-    font-size: 18px;
+    font-size: 16px;
     color: #404040;
     font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif;
     font-weight: 100;
@@ -510,6 +660,15 @@ tr {
 
 .cleantable tbody td {
     height: 100%;
+}
+
+.cleantable2 {
+    border: none;
+    padding: 0px;
+}
+
+.cleantable2 td:first-child {
+    width: 50px;
 }
 
 .searchResultTable,
@@ -552,7 +711,27 @@ div.search {
 
 div.bottom {
     position: absolute;
-    bottom: 0;
+    bottom: 0px;
+}
+
+div.bottom2 {
+    position: absolute;
+    bottom: 48px;
+}
+
+div.bottom3 {
+    position: absolute;
+    bottom: 96px;
+}
+
+div.bottom4 {
+    position: absolute;
+    bottom: 144px;
+}
+
+div.bottom5 {
+    position: absolute;
+    bottom: 192px;
 }
 
 .scrollbarDiv {
@@ -601,7 +780,7 @@ div.bottom {
 }
 
 .hoverTable tr:hover {
-    background-color: #00b7ff62;
+    background-color: #008dc525;
 }
 
 input[type='radio'] {
@@ -629,6 +808,37 @@ input[type='radio']:before {
 
 input[type='radio']:checked:before {
     background: #008dc5;
+}
+
+table.sentinelTable {
+    border-collapse: collapse;
+}
+
+table.sentinelTable td,
+table.sentinelTable th {
+    border: 1px solid #555555;
+    padding: 6px 6px;
+}
+
+table.sentinelTable tbody td {
+    font-size: 12px;
+    font-weight: bold;
+    text-align: left;
+}
+
+table.sentinelTable th {
+    background: #008DC5;
+}
+
+table.sentinelTable th {
+    font-size: 14px;
+    font-weight: bold;
+    color: #FFFFFF;
+    text-align: left;
+}
+
+table.sentinelTable tfoot td {
+    font-size: 13px;
 }
 
 .swalCc {
@@ -662,6 +872,620 @@ input[type='radio']:checked:before {
     background-color: #0074a1 !important;
 }
 
+.swal2-cancel {
+    font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif!important;
+    font-size: 18px!important;
+    font-style: normal!important;
+    font-weight: 100!important;
+    line-height: 20px!important;
+    height: 40px!important;
+    width: 140px!important;
+    margin-top: 20px!important;
+    margin-bottom: 0px!important;
+    margin-left: 10px!important;
+    padding-top: 0px!important;
+    padding-bottom: 0px!important;
+    color: #fff!important;
+    border: none!important;
+    cursor: pointer!important;
+    border: 1px solid black !important;
+    border-radius: 0px !important;
+    background-color: #008dc5 !important;
+}
+
+.swal2-cancel:hover {
+    background-color: #0074a1 !important;
+}
+
 .searchRow {
     margin-bottom: 20px;
+}
+
+.sb-icon-search-help {
+    border: 1px solid black;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    margin: 0;
+    line-height: 40px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.sb-icon-search-help {
+    color: #fff;
+    background: #008dc5;
+    z-index: 90;
+    font-size: 16px;
+    font-family: 'icomoon';
+    font-style: normal;
+    font-weight: 100;
+    font-variant: normal;
+    text-transform: none;
+    -webkit-font-smoothing: antialiased;
+}
+
+.sb-icon-search-help:before {
+    content: "\e000";
+}
+
+.delete {
+    font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 100;
+    padding: 0;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-left: 5px;
+    cursor: pointer;
+    width: 24px;
+    height: 24px;
+    color: white;
+    border: 1px solid black;
+    background-color: #fd1200;
+    margin-right: 0px;
+}
+
+.add_form_field {
+    font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 100;
+    padding: 0;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-bottom: 10px;
+    margin-right: 5px;
+    margin-left: 5px;
+    cursor: pointer;
+    width: 24px;
+    height: 24px;
+    background-color: #008dc5;
+    color: white;
+    border: 1px solid black;
+}
+
+select {
+    font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif;
+    font-size: 16px;
+    font-weight: 1000;
+    border: 1px solid #bbb;
+    padding: .5em;
+    margin-left: 5px;
+    margin-bottom: 10px;
+    background-color: white;
+    background-image: url(select-arrow.png);
+    background-position: right;
+    background-repeat: no-repeat;
+}
+
+select:hover {
+    background-color: #008dc5;
+    color: #fff;
+}
+
+select.band {
+    font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif;
+    font-size: 14px;
+    font-weight: 1000;
+    border: 1px solid #bbb;
+    display: inline-block;
+    padding: 2px;
+    height: 26px;
+    position: relative;
+    bottom: 3px;
+    background-color: white;
+    background-image: url(select-arrow.png);
+    background-position: right;
+    background-repeat: no-repeat;
+    width: 60px;
+}
+
+select.band:hover {
+    background-color: #008dc5;
+    color: #fff;
+}
+
+input[type=range] {
+    -webkit-appearance: none;
+    width: 100%;
+    margin: 0px 0;
+}
+
+input[type=range]:focus {
+    outline: none;
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 15px;
+    cursor: pointer;
+    box-shadow: 0px 0px 0px rgba(0, 0, 0, 0), 0px 0px 0px rgba(13, 13, 13, 0);
+    background: #008dc5;
+    border-radius: 0px;
+    border: 1.1px solid #000000;
+}
+
+input[type=range]::-webkit-slider-thumb {
+    box-shadow: 15px 15px 15px rgba(0, 0, 0, 0), 0px 0px 15px rgba(13, 13, 13, 0);
+    border: 0.1px solid #363535;
+    height: 15px;
+    width: 15px;
+    border-radius: 0px;
+    background: #ffffff;
+    cursor: pointer;
+    -webkit-appearance: none;
+    margin-top: -1.1px;
+}
+
+input[type=range]:focus::-webkit-slider-runnable-track {
+    background: #008dc5;
+}
+
+input[type=range]::-moz-range-track {
+    width: 100%;
+    height: 15px;
+    cursor: pointer;
+    box-shadow: 0px 0px 0px rgba(0, 0, 0, 0), 0px 0px 0px rgba(13, 13, 13, 0);
+    background: #008dc5;
+    border-radius: 0px;
+    border: 1.1px solid #000000;
+}
+
+input[type=range]::-moz-range-thumb {
+    box-shadow: 15px 15px 15px rgba(0, 0, 0, 0), 0px 0px 15px rgba(13, 13, 13, 0);
+    border: 0.1px solid #363535;
+    height: 15px;
+    width: 15px;
+    border-radius: 0px;
+    background: #ffffff;
+    cursor: pointer;
+}
+
+input[type=range]::-ms-track {
+    width: 100%;
+    height: 15px;
+    cursor: pointer;
+    background: transparent;
+    border-color: transparent;
+    color: transparent;
+}
+
+input[type=range]::-ms-fill-lower {
+    background: #008dc5;
+    border: 1.1px solid #000000;
+    border-radius: 0px;
+    box-shadow: 0px 0px 0px rgba(0, 0, 0, 0), 0px 0px 0px rgba(13, 13, 13, 0);
+}
+
+input[type=range]::-ms-fill-upper {
+    background: #008dc5;
+    border: 1.1px solid #000000;
+    border-radius: 0px;
+    box-shadow: 0px 0px 0px rgba(0, 0, 0, 0), 0px 0px 0px rgba(13, 13, 13, 0);
+}
+
+input[type=range]::-ms-thumb {
+    box-shadow: 15px 15px 15px rgba(0, 0, 0, 0), 0px 0px 15px rgba(13, 13, 13, 0);
+    border: 0.1px solid #363535;
+    width: 15px;
+    border-radius: 0px;
+    background: #ffffff;
+    cursor: pointer;
+    height: 15px;
+}
+
+input[type=range]:focus::-ms-fill-lower {
+    background: #008dc5;
+}
+
+input[type=range]:focus::-ms-fill-upper {
+    background: #008dc5;
+}
+
+input[type=range] {
+    -webkit-appearance: none;
+    width: 100%;
+    margin: 0px 0;
+}
+
+input[type=range]:focus {
+    outline: none;
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 15px;
+    cursor: pointer;
+    box-shadow: 0px 0px 0px rgba(0, 0, 0, 0), 0px 0px 0px rgba(13, 13, 13, 0);
+    background: #008dc5;
+    border-radius: 0px;
+    border: 1.1px solid #000000;
+}
+
+input[type=range]::-webkit-slider-thumb {
+    box-shadow: 15px 15px 15px rgba(0, 0, 0, 0), 0px 0px 15px rgba(13, 13, 13, 0);
+    border: 0.1px solid #363535;
+    height: 15px;
+    width: 15px;
+    border-radius: 0px;
+    background: #ffffff;
+    cursor: pointer;
+    -webkit-appearance: none;
+    margin-top: -1.1px;
+}
+
+input[type=range]:focus::-webkit-slider-runnable-track {
+    background: #008dc5;
+}
+
+input[type=range]::-moz-range-track {
+    width: 100%;
+    height: 15px;
+    cursor: pointer;
+    box-shadow: 0px 0px 0px rgba(0, 0, 0, 0), 0px 0px 0px rgba(13, 13, 13, 0);
+    background: #008dc5;
+    border-radius: 0px;
+    border: 1.1px solid #000000;
+}
+
+input[type=range]::-moz-range-thumb {
+    box-shadow: 15px 15px 15px rgba(0, 0, 0, 0), 0px 0px 15px rgba(13, 13, 13, 0);
+    border: 0.1px solid #363535;
+    height: 15px;
+    width: 15px;
+    border-radius: 0px;
+    background: #ffffff;
+    cursor: pointer;
+}
+
+input[type=range]::-ms-track {
+    width: 100%;
+    height: 15px;
+    cursor: pointer;
+    background: transparent;
+    border-color: transparent;
+    color: transparent;
+}
+
+input[type=range]::-ms-fill-lower {
+    background: #008dc5;
+    border: 1.1px solid #000000;
+    border-radius: 0px;
+    box-shadow: 0px 0px 0px rgba(0, 0, 0, 0), 0px 0px 0px rgba(13, 13, 13, 0);
+}
+
+input[type=range]::-ms-fill-upper {
+    background: #008dc5;
+    border: 1.1px solid #000000;
+    border-radius: 0px;
+    box-shadow: 0px 0px 0px rgba(0, 0, 0, 0), 0px 0px 0px rgba(13, 13, 13, 0);
+}
+
+input[type=range]::-ms-thumb {
+    box-shadow: 15px 15px 15px rgba(0, 0, 0, 0), 0px 0px 15px rgba(13, 13, 13, 0);
+    border: 0.1px solid #363535;
+    width: 15px;
+    border-radius: 0px;
+    background: #ffffff;
+    cursor: pointer;
+    height: 15px;
+}
+
+input[type=range]:focus::-ms-fill-lower {
+    background: #008dc5;
+}
+
+input[type=range]:focus::-ms-fill-upper {
+    background: #008dc5;
+}
+
+input[type=range] {
+    -webkit-appearance: none;
+    width: 100%;
+    margin: 0px 0;
+}
+
+input[type=range]:focus {
+    outline: none;
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 15px;
+    cursor: pointer;
+    box-shadow: 0px 0px 0px rgba(0, 0, 0, 0), 0px 0px 0px rgba(13, 13, 13, 0);
+    background: #008dc5;
+    border-radius: 0px;
+    border: 1.1px solid #000000;
+}
+
+input[type=range]::-webkit-slider-thumb {
+    box-shadow: 15px 15px 15px rgba(0, 0, 0, 0), 0px 0px 15px rgba(13, 13, 13, 0);
+    border: 0.1px solid #363535;
+    height: 15px;
+    width: 15px;
+    border-radius: 0px;
+    background: #ffffff;
+    cursor: pointer;
+    -webkit-appearance: none;
+    margin-top: -1.1px;
+}
+
+input[type=range]:focus::-webkit-slider-runnable-track {
+    background: #008dc5;
+}
+
+input[type=range]::-moz-range-track {
+    width: 100%;
+    height: 15px;
+    cursor: pointer;
+    box-shadow: 0px 0px 0px rgba(0, 0, 0, 0), 0px 0px 0px rgba(13, 13, 13, 0);
+    background: #008dc5;
+    border-radius: 0px;
+    border: 1.1px solid #000000;
+}
+
+input[type=range]::-moz-range-thumb {
+    box-shadow: 15px 15px 15px rgba(0, 0, 0, 0), 0px 0px 15px rgba(13, 13, 13, 0);
+    border: 0.1px solid #363535;
+    height: 15px;
+    width: 15px;
+    border-radius: 0px;
+    background: #ffffff;
+    cursor: pointer;
+}
+
+input[type=range]::-ms-track {
+    width: 100%;
+    height: 15px;
+    cursor: pointer;
+    background: transparent;
+    border-color: transparent;
+    color: transparent;
+}
+
+input[type=range]::-ms-fill-lower {
+    background: #008dc5;
+    border: 1.1px solid #000000;
+    border-radius: 0px;
+    box-shadow: 0px 0px 0px rgba(0, 0, 0, 0), 0px 0px 0px rgba(13, 13, 13, 0);
+}
+
+input[type=range]::-ms-fill-upper {
+    background: #008dc5;
+    border: 1.1px solid #000000;
+    border-radius: 0px;
+    box-shadow: 0px 0px 0px rgba(0, 0, 0, 0), 0px 0px 0px rgba(13, 13, 13, 0);
+}
+
+input[type=range]::-ms-thumb {
+    box-shadow: 15px 15px 15px rgba(0, 0, 0, 0), 0px 0px 15px rgba(13, 13, 13, 0);
+    border: 0.1px solid #363535;
+    width: 15px;
+    border-radius: 0px;
+    background: #ffffff;
+    cursor: pointer;
+    height: 15px;
+}
+
+input[type=range]:focus::-ms-fill-lower {
+    background: #008dc5;
+}
+
+input[type=range]:focus::-ms-fill-upper {
+    background: #008dc5;
+}
+
+
+/* The container */
+
+.checkcontainer {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 0px;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+
+/* Hide the browser's default checkbox */
+
+.checkcontainer input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+
+/* Create a custom checkbox */
+
+.checkmark {
+    position: absolute;
+    top: 2px;
+    left: -2px;
+    height: 24px;
+    width: 24px;
+    background-color: #eee;
+}
+
+
+/* On mouse-over, add a grey background color */
+
+.checkcontainer:hover input~.checkmark {
+    background-color: #ccc;
+}
+
+
+/* When the checkbox is checked, add a blue background */
+
+.checkcontainer input:checked~.checkmark {
+    background-color: #2196F3;
+}
+
+
+/* Create the checkmark/indicator (hidden when not checked) */
+
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+
+/* Show the checkmark when checked */
+
+.checkcontainer input:checked~.checkmark:after {
+    display: block;
+}
+
+
+/* Style the checkmark/indicator */
+
+.checkcontainer .checkmark:after {
+    left: 9px;
+    top: 5px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+.bluebox {
+    background-color: #008dc525;
+    padding-top: 10px;
+    padding-left: 5px;
+    margin-right: 5px;
+    margin-bottom: 5px
+}
+
+option.inred {
+    background-color: rgb(210, 70, 70);
+}
+
+option.ingreen {
+    background-color: rgb(70, 210, 70);
+}
+
+option.inblue {
+    background-color: rgb(70, 70, 210);
+}
+
+option.ingrey {
+    background-color: rgb(117, 117, 117);
+}
+
+.loader {
+    border: 11px solid rgba(0, 0, 20, 0.25);
+    border-radius: 50%;
+    border-top: 11px solid #3498db;
+    width: 56px;
+    height: 56px;
+    -webkit-animation: spin 2s linear infinite;
+    /* Safari */
+    animation: spin 2s linear infinite;
+}
+
+
+/* Safari */
+
+@-webkit-keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+div.processing {
+    position: absolute;
+    bottom: 10px;
+    right: 50px;
+    z-index: 500;
+    width: 161px;
+    height: 64px;
+    padding: 2px;
+    background-color: rgba(255, 255, 255, 0.6);
+    border: 2px solid rgba(0, 0, 20, 0.25);
+}
+
+h4 {
+    font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 500;
+    color: #404040;
+    z-index: 500;
+    /* position: relative;
+    bottom: -10px; */
+}
+
+.leaflet-control-attribution {
+    position: absolute;
+    bottom: -99px;
+}
+
+.leaflet-control-zoom {
+    border-radius: 0px;
+}
+
+div.infobox {
+    position: absolute;
+    bottom: 80px;
+    right: 10px;
+    z-index: 500;
+    width: 201px;
+    height: 148px;
+    padding: 2px;
+    background-color: rgba(255, 255, 255, 0.6);
+    border: 2px solid rgba(0, 0, 20, 0.25);
+}
+
+.leaflet-popup-content-wrapper {
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.8);
 }
