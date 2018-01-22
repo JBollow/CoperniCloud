@@ -22,7 +22,7 @@ coperniCloud.controller('bandColorController', function ($scope, $uibModalInstan
             sendData.operations.push(newArray[i][2]);
             sendData.operations.push(newArray[i][3]);
         }
-
+        console.log(sendData);
         $uibModalInstance.close(sendData);
         $uibModalInstance.dismiss('ok');
     };

@@ -191,42 +191,46 @@ router.get('/search', function (req, res) {
     }
 });
 
-function split(arr, n) {
-    var res = [];
-    while (arr.length) {
-        res.push(arr.splice(0, n));
-    }
-    return res;
-}
-
 /**
  * Objects for band color calculations
  */
 router.post('/sendColorBand', function (req, res) {
 
     // TODO
-    // Vor dem berechnen müsste geprüft werden, ob bereits schomal diese operation auf dieses bild ausgeführt wurde, falls ja einfach die vorhandene objektid zurück schicken
+    // Vor dem berechnen müsste geprüft werden, ob bereits schomal diese operation auf dieses bild ausgeführt wurde, falls ja einfach die vorhandene objektid zurück schicken    
 
     // Set our internal DB variable
     var db = req.db;
 
     // Get our object
     var object = req.body;
+    var helpobject = req.body;
 
-    var arr = split(object.operations, 4);
+    console.log("object");
+    console.log(object);
 
     var arrofObjects = [];
+    var counter = helpobject.operations.length;
 
-    for (i = 0; i < arr.length; i++) {
-        arrofObjects.push({
-            "band": arr[i][0],
-            "color": arr[i][1],
-            "contrast": arr[i][2],
-            "brightness": arr[i][3]
-        });
-    }
+    console.log("counter")
+    console.log(counter);
 
+    console.log("helpobject.operations[0]");
+    console.log(helpobject.operations[0]);
+
+    // for (i = 0; i < 12; i + 4) {
+    //     arrofObjects.push({
+    //         "band": i,
+    //         "color": i + 1,
+    //         "contrast": i + 2,
+    //         "brightness": i + 3
+    //     });
+    // }
+
+    console.log("arrofObjects");
     console.log(arrofObjects);
+    console.log("object");
+    console.log(object);
 
     // TODO
     // Hier bitte die Berechnung für die colorbands einfügen

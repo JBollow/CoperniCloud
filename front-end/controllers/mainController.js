@@ -722,7 +722,7 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 sweetAlert('Oops...', 'Something went wrong!', 'error');
-                $scope.hasInfo = true;
+                $scope.hasInfo = false;
                 $scope.isProcessing = false;
             },
             timeout: 3000
