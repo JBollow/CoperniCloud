@@ -67,8 +67,8 @@ coperniCloud.controller('bandColorController', function ($scope, $uibModalInstan
 
     // Adding more bands to the expression
     $scope.terms = [{
-        band: '',
-        color: '',
+        band: 'B01',
+        color: 'greyscale',
         contrastValue: 128,
         brightnessValue: 128
     }];
@@ -76,8 +76,8 @@ coperniCloud.controller('bandColorController', function ($scope, $uibModalInstan
     $scope.addcf = function () {
         if ($scope.terms.length < 11) {
             $scope.terms.push({
-                band: '',
-                color: '',
+         band: 'B01',
+        color: 'greyscale',
                 contrastValue: 128,
                 brightnessValue: 128
             });
