@@ -10,21 +10,7 @@
         <div class="col-sm-8 scrollbarDiv">
             <div ng-repeat="x in terms">
                 <span>
-                    <select ng-model="x.band">
-                        <option value="B01">Band 1</option>
-                        <option value="B02">Band 2</option>
-                        <option value="B03">Band 3</option>
-                        <option value="B04">Band 4</option>
-                        <option value="B05">Band 5</option>
-                        <option value="B06">Band 6</option>
-                        <option value="B07">Band 7</option>
-                        <option value="B08">Band 8</option>
-                        <option value="B8A">Band 8A</option>
-                        <option value="B09">Band 9</option>
-                        <option value="B10">Band 10</option>
-                        <option value="B11">Band 11</option>
-                        <option value="B12">Band 12</option>
-                        <option value="TCI">TCI</option>
+                    <select ng-options="b for b in bandOptions" ng-model="x.band">
                     </select>
                     <p style="font-size: 14px; display: inline;">&nbsp;in</p>
                     <select ng-model="x.color">
@@ -155,10 +141,10 @@
 
 <div class="row">
     <div class="modal-footer">
-        <button class="btn btnleft buttonwhite" type="button" ng-click="trueColor()">TRUE COLOR</button>
+        <button class="btn btnleft buttonwhite" type="button" ng-click="trueColor()" ng-show="imageType1C">TRUE COLOR</button>
         <button class="btn btnleft buttonwhite" type="button" ng-click="falseColor()">False color</button>
-        <button class="btn btnleft buttonwhite" type="button" ng-click="shortWaveInfrared()">Short-wave Infrared</button>
-        <button class="btn btnleft buttonwhite" type="button" ng-click="nearInfrared()">Near Infrared</button>
+        <button class="btn btnleft buttonwhite" type="button" ng-click="shortWaveInfrared()" ng-show="imageType1C">Short-wave Infrared</button>
+        <button class="btn btnleft buttonwhite" type="button" ng-click="nearInfrared()" ng-show="imageType1C">Near Infrared</button>
         <p style="font-size: 14px; display: inline;">
             <span ng-repeat="x in terms" style="display:inline;">{{x.band}} {{x.color}} {{x.contrastValue}} {{x.brightnessValue}} </span>
         </p>
