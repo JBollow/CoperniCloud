@@ -6,9 +6,9 @@ var parser = new xml2js.Parser();
 
 // const testFolder = '';
 // Jan-Patrick
-const testFolder = 'Y:/OneDrive/Dokumente/Uni/Uni Münster/WS17/Geosoft 2/Projekt/Testdaten/opt/sentinel2';
+// const testFolder = 'Y:/OneDrive/Dokumente/Uni/Uni Münster/WS17/Geosoft 2/Projekt/Testdaten/opt/sentinel2';
 // Anna
-// const testFolder = 'F:/Dokumente/Uni/WS_2017/Geosoft2/Testdaten/opt/sentinel2';
+const testFolder = 'F:/Dokumente/Uni/WS_2017/Geosoft2/Testdaten/opt/sentinel2';
 
 //filesearch
 const fs = require('fs');
@@ -353,6 +353,8 @@ router.post('/set_coordinates', function (req, res) {
 
     var lat = req.body.lat;
     var lng = req.body.lng;
+    var fileName = req.body.fileName;
+    var band = req.body.band;
 
     // GDAL usage to get valuea t clicked location as in:
     // https://github.com/naturalatlas/node-gdal/issues/192
@@ -366,6 +368,7 @@ router.post('/set_coordinates', function (req, res) {
 
     var popup_content = {
         message: "You clicked at " + lat + ", " + lng + ". " +
+        "filename and band: " + fileName + " " + band +
             "The values at this location are: " + values_at_click
     }
 

@@ -624,7 +624,9 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
             console.log(e.latlng);
             var coordToSend = {
                 lat: e.latlng.lat,
-                lng: e.latlng.lng
+                lng: e.latlng.lng,
+                fileName: $scope.overlayName,
+                band: $scope.selectedBand
             }
 
             $.ajax({
