@@ -206,36 +206,17 @@ router.post('/sendColorBand', function (req, res) {
     var object = req.body;
     var helpobject = req.body;
 
-    console.log("object");
-    console.log(object);
-
     var arrofObjects = [];
     var counter = helpobject.operations.length;
 
-    console.log("counter")
-    console.log(counter);
-
-    console.log("helpobject.operations[0]");
-    console.log(helpobject.operations[0]);
-
-    // for (i = 0; i < 12; i + 4) {
-    //     arrofObjects.push({
-    //         "band": i,
-    //         "color": i + 1,
-    //         "contrast": i + 2,
-    //         "brightness": i + 3
-    //     });
-    // }
-
-    console.log("arrofObjects");
-    console.log(arrofObjects);
-    console.log("object");
-    console.log(object);
-
-    // TODO
-    // Hier bitte die Berechnung für die colorbands einfügen
-    // ordnername bitte als doc._id
-    // bitte summary einfügen
+    for (i = 0; i < counter; i = i + 4) {
+        arrofObjects.push({
+            "band": helpobject.operations[i],
+            "color": helpobject.operations[i + 1],
+            "contrast": helpobject.operations[i + 2],
+            "brightness": helpobject.operations[i + 3]
+        });
+    }
 
     object.summary = "";
 
@@ -254,7 +235,6 @@ router.post('/sendColorBand', function (req, res) {
             res.send(doc);
         }
     });
-
 });
 
 /**
