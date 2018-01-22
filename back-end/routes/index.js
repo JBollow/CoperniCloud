@@ -6,9 +6,9 @@ var parser = new xml2js.Parser();
 
 // const testFolder = '';
 // Jan-Patrick
-// const testFolder = 'Y:/OneDrive/Dokumente/Uni/Uni Münster/WS17/Geosoft 2/Projekt/Testdaten/opt/sentinel2';
+const testFolder = 'Y:/OneDrive/Dokumente/Uni/Uni Münster/WS17/Geosoft 2/Projekt/Testdaten/opt/sentinel2';
 // Anna
-const testFolder = 'F:/Dokumente/Uni/WS_2017/Geosoft2/Testdaten/opt/sentinel2';
+// const testFolder = 'F:/Dokumente/Uni/WS_2017/Geosoft2/Testdaten/opt/sentinel2';
 
 //filesearch
 const fs = require('fs');
@@ -191,47 +191,32 @@ router.get('/search', function (req, res) {
     }
 });
 
-function split(arr, n) {
-    var res = [];
-    while (arr.length) {
-        res.push(arr.splice(0, n));
-    }
-    return res;
-}
-
 /**
  * Objects for band color calculations
  */
 router.post('/sendColorBand', function (req, res) {
 
     // TODO
-    // Vor dem berechnen müsste geprüft werden, ob bereits schomal diese operation auf dieses bild ausgeführt wurde, falls ja einfach die vorhandene objektid zurück schicken
+    // Vor dem berechnen müsste geprüft werden, ob bereits schomal diese operation auf dieses bild ausgeführt wurde, falls ja einfach die vorhandene objektid zurück schicken    
 
     // Set our internal DB variable
     var db = req.db;
 
     // Get our object
     var object = req.body;
-
-    var arr = split(object.operations, 4);
+    var helpobject = req.body;
 
     var arrofObjects = [];
+    var counter = helpobject.operations.length;
 
-    for (i = 0; i < arr.length; i++) {
+    for (i = 0; i < counter; i = i + 4) {
         arrofObjects.push({
-            "band": arr[i][0],
-            "color": arr[i][1],
-            "contrast": arr[i][2],
-            "brightness": arr[i][3]
+            "band": helpobject.operations[i],
+            "color": helpobject.operations[i + 1],
+            "contrast": helpobject.operations[i + 2],
+            "brightness": helpobject.operations[i + 3]
         });
     }
-
-    console.log(arrofObjects);
-
-    // TODO
-    // Hier bitte die Berechnung für die colorbands einfügen
-    // ordnername bitte als doc._id
-    // bitte summary einfügen
 
     object.summary = "";
 
@@ -250,7 +235,6 @@ router.post('/sendColorBand', function (req, res) {
             res.send(doc);
         }
     });
-
 });
 
 /**
@@ -353,8 +337,6 @@ router.post('/set_coordinates', function (req, res) {
 
     var lat = req.body.lat;
     var lng = req.body.lng;
-    var fileName = req.body.fileName;
-    var band = req.body.band;
 
     // GDAL usage to get valuea t clicked location as in:
     // https://github.com/naturalatlas/node-gdal/issues/192
@@ -368,7 +350,6 @@ router.post('/set_coordinates', function (req, res) {
 
     var popup_content = {
         message: "You clicked at " + lat + ", " + lng + ". " +
-        "filename and band: " + fileName + " " + band +
             "The values at this location are: " + values_at_click
     }
 
