@@ -378,7 +378,12 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
             animation: true,
             templateUrl: '../templates/popups/compute.html',
             controller: 'computeController',
-            size: 'lg'
+            size: 'lg',
+            resolve: {
+                data: function () {
+                    return $scope.overlayName;
+                }
+            }
         });
 
         //for when the modal is closed
@@ -399,7 +404,12 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
             animation: true,
             templateUrl: '../templates/popups/bandColor.html',
             controller: 'bandColorController',
-            size: 'lg'
+            size: 'lg',
+            resolve: {
+                data: function () {
+                    return $scope.overlayName;
+                }
+            }
         });
 
         //for when the modal is closed

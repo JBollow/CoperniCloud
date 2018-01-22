@@ -22,21 +22,7 @@
                         <option value="(">(</option>
                         <option value="root(">&radic;</option>
                     </select>
-                    <select ng-model="x.band">
-                        <option value="B01">Band 1</option>
-                        <option value="B02">Band 2</option>
-                        <option value="B03">Band 3</option>
-                        <option value="B04">Band 4</option>
-                        <option value="B05">Band 5</option>
-                        <option value="B06">Band 6</option>
-                        <option value="B07">Band 7</option>
-                        <option value="B08">Band 8</option>
-                        <option value="B8A">Band 8A</option>
-                        <option value="B09">Band 9</option>
-                        <option value="B10">Band 10</option>
-                        <option value="B11">Band 11</option>
-                        <option value="B12">Band 12</option>
-                        <option value="TCI">TCI</option>
+                    <select ng-options="b for b in bandOptions" ng-model="x.band">
                     </select>
                     <select ng-model="x.back">
                         <option value=""> </option>
@@ -146,8 +132,8 @@
 
 <div class="row">
     <div class="modal-footer">
-        <button class="btn btnleft buttonwhite" type="button" ng-click="ndvi()">NDVI</button>
-        <button class="btn btnleft buttonwhite" type="button" ng-click="ndsi()">NDSI</button>
+        <button class="btn btnleft buttonwhite" type="button" ng-click="ndvi()" ng-show="imageType1C">NDVI</button>
+        <button class="btn btnleft buttonwhite" type="button" ng-click="ndsi()" ng-show="imageType1C">NDSI</button>
         <p style="font-size: 14px; display: inline;">
             <span ng-repeat="x in terms" style="display:inline;">{{x.operator}} {{x.front}} {{x.band}} {{x.back}} </span>
         </p>
