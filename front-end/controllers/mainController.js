@@ -471,7 +471,7 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
                         html: "<p style='font-size: 22px;font-weight: 400;'>Your image was saved to the DB!</P><br><p style='font-size: 18px;font-weight: 400;'>Please take a note of is ID:</p><p style='font-size: 14px;font-weight: 400; color: red;'>(required for loading)</p><br><p style='display: inline;font-size: 20px;font-weight: 1000;' class='saveID'>" + id + "</p>",
                         customClass: 'swalCc2',
                         showCancelButton: true,
-                        cancelButtonText: "Ok",      
+                        cancelButtonText: "Ok",
                         confirmButtonText: "<i class='fa fa-clipboard' aria-hidden='true'></i>",
                         buttonsStyling: false,
                     }).then((result) => {
@@ -620,47 +620,59 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
      * with controller?
      */
     $scope.mouseClick = function () {
-        $scope.baseMap.once('click', function (e) {
-            console.log(e.latlng);
-            var coordToSend = {
-                lat: e.latlng.lat,
-                lng: e.latlng.lng
-            }
-
-            $.ajax({
-                type: "POST",
-                url: "http://localhost:10002/set_coordinates",
-                dataType: 'json',
-                data: coordToSend,
-                success: function (data) {
-                    var popup = L.popup.angular({
-                            template: `
-                        <div>
-                            <h1><small>Hello ;)</small></h1>
-                            <div>{{$content.message}}</div>
-                        </div>
-                    `,
-                        }).setLatLng(e.latlng).setContent({
-                            'lat': e.latlng.lat,
-                            'lng': e.latlng.lng,
-                            'message': data.message
-                        })
-                        .openOn($scope.baseMap);
-                },
-                error: function (message) {
-                    swal({
-                        titel: 'Error',
-                        html: "Something went wrong :( <br>" + message,
-                        type: 'error',
-                        customClass: 'swalCc',
-                        buttonsStyling: false,
-                    });
-                }
+        if (tilesServer === "userrequest") {
+            swal({
+                html: "Only for the original sentinel imagery :/",
+                type: 'info',
+                customClass: 'swalCc',
+                buttonsStyling: false,
             });
-        });
+        } else {
+            $scope.baseMap.once('click', function (e) {
+                console.log(e.latlng);
+                var coordToSend = {
+                    lat: e.latlng.lat,
+                    lng: e.latlng.lng,
+                    fileName: $scope.overlayName,
+                    band: $scope.selectedBand
+                }
 
-        // TODO
-        // Daten bekommen?
+                $.ajax({
+                    type: "POST",
+                    url: "http://localhost:10002/set_coordinates",
+                    dataType: 'json',
+                    data: coordToSend,
+                    success: function (data) {
+                        var popup = L.popup.angular({
+                                template: `
+                            <div>
+                                <h1><small>Hello ;)</small></h1>
+                                <div>{{$content.message}}</div>
+                            </div>
+                        `,
+                            }).setLatLng(e.latlng).setContent({
+                                'lat': e.latlng.lat,
+                                'lng': e.latlng.lng,
+                                'message': data.message
+                            })
+                            .openOn($scope.baseMap);
+                    },
+                    error: function (message) {
+                        swal({
+                            titel: 'Error',
+                            html: "Something went wrong :( <br>" + message,
+                            type: 'error',
+                            customClass: 'swalCc',
+                            buttonsStyling: false,
+                        });
+                    }
+                });
+            });
+
+            // TODO
+            // Daten bekommen?
+        }
+
     };
 
     /**
