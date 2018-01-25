@@ -69,7 +69,7 @@ function readMetaData(folderName) {
                             metadataObjects[i].geometry.southBoundLat = southBoundLat;
                     }
                 }
-                console.log(util.inspect(metadataObjects, false, null));
+                // console.log(util.inspect(metadataObjects, false, null));
             });
         }
     });
@@ -195,44 +195,69 @@ router.get('/search', function (req, res) {
  * Objects for band color calculations
  */
 router.post('/sendColorBand', function (req, res) {
-
-    // TODO
-    // Vor dem berechnen müsste geprüft werden, ob bereits schomal diese operation auf dieses bild ausgeführt wurde, falls ja einfach die vorhandene objektid zurück schicken    
-
     // Set our internal DB variable
     var db = req.db;
-
-    // Get our object
-    var object = req.body;
-    var helpobject = req.body;
-
-    var arrofObjects = [];
-    var counter = helpobject.operations.length;
-
-    for (i = 0; i < counter; i = i + 4) {
-        arrofObjects.push({
-            "band": helpobject.operations[i],
-            "color": helpobject.operations[i + 1],
-            "contrast": helpobject.operations[i + 2],
-            "brightness": helpobject.operations[i + 3]
-        });
-    }
-
-    object.summary = "";
 
     // Set our collection
     var collection = db.get('copernicollectioncolorband');
 
-    // Submit to the DB
-    collection.insert({
-        object
-    }, function (err, doc) {
+    // Get our object
+    var object = req.body;
+
+    // Checks if this userrequest was already rendered
+    collection.findOne({
+        'object.operations': object.operations,
+        'object.image': object.image
+    }, function (err, document) {
         if (err) {
-            // If it failed, return error
-            res.send("There was a problem adding the information to the database.");
+            // If something failed in finding any object
+            res.send("There was a problem with the database.");
         } else {
-            // Or print object id
-            res.send(doc);
+            if (document) {
+                // If the same object was found in the DB
+                res.send(document);
+            } else {
+                // Submit to the DB if there isn't an object like this already
+                collection.insert({
+                    object
+                }, function (err, doc) {
+                    if (err) {
+                        // If it failed, return error
+                        res.send("There was a problem adding the information to the database.");
+                    } else {
+
+                        // Helpobject and array for calculations
+                        var helpobject = req.body;
+                        var arrofObjects = [];
+                        var counter = helpobject.operations.length;
+                        for (i = 0; i < counter; i = i + 4) {
+                            arrofObjects.push({
+                                "band": helpobject.operations[i],
+                                "color": helpobject.operations[i + 1],
+                                "contrast": helpobject.operations[i + 2],
+                                "brightness": helpobject.operations[i + 3]
+                            });
+                        }
+
+                        // TODO
+                        // @Timm
+                        // hier kommt dein funktionsaufruf dein ajax oder was du brauchst
+                        // bitte mit der doc._id arbeiten
+                        console.log(doc._id);
+                        // als return muss nur die summary kommen, die dann bitte hier einfügen
+
+                        var summary = "";
+
+                        // Creates new object to update the DB with the summary
+                        var newObject = doc;
+                        newObject.object.summary = summary;
+                        collection.update(doc._id, newObject);
+
+                        // Sends back the object
+                        res.send(doc);
+                    }
+                });
+            }
         }
     });
 });
@@ -241,36 +266,58 @@ router.post('/sendColorBand', function (req, res) {
  * Objects for band compute calculations
  */
 router.post('/sendComputeBand', function (req, res) {
-
     // Set our internal DB variable
     var db = req.db;
-
-    // Get our object
-    var object = req.body;
-    object.summary = "";
 
     // Set our collection
     var collection = db.get('copernicollectioncomputeband');
 
-    // Submit to the DB
-    collection.insert({
-        object
-    }, function (err, doc) {
-        if (err) {
+    // Get our object
+    var object = req.body;
 
-            // If it failed, return error
-            res.send("There was a problem adding the information to the database.");
+    // Checks if this userrequest was already rendered
+    collection.findOne({
+        'object.operations': object.operations,
+        'object.image': object.image
+    }, function (err, document) {
+        if (err) {
+            // If something failed in finding any object
+            res.send("There was a problem with the database.");
         } else {
-            // Or print object id
-            res.send(doc);
+            if (document) {
+                // If the same object was found in the DB
+                res.send(document);
+            } else {
+                // Submit to the DB if there isn't an object like this already
+                collection.insert({
+                    object
+                }, function (err, doc) {
+                    if (err) {
+                        // If it failed, return error
+                        res.send("There was a problem adding the information to the database.");
+                    } else {
+
+                        // TODO
+                        // @Timm
+                        // hier kommt dein funktionsaufruf dein ajax oder was du brauchst
+                        // bitte mit der doc._id arbeiten
+                        console.log(doc._id);
+                        // als return muss nur die summary kommen, die dann bitte hier einfügen
+
+                        var summary = "";
+
+                        // Creates new object to update the DB with the summary
+                        var newObject = doc;
+                        newObject.object.summary = summary;
+                        collection.update(doc._id, newObject);
+
+                        // Sends back the object
+                        res.send(doc);
+                    }
+                });
+            }
         }
     });
-
-    // TODO
-    // Hier bitte die Berechnung für die computebands einfügen
-    // ordnername bitte als doc._id
-    // bitte summary einfügen
-
 });
 
 /**
@@ -338,13 +385,10 @@ router.post('/set_coordinates', function (req, res) {
     var lat = req.body.lat;
     var lng = req.body.lng;
 
-    // GDAL usage to get valuea t clicked location as in:
-    // https://github.com/naturalatlas/node-gdal/issues/192
-    // var satellite_image = gdal.open(filename); // filename is supposed to point to image variable
-    // var band = satellite_image.bands.get(1);
-    // var coordinateTransform = new gdal.CoordinateTransformation(gdal.SpatialReference.fromEPSG(4326), satellite_image);
-    // var pt = coordinateTransform.transformPoint(lng, lat);
-    // var values_at_click = (band.pixels.get(pt.x, pt.y));
+
+    // TODO
+    // Hier bitte die Sentinel-2 measurement values ermitteln und als popup_content zurück schicken
+
 
     var values_at_click = "something something";
 
@@ -354,10 +398,6 @@ router.post('/set_coordinates', function (req, res) {
     }
 
     res.send(popup_content);
-
-    // TODO
-    // Hier bitte die Sentinel-2 measurement values ermitteln und als popup_content zurück schicken
-
 });
 
 module.exports = router;
