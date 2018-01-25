@@ -3,6 +3,7 @@ var router = express.Router();
 var xml2js = require('xml2js');
 var util = require('util');
 var parser = new xml2js.Parser();
+var unirest = require('unirest');
 
 // const testFolder = '';
 // Jan-Patrick
@@ -243,18 +244,40 @@ router.post('/sendColorBand', function (req, res) {
                         // @Timm
                         // hier kommt dein funktionsaufruf dein ajax oder was du brauchst
                         // bitte mit der doc._id arbeiten
-                        console.log(doc._id);
                         // als return muss nur die summary kommen, die dann bitte hier einfügen
 
-                        var summary = "";
+                        var pythonUrl = "";
+                        var sendData = {
+                            "id": doc._id,
+                            "name": doc.object.image,
+                            "operations": arrofObjects
+                        };
 
-                        // Creates new object to update the DB with the summary
-                        var newObject = doc;
-                        newObject.object.summary = summary;
-                        collection.update(doc._id, newObject);
+                        unirest.post(pythonUrl)
+                            .headers({
+                                'Accept': 'application/json',
+                                'Content-Type': 'application/json'
+                            })
+                            .send(sendData)
+                            .end(function (response) {
+                                console.log(response);
+                                if (response.error) {
+                                    collection.remove(doc);
+                                    res.send("There was a problem calculating the image.");
+                                } else {
+                                    // Wenn die response ein object ist?
+                                    var summary = response.summary;
 
-                        // Sends back the object
-                        res.send(doc);
+                                    // Creates new object to update the DB with the summary
+                                    var newObject = doc;
+                                    newObject.object.summary = summary;
+                                    collection.update(doc._id, newObject);
+
+                                    // Sends back the object
+                                    res.send(doc);
+                                }
+
+                            });
                     }
                 });
             }
@@ -301,18 +324,38 @@ router.post('/sendComputeBand', function (req, res) {
                         // @Timm
                         // hier kommt dein funktionsaufruf dein ajax oder was du brauchst
                         // bitte mit der doc._id arbeiten
-                        console.log(doc._id);
                         // als return muss nur die summary kommen, die dann bitte hier einfügen
 
-                        var summary = "";
+                        var pythonUrl = "";
+                        var sendData = {
+                            "id": doc._id,
+                            "name": doc.object.image,
+                            "operations": doc.object.operations
+                        };
 
-                        // Creates new object to update the DB with the summary
-                        var newObject = doc;
-                        newObject.object.summary = summary;
-                        collection.update(doc._id, newObject);
+                        unirest.post(pythonUrl)
+                            .headers({
+                                'Accept': 'application/json',
+                                'Content-Type': 'application/json'
+                            })
+                            .send(sendData)
+                            .end(function (response) {
+                                if (response.error) {
+                                    collection.remove(doc);
+                                    res.send("There was a problem calculating the image.");
+                                } else {
+                                    // Wenn die response ein object ist?
+                                    var summary = response.summary;
 
-                        // Sends back the object
-                        res.send(doc);
+                                    // Creates new object to update the DB with the summary
+                                    var newObject = doc;
+                                    newObject.object.summary = summary;
+                                    collection.update(doc._id, newObject);
+
+                                    // Sends back the object
+                                    res.send(doc);
+                                }
+                            });
                     }
                 });
             }
@@ -333,8 +376,6 @@ router.post('/save', function (req, res) {
 
     // Set our collection
     var collection = db.get('copernicollection');
-
-    console.log(object);
 
     // Submit to the DB
     collection.insert({
@@ -366,8 +407,6 @@ router.post('/load', function (req, res) {
     // Set our collection
     var collection = db.get('copernicollection');
 
-    console.log(object.id);
-
     // Query from our DB
     collection.find({
         _id: object.id
@@ -384,20 +423,39 @@ router.post('/set_coordinates', function (req, res) {
 
     var lat = req.body.lat;
     var lng = req.body.lng;
-
+    var values_at_click = "Something went wrong :(";
+    var popup_content = {};
 
     // TODO
-    // Hier bitte die Sentinel-2 measurement values ermitteln und als popup_content zurück schicken
+    // Hier bitte die Sentinel-2 measurement values ermitteln und zurück schicken
 
+    var pythonUrl = "";
 
-    var values_at_click = "something something";
-
-    var popup_content = {
-        message: "You clicked at " + lat + ", " + lng + ". " +
-            "The values at this location are: " + values_at_click
-    }
-
-    res.send(popup_content);
+    unirest.post(pythonUrl)
+        .headers({
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        })
+        .send({
+            "lat": lat,
+            "lng": lng
+        })
+        .end(function (response) {
+            if (response.error) {
+                popup_content = {
+                    message: "You clicked at " + Math.round(lat * 10000) / 10000 + ", " + Math.round(lng * 10000) / 10000 + ". " +
+                        "The values at this location are: " + values_at_click
+                }
+                res.send(popup_content);
+            } else {
+                values_at_click = response;
+                opup_content = {
+                    message: "You clicked at " + Math.round(lat * 10000) / 10000 + ", " + Math.round(lng * 10000) / 10000 + ". " +
+                        "The values at this location are: " + values_at_click
+                }
+                res.send(popup_content);
+            }
+        });
 });
 
 module.exports = router;

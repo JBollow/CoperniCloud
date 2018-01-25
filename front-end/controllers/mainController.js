@@ -626,11 +626,9 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
 
     /**
      * Returns the original senitel2 measurement values in a leaflet popup 
-     * https://github.com/grantHarris/leaflet-popup-angular
-     * with controller?
      */
     $scope.mouseClick = function () {
-        if (tilesServer === "userrequest") {
+        if (tilesServer != "tiles") {
             swal({
                 html: "Only for the original sentinel imagery :/",
                 type: 'info',
@@ -655,9 +653,8 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
                     success: function (data) {
                         var popup = L.popup.angular({
                                 template: `
-                            <div>
-                                <h1><small>Hello ;)</small></h1>
-                                <div>{{$content.message}}</div>
+                            <div>                                
+                                <div><p style="font-size: 16px;line-height: 20px;">{{$content.message}}</p></div>
                             </div>
                         `,
                             }).setLatLng(e.latlng).setContent({
@@ -670,7 +667,7 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
                     error: function (message) {
                         swal({
                             titel: 'Error',
-                            html: "Something went wrong :( <br>" + message,
+                            html: "Something went wrong :( <br>",
                             type: 'error',
                             customClass: 'swalCc',
                             buttonsStyling: false,
@@ -678,9 +675,6 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
                     }
                 });
             });
-
-            // TODO
-            // Daten bekommen?
         }
 
     };
@@ -743,8 +737,8 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
                 $scope.thereIsAnOverlay = true;
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
-                sweetAlert('Oops...', 'Something went wrong!', 'error');
-                $scope.hasInfo = true;
+                sweetAlert('Oops...', XMLHttpRequest.responseText, 'error');
+                $scope.hasInfo = false;
                 $scope.isProcessing = false;
             },
             timeout: 3000
