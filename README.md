@@ -26,6 +26,7 @@ A basic one-page app with a map to decide whether we want to use AngularJS or no
 
 - python gdal: `pip install GDAL`
 - numpy: `pip install numpy`
+- bottle: `pip install bottle`
 
 ## Installation
 
