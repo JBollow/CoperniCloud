@@ -5,7 +5,7 @@ var util = require('util');
 var parser = new xml2js.Parser();
 var unirest = require('unirest');
 
-const pyServer = "http://localhost:8088"
+const pyServerURL = "http://localhost:8088"
 
 // const testFolder = '';
 // Jan-Patrick
