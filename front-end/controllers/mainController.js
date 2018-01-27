@@ -637,43 +637,54 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
             });
         } else {
             $scope.baseMap.once('click', function (e) {
+                console.log(boundsData);
                 console.log(e.latlng);
-                var coordToSend = {
-                    lat: e.latlng.lat,
-                    lng: e.latlng.lng,
-                    fileName: $scope.overlayName,
-                    band: $scope.selectedBand
-                }
-
-                $.ajax({
-                    type: "POST",
-                    url: "http://localhost:10002/set_coordinates",
-                    dataType: 'json',
-                    data: coordToSend,
-                    success: function (data) {
-                        var popup = L.popup.angular({
-                                template: `
-                            <div>                                
-                                <div><p style="font-size: 16px;line-height: 20px;">{{$content.message}}</p></div>
-                            </div>
-                        `,
-                            }).setLatLng(e.latlng).setContent({
-                                'lat': e.latlng.lat,
-                                'lng': e.latlng.lng,
-                                'message': data.message
-                            })
-                            .openOn($scope.baseMap);
-                    },
-                    error: function (message) {
-                        swal({
-                            titel: 'Error',
-                            html: "Something went wrong :( <br>",
-                            type: 'error',
-                            customClass: 'swalCc',
-                            buttonsStyling: false,
-                        });
+                //has to be where the image is!
+                if (e.latlng.lat < boundsData[0][0] && e.latlng.lat > boundsData[1][0] && e.latlng.lng < boundsData[0][1] && e.latlng.lng > boundsData[1][1]) {
+                    var coordToSend = {
+                        lat: e.latlng.lat,
+                        lng: e.latlng.lng,
+                        fileName: $scope.overlayName,
+                        band: $scope.selectedBand
                     }
-                });
+
+                    $.ajax({
+                        type: "POST",
+                        url: "http://localhost:10002/set_coordinates",
+                        dataType: 'json',
+                        data: coordToSend,
+                        success: function (data) {
+                            var popup = L.popup.angular({
+                                    template: `
+                                <div>                                
+                                    <div><p style="font-size: 16px;line-height: 20px;">{{$content.message}}</p></div>
+                                </div>
+                            `,
+                                }).setLatLng(e.latlng).setContent({
+                                    'lat': e.latlng.lat,
+                                    'lng': e.latlng.lng,
+                                    'message': data.message
+                                })
+                                .openOn($scope.baseMap);
+                        },
+                        error: function (message) {
+                            swal({
+                                titel: 'Error',
+                                html: "Something went wrong :( <br>",
+                                type: 'error',
+                                customClass: 'swalCc',
+                                buttonsStyling: false,
+                            });
+                        }
+                    });
+                } else {
+                    swal({
+                        html: "Please click on the image :) <br>",
+                        type: 'info',
+                        customClass: 'swalCc',
+                        buttonsStyling: false,
+                    });
+                }
             });
         }
 
