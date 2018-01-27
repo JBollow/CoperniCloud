@@ -9,6 +9,10 @@ back-end/.idea/
 back-end/npm-debug.log
 back-end/data/
 
+#python stuff
+py_imgProcessing/__pycache__
+py_imgProcessing/bottle-0.12.13
+
 .idea/
 
 # locally generated tiles (redundant)
