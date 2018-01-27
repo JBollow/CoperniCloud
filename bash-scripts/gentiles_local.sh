@@ -8,7 +8,7 @@ for folder in */; do
         for file in ./*.jp2; do
             echo "generate tiles for $file"
             sfile="${file%.*}"
-            gdal2tiles.py -z 3-8 ./"${file##*/}" Y:/Downloads/Test/tiles/"$folder"/"${sfile: -3}"/ &
+            gdal2tiles.py -z 3-13 ./"${file##*/}" Y:/Downloads/Test/tiles/"$folder"/"${sfile: -3}"/ &
         done
         wait
     done
