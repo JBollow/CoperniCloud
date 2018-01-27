@@ -24,22 +24,48 @@ def edit_band (instructions, bandPaths):
     
     band = None
     
-    if  instructions.band == "B01"  : band = gdal.Open(bandPaths[0])
-    if  instructions.band == "B02"  : band = gdal.Open(bandPaths[1])
-    if  instructions.band == "B03"  : band = gdal.Open(bandPaths[2])
-    if  instructions.band == "B04"  : band = gdal.Open(bandPaths[3])
-    if  instructions.band == "B05"  : band = gdal.Open(bandPaths[4])
-    if  instructions.band == "B06"  : band = gdal.Open(bandPaths[5])
-    if  instructions.band == "B07"  : band = gdal.Open(bandPaths[6])
-    if  instructions.band == "B08"  : band = gdal.Open(bandPaths[7])
-    if  instructions.band == "B8A"  : band = gdal.Open(bandPaths[8])
-    if  instructions.band == "B09"  : band = gdal.Open(bandPaths[9])
-    if  instructions.band == "B10"  : band = gdal.Open(bandPaths[10])
-    if  instructions.band == "B11"  : band = gdal.Open(bandPaths[11])
-    if  instructions.band == "B12"  : band = gdal.Open(bandPaths[12])
+    if  instructions['band'] == "B01"  : 
+        band = gdal.Open(bandPaths[0])
+        band = band.GetRasterBand(1).ReadAsArray(0,0,band.RasterXSize, band.RasterYSize)
+    if  instructions['band'] == "B02"  : 
+        band = gdal.Open(bandPaths[1])
+        band = band.GetRasterBand(1).ReadAsArray(0,0,band.RasterXSize, band.RasterYSize)
+    if  instructions['band'] == "B03"  : 
+        band = gdal.Open(bandPaths[2])
+        band = band.GetRasterBand(1).ReadAsArray(0,0,band.RasterXSize, band.RasterYSize)
+    if  instructions['band'] == "B04"  : 
+        band = gdal.Open(bandPaths[3])
+        band = band.GetRasterBand(1).ReadAsArray(0,0,band.RasterXSize, band.RasterYSize)
+    if  instructions['band'] == "B05"  : 
+        band = gdal.Open(bandPaths[4])
+        band = band.GetRasterBand(1).ReadAsArray(0,0,band.RasterXSize, band.RasterYSize)
+    if  instructions['band'] == "B06"  : 
+        band = gdal.Open(bandPaths[5])
+        band = band.GetRasterBand(1).ReadAsArray(0,0,band.RasterXSize, band.RasterYSize)
+    if  instructions['band'] == "B07"  : 
+        band = gdal.Open(bandPaths[6])
+        band = band.GetRasterBand(1).ReadAsArray(0,0,band.RasterXSize, band.RasterYSize)
+    if  instructions['band'] == "B08"  : 
+        band = gdal.Open(bandPaths[7])
+        band = band.GetRasterBand(1).ReadAsArray(0,0,band.RasterXSize, band.RasterYSize)
+    if  instructions['band'] == "B8A"  : 
+        band = gdal.Open(bandPaths[8])
+        band = band.GetRasterBand(1).ReadAsArray(0,0,band.RasterXSize, band.RasterYSize)
+    if  instructions['band'] == "B09"  : 
+        band = gdal.Open(bandPaths[9])
+        band = band.GetRasterBand(1).ReadAsArray(0,0,band.RasterXSize, band.RasterYSize)
+    if  instructions['band'] == "B10"  : 
+        band = gdal.Open(bandPaths[10])
+        band = band.GetRasterBand(1).ReadAsArray(0,0,band.RasterXSize, band.RasterYSize)
+    if  instructions['band'] == "B11"  : 
+        band = gdal.Open(bandPaths[11])
+        band = band.GetRasterBand(1).ReadAsArray(0,0,band.RasterXSize, band.RasterYSize)
+    if  instructions['band'] == "B12"  : 
+        band = gdal.Open(bandPaths[12])
+        band = band.GetRasterBand(1).ReadAsArray(0,0,band.RasterXSize, band.RasterYSize)
     
-    band = change_brightness(band, instructions.brightness)
-    band = change_contrast(band, instructions.constrast)
+    band = change_brightness(band, instructions['brightness'])
+    band = change_contrast(band, instructions['contrast'])
     
     return band
 
@@ -49,10 +75,10 @@ def edit_band (instructions, bandPaths):
 
 def change_brightness(img, level):
     # create a summand (which may be negative) and scale to 16bit int
-    summand = int(level/255 * 65536) - (65536/2)
+    summand = int(int(level)/255 * 65536) - (65536/2)
     
     # add summand to each pixel, thus in-/decreasing its numeric value
-    brightnessAdjustedBand = img + summand
+    brightnessAdjustedBand = np.add(img, summand)
     
     # establish minimum and maximum values for black and white at 0 -- 65536 using logical ops for each pixel
     brightnessAdjustedBand[ brightnessAdjustedBand<0 ]= 0
@@ -70,7 +96,7 @@ def change_brightness(img, level):
 def change_contrast(img, level):
     
     # create a factor by which to adjust each pixel
-    factor = (256 * (level+255)) / (255 * (256-level))
+    factor = (256 * (int(level)+255)) / (255 * (256-int(level)))
 
     # calculate new contrast adjusted band from original image
     contrastAdjustedBand = factor * (img-np.mean(img)) + np.mean(img)
@@ -101,19 +127,45 @@ def arithmeticCombination (bandPaths, equation):
     
     B01,B02,B03,B04,B05,B06,B07,B08,B8A,B09,B10,B11,B12 = None
     
-    if "B01" in equation : B01 = gdal.Open(bandPaths[0])
-    if "B02" in equation : B02 = gdal.Open(bandPaths[1])
-    if "B03" in equation : B03 = gdal.Open(bandPaths[2])
-    if "B04" in equation : B04 = gdal.Open(bandPaths[3])
-    if "B05" in equation : B05 = gdal.Open(bandPaths[4])
-    if "B06" in equation : B06 = gdal.Open(bandPaths[5])
-    if "B07" in equation : B07 = gdal.Open(bandPaths[6])
-    if "B08" in equation : B08 = gdal.Open(bandPaths[7])
-    if "B8A" in equation : B8A = gdal.Open(bandPaths[8])
-    if "B09" in equation : B09 = gdal.Open(bandPaths[9])
-    if "B10" in equation : B10 = gdal.Open(bandPaths[10])
-    if "B11" in equation : B11 = gdal.Open(bandPaths[11])
-    if "B12" in equation : B12 = gdal.Open(bandPaths[12])
+    if "B01" in equation : 
+        B01 = gdal.Open(bandPaths[0])
+        B01 = B01.GetRasterBand(1).ReadAsArray(0,0,B01.RasterXSize, B01.RasterYSize)
+    if "B02" in equation : 
+        B02 = gdal.Open(bandPaths[1])
+        B02 = B02.GetRasterBand(1).ReadAsArray(0,0,B02.RasterXSize, B02.RasterYSize)
+    if "B03" in equation : 
+        B03 = gdal.Open(bandPaths[2])
+        B03 = B03.GetRasterBand(1).ReadAsArray(0,0,B03.RasterXSize, B03.RasterYSize)
+    if "B04" in equation : 
+        B04 = gdal.Open(bandPaths[3])
+        B04 = B04.GetRasterBand(1).ReadAsArray(0,0,B04.RasterXSize, B04.RasterYSize)
+    if "B05" in equation : 
+        B05 = gdal.Open(bandPaths[4])
+        B05 = B05.GetRasterBand(1).ReadAsArray(0,0,B05.RasterXSize, B05.RasterYSize)
+    if "B06" in equation : 
+        B06 = gdal.Open(bandPaths[5])
+        B06 = B06.GetRasterBand(1).ReadAsArray(0,0,B06.RasterXSize,B06.RasterYSize)
+    if "B07" in equation : 
+        B07 = gdal.Open(bandPaths[6])
+        band = band.GetRasterBand(1).ReadAsArray(0,0,band.RasterXSize, band.RasterYSize)
+    if "B08" in equation : 
+        B08 = gdal.Open(bandPaths[7])
+        B08 = B08.GetRasterBand(1).ReadAsArray(0,0,B08.RasterXSize, B08.RasterYSize)
+    if "B8A" in equation : 
+        B8A = gdal.Open(bandPaths[8])
+        band = band.GetRasterBand(1).ReadAsArray(0,0,band.RasterXSize, band.RasterYSize)
+    if "B09" in equation : 
+        B09 = gdal.Open(bandPaths[9])
+        band = band.GetRasterBand(1).ReadAsArray(0,0,band.RasterXSize, band.RasterYSize)
+    if "B10" in equation : 
+        B10 = gdal.Open(bandPaths[10])
+        band = band.GetRasterBand(1).ReadAsArray(0,0,band.RasterXSize, band.RasterYSize)
+    if "B11" in equation : 
+        B11 = gdal.Open(bandPaths[11])
+        band = band.GetRasterBand(1).ReadAsArray(0,0,band.RasterXSize, band.RasterYSize)
+    if "B12" in equation : 
+        B12 = gdal.Open(bandPaths[12])
+        band = band.GetRasterBand(1).ReadAsArray(0,0,band.RasterXSize, band.RasterYSize)
     
     newBand = eval(equation)
     newBand = np.nan_to_num(newBand)

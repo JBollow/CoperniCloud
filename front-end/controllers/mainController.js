@@ -759,7 +759,7 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
                 $scope.hasInfo = false;
                 $scope.isProcessing = false;
             },
-            timeout: 3000
+            timeout: 0
         });
     };
 }]);

@@ -5,7 +5,7 @@ var util = require('util');
 var parser = new xml2js.Parser();
 var unirest = require('unirest');
 
-const pyServer = "http://localhost:8088"
+const pyServerURL = "http://localhost:8088"
 
 // const testFolder = '';
 // Jan-Patrick
@@ -240,17 +240,16 @@ router.post('/sendColorBand', function (req, res) {
                                 "contrast": helpobject.operations[i + 2],
                                 "brightness": helpobject.operations[i + 3]
                             });
-                        }
-
+                        }                       
 
                         var pythonUrl = pyServerURL + "/create_new_image";
                         var sendData = {
                             "id": doc._id,
-                            "name": doc.object.image,
+                            "image": doc.object.image,
                             "operations": arrofObjects
                         };
 
-                        unirest.post(pythonUrl)
+                        unirest.get(pythonUrl)
                             .headers({
                                 'Accept': 'application/json',
                                 'Content-Type': 'application/json'
