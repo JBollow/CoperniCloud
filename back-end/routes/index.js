@@ -5,6 +5,8 @@ var util = require('util');
 var parser = new xml2js.Parser();
 var unirest = require('unirest');
 
+const pyServer = "http://localhost:8088"
+
 // const testFolder = '';
 // Jan-Patrick
 const testFolder = 'Y:/OneDrive/Dokumente/Uni/Uni Münster/WS17/Geosoft 2/Projekt/Testdaten/opt/sentinel2';
@@ -240,13 +242,8 @@ router.post('/sendColorBand', function (req, res) {
                             });
                         }
 
-                        // TODO
-                        // @Timm
-                        // hier kommt dein funktionsaufruf dein ajax oder was du brauchst
-                        // bitte mit der doc._id arbeiten
-                        // als return muss nur die summary kommen, die dann bitte hier einfügen
 
-                        var pythonUrl = "";
+                        var pythonUrl = pyServerURL + "/create_new_image";
                         var sendData = {
                             "id": doc._id,
                             "name": doc.object.image,
@@ -320,13 +317,7 @@ router.post('/sendComputeBand', function (req, res) {
                         res.send("There was a problem adding the information to the database.");
                     } else {
 
-                        // TODO
-                        // @Timm
-                        // hier kommt dein funktionsaufruf dein ajax oder was du brauchst
-                        // bitte mit der doc._id arbeiten
-                        // als return muss nur die summary kommen, die dann bitte hier einfügen
-
-                        var pythonUrl = "";
+                        var pythonUrl = pyServerURL + "/arithmetic_band_combination";
                         var sendData = {
                             "id": doc._id,
                             "name": doc.object.image,
@@ -426,10 +417,7 @@ router.post('/set_coordinates', function (req, res) {
     var values_at_click = "Something went wrong :(";
     var popup_content = {};
 
-    // TODO
-    // Hier bitte die Sentinel-2 measurement values ermitteln und zurück schicken
-
-    var pythonUrl = "";
+    var pythonUrl = pyServerURL + "/get_point_info";
 
     unirest.post(pythonUrl)
         .headers({

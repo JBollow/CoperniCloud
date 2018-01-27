@@ -18,14 +18,8 @@ float32 = np.float32
 geotiff = gdal.GetDriverByName('GTiff')
 
 @route('/')
-@route('/sth')
 def meta(x='NA'):
     return '<b>This is a simple python server, set up using the Bottle framework.</b>'
-
-
-@route('/hello/<name>')
-def index(name):
-    return template('<b>Hello {{name}}! {{doShizzles}}</b>!', name=name, doShizzles=img_ops.doShizzles(name))
 
 
 @route('/create_new_image')
@@ -175,7 +169,7 @@ def get_summary_statistics():
     
     img_ops.getSummaryStatistics()
 
-run(host='localhost', port=8080)
+run(host='localhost', port=8088)
 
 # helper functions to handle Band- and Image requests
 
@@ -247,12 +241,3 @@ def makeColorInterpretationSettingNumeric(instructions):
     if instructionSet.color == "alpha": instructionSet.color = 6
     return instructionSet
 
-#print(bandIDsToFileNames("S2B_MSIL1C_20171010T163309_N0205_R083_T15QYF_20171010T164025.SAFE"))
-
-    
-# =============================================================================
-#     someJSON = json.dumps([{'attribute': 'value'}, {'fuck': ['off', 'a duck']}], separators=(',',':'))
-#     print(someJSON)
-#     print(json.dumps(someJSON, sort_keys=True, indent=4, separators=(',',':')))
-#     return someJSON
-# =============================================================================

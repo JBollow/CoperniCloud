@@ -16,19 +16,6 @@ import json
 float32 = np.float32
 geotiff = gdal.GetDriverByName('GTiff')
 
-#### !!!!!
-#### Output directory ist Request ID
-#### /opt/userRequest/[ObjectID]/   mit GDAL2Tiles
-#### gdal2tiles aus OS aufrufen, nicht trivial aus script ohne os.system()
-
-#### response beinhaltet Summary Statistics !!! 
-#### generieren bei // vor Speicherung als JSON-Objekt
-
-#### NDVI ist genau 1 Band, daraus direkt TMS, summary statistics
-
-#### zoom level 3-9 synchron, dann response DONE incl summary
-#### zoom 10-12 asychron, egal wann fertig. 
-
 #######################################
 ############ Edit Band ################
 #######################################
@@ -191,11 +178,3 @@ def maskPixels (imgBand, logicOp):
 
 
 ##########################################
-
-
-# band variables; maybe baby!?
-# red, nir = map(gdal.Open, argv[1:3])
-
-def doShizzles(x):
-    theShizzles = '<small>The shizzles be wack, yo. Believe that, %s!!</small>' % (x)
-    return theShizzles
