@@ -274,7 +274,7 @@ router.post('/sendColorBand', function (req, res) {
                                     collection.update(doc._id, newObject);
 
                                     // Sends back the object
-                                    res.send(doc);
+                                    res.send(newObject);
                                 }
 
                             });
@@ -353,7 +353,7 @@ router.post('/sendComputeBand', function (req, res) {
                                     collection.update(doc._id, newObject);
 
                                     // Sends back the object
-                                    res.send(doc);
+                                    res.send(newObject);
                                 }
                             });
                     }

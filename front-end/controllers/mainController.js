@@ -16,9 +16,16 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
     var dataType = "";
     var tilesServer;
     var bandType = "TCI";
-    var serverUrl = "http://gis-bigdata:12015/";
     var boundsData;
     var userRequestName;
+
+    var backendUrl = "http://localhost:10002";
+    // Tilesserver
+    // // Uni VPN
+    // var serverUrl = "http://gis-bigdata:12015/";
+    // Local
+    var serverUrl = "http://127.0.0.1:8887/";
+    
 
     //the map
     angular.extend($scope, {
@@ -214,7 +221,7 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
         }
 
         $.ajax({
-            url: 'http://localhost:10002/search',
+            url: backendUrl + "/search",
             type: 'get',
             data: {
                 name: name,
@@ -471,7 +478,7 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
 
             $.ajax({
                 type: "POST",
-                url: "http://localhost:10002/save",
+                url: backendUrl + "/save",
                 dataType: 'json',
                 data: sendData,
                 success: function (id) {
@@ -550,7 +557,7 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
                     };
                     $.ajax({
                         type: "POST",
-                        url: "http://localhost:10002/load",
+                        url: backendUrl + "/load",
                         dataType: 'json',
                         data: sendId,
                         success: function (array) {
@@ -708,7 +715,7 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
 
         $.ajax({
             type: "POST",
-            url: "http://localhost:10002/" + type,
+            url: backendUrl + "/" + type,
             dataType: 'json',
             data: sendData,
             traditional: true,
