@@ -21,7 +21,14 @@ A basic one-page app with a map to decide whether we want to use AngularJS or no
 
 - nodemon: `npm install -g nodemon`
 
+- python 3.5.x oder höher
+- gdal 2.1 oder höher
+
+- python gdal: `pip install GDAL`
+- numpy: `pip install numpy`
+
 ## Installation
 
 1. Install the server: `npm install`
 2. Start the server: `nodemon app`
+3. Start the Python Bottle server: `python bottle_server.py`
