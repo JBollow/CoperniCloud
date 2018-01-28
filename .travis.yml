@@ -14,10 +14,12 @@ python:
 before_install:
   - sudo apt-get -qq update -y
   - sudo apt-get install python3-pip -y
-  - sudo apt-get install libgdal1-dev -y
+  - sudo apt-get install libgdal-dev -y
+  - export CPLUS_INCLUDE_PATH=/usr/include/gdal
+  - export C_INCLUDE_PATH=/usr/include/gdal
 
 install:
-  - pip install gdal bottle numpy
+  - pip install GDAL bottle numpy
   - . install.sh
 
 script:
