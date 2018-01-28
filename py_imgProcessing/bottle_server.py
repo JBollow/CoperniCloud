@@ -204,9 +204,9 @@ def arithmetic_band_combination():
     tmpFile = tmpPath + req['id'] + ".tif"
 
     # read one band to get metadata, i.e. GeoTransform and Projection
-    metaBand = gdal.Open(bands[0])
+    metaBand = gdal.Open(bands[1])
 
-    newImageObject = geotiff.CreateCopy(tmpFile, metaBand, 0)
+    # newImageObject = geotiff.CreateCopy(tmpFile, metaBand, 0)
     newImageObject = geotiff.Create(
         tmpFile,
         metaBand.RasterXSize, metaBand.RasterYSize,
@@ -226,7 +226,7 @@ def arithmetic_band_combination():
 
     os.popen("gdal2tiles.py --profile=mercator -z 3-13 \"" +
               tmpFile + "\" \"" + tilePath + "\" ")
-    # subprocess.call("gdal2tiles.py --profile=mercator -z 10-13 \"" + tmpFile + "\" \"" + tilePath + "\" ")
+    #subprocess.run(["gdal2tiles.py", "--profile=mercator", "-z 10-13", tmpFile, tilePath])
 
     response.headers['Content-Type'] = 'application/json'
     response.headers['Cache-Control'] = 'no-cache'

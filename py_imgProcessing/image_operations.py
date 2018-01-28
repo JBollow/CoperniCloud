@@ -160,25 +160,25 @@ def arithmeticCombination (bandPaths, equation):
         B06 = B06.GetRasterBand(1).ReadAsArray(0,0,B06.RasterXSize,B06.RasterYSize)
     if "B07" in equation : 
         B07 = gdal.Open(bandPaths[6])
-        band = band.GetRasterBand(1).ReadAsArray(0,0,band.RasterXSize, band.RasterYSize)
+        B07 = B07.GetRasterBand(1).ReadAsArray(0,0,B07.RasterXSize, B07.RasterYSize)
     if "B08" in equation : 
         B08 = gdal.Open(bandPaths[7])
         B08 = B08.GetRasterBand(1).ReadAsArray(0,0,B08.RasterXSize, B08.RasterYSize)
     if "B8A" in equation : 
         B8A = gdal.Open(bandPaths[8])
-        band = band.GetRasterBand(1).ReadAsArray(0,0,band.RasterXSize, band.RasterYSize)
+        B8A = B8A.GetRasterBand(1).ReadAsArray(0,0,B8A.RasterXSize, B8A.RasterYSize)
     if "B09" in equation : 
         B09 = gdal.Open(bandPaths[9])
-        band = band.GetRasterBand(1).ReadAsArray(0,0,band.RasterXSize, band.RasterYSize)
+        B09 = B09.GetRasterBand(1).ReadAsArray(0,0,B09.RasterXSize, B09.RasterYSize)
     if "B10" in equation : 
         B10 = gdal.Open(bandPaths[10])
-        band = band.GetRasterBand(1).ReadAsArray(0,0,band.RasterXSize, band.RasterYSize)
+        B10 = B10.GetRasterBand(1).ReadAsArray(0,0,B10.RasterXSize, B10.RasterYSize)
     if "B11" in equation : 
         B11 = gdal.Open(bandPaths[11])
-        band = band.GetRasterBand(1).ReadAsArray(0,0,band.RasterXSize, band.RasterYSize)
+        B11 = B11.GetRasterBand(1).ReadAsArray(0,0,B11.RasterXSize, B11.RasterYSize)
     if "B12" in equation : 
         B12 = gdal.Open(bandPaths[12])
-        band = band.GetRasterBand(1).ReadAsArray(0,0,band.RasterXSize, band.RasterYSize)
+        B12 = B12.GetRasterBand(1).ReadAsArray(0,0,B12.RasterXSize, B12.RasterYSize)
     
     newBand = eval(equation)
     # newBand = eval(str(equation))
