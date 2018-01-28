@@ -13,7 +13,8 @@ python:
 
 before_install:
   - sudo apt-get -qq update -y
-  - sudo apt-get install libgdal-dev -y
+  - sudo apt-get install pip
+  - sudo apt-get install libgdal1-dev -y
 
 install:
   - pip install gdal bottle numpy
