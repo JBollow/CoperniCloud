@@ -1,18 +1,21 @@
-# Copernicloud
+# CoperniCloud
 ![Travis CI](https://travis-ci.org/JBollow/Geosoftware-2.svg?branch=master)
 
 
 ## A Node app built with AngularJS
 
-Copernicloud is a simple web interface to view and edit Sentinel-2 satellite imagery (Levels 1C and 2A).
+CoperniCloud is a simple web interface to view and edit Sentinel-2 satellite imagery (Levels 1C and 2A).
+The web application is written in `AngularJS`, while the server logic is implemented in `NodeJS`.
 
+Image manipulation is done using a second server, implemented in `Python`, using the `bottle` framework.
+
+All satellite data is supplied for visualization using a simple TMS, and visualised on the web interface using the `Leaflet` framework.
 
 # Front-End
 
 ## Requirements
 
 - [Node and npm](http://nodejs.org)
-- [Python 3.6^](http://python.org)
 
 ## Installation
 
@@ -22,19 +25,20 @@ Copernicloud is a simple web interface to view and edit Sentinel-2 satellite ima
 4. View in browser at `http://localhost:10001`
 
 
-
 # Back-End
 
 ## Requirements
 
-- nodemon: `npm install -g nodemon`
+- **nodemon**: `npm install -g nodemon`
 
-- python 3.5.x oder höher
-- gdal 2.1 oder höher
 
-- python gdal: `pip install GDAL`
-- numpy: `pip install numpy`
-- bottle: `pip install bottle`
+- [Python](http://python.org) v3.5 or higher
+- [GDAL](http://gdal.org) v2.1 or higher
+
+
+- **python-gdal**: `pip install GDAL`
+- **numpy**: `pip install numpy`
+- **bottle**: `pip install bottle`
 
 ## Installation
 
@@ -45,9 +49,13 @@ Copernicloud is a simple web interface to view and edit Sentinel-2 satellite ima
 
 ## Authors
 [Anna Formaniuk](https://github.com/annaformaniuk)
+
 [Daniela Heines](https://github.com/Daniela134)
-[Sebastian Holtkamp](https://github.com/sholtkamp) 
+
+[Sebastian Holtkamp](https://github.com/sholtkamp)
+
 [Timm Kühnel](https://github.com/Timmimim)
+
 [Jan-Patrick Bollow](https://github.com/JBollow)
 
 ## License
