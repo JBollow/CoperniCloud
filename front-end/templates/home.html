@@ -147,8 +147,8 @@
             </table>
         </div>
 
-        <div class="infobox" ng-show="hasInfo">
-            {{layerInfo}}
+        <div class="infobox scrollbarDiv" ng-show="hasInfo">
+            <div ng-bind-html="layerInfo"></div>
         </div>
     </div>
 </div>

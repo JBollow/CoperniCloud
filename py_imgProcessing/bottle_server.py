@@ -149,16 +149,19 @@ def create_new_image():
         bandBuildInstructions[i] = makeColorInterpretationSettingNumeric(
             instructionSet)
 
-    summaryStatistics = {}
+    summaryArray = []
 
     for index, instructionSet in enumerate(bandBuildInstructions, start=1):
         newBand = img_ops.edit_band(instructionSet, bandFileNames)
 
-        summaryStatistics[str(index)] = img_ops.getSummaryStatistics(newBand)
+        # summaryStatistics[str(index)] = img_ops.getSummaryStatistics(newBand)
+        summaryArray.append(img_ops.getSummaryStatistics(newBand))
 
         newImageObject.GetRasterBand(index).WriteArray(newBand)
         newImageObject.GetRasterBand(
             index).SetRasterColorInterpretation(instructionSet['color'])
+
+    summaryStatistics = {"band": summaryArray}
 
     newImageObject = None
 
@@ -201,9 +204,9 @@ def arithmetic_band_combination():
     newImageObject.SetGeoTransform(metaBand.GetGeoTransform())
     newImageObject.SetProjection(metaBand.GetProjection())
 
-    summaryStatistics = {
-        '1': img_ops.getSummaryStatistics(newBand)
-    }
+    summaryArray = []
+    summaryArray.append(img_ops.getSummaryStatistics(newBand))
+    summaryStatistics = {"band": summaryArray}
 
     newImageObject.GetRasterBand(1).WriteArray(newBand)
     newImageObject.GetRasterBand(1).SetRasterColorInterpretation(1)

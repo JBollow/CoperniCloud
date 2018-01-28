@@ -694,7 +694,6 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
                 }
             });
         }
-
     };
 
     /**

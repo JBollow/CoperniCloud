@@ -255,15 +255,28 @@ router.post('/sendColorBand', function (req, res) {
                                 'Content-Type': 'application/json'
                             })
                             .send(sendData)
-                            .end(function (response) {                                
-                                console.log(response.raw_body);
+                            .end(function (response) {
                                 if (response.error) {
                                     console.log("bottle server error in der response");
                                     collection.remove(doc);
                                     res.send("There was a problem calculating the image.");
                                 } else {
-                                    // Wenn die response ein object ist?
-                                    var summary = response.raw_body;
+                                    var summaryArray = []
+
+                                    response.raw_body.band.forEach(function (entry, i) {
+                                        i++;
+                                        mean = entry.mean;
+                                        median = entry.median;
+                                        max = entry.max;
+                                        min = entry.min;
+                                        stdDev = entry.stdDev;
+                                        summaryArray.push("Band" + i + "<br>Mean: " + mean + "<br>Median: " + median + "<br>Max: " + max + "<br>Min: " + min + "<br>StdDev: " + stdDev + "<br><br>")
+                                    });
+
+                                    summaryString = summaryArray.toString();
+                                    summaryString = summaryString.replace(/,/g, '');
+
+                                    var summary = summaryString;
 
                                     // Creates new object to update the DB with the summary
                                     var newObject = doc;
@@ -431,7 +444,7 @@ router.post('/set_coordinates', function (req, res) {
             "band": band,
             "image": image
         })
-        .end(function (response) {            
+        .end(function (response) {
             if (response.error) {
                 values_at_click = "Something went wrong :(";
                 popup_content = {
