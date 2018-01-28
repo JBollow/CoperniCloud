@@ -11,7 +11,7 @@ coperniCloud.controller('computeController', function ($scope, data, $uibModalIn
 
     // Different tile path for 1C and 2A        
     if (folderName.includes("MSIL1C")) {
-        $scope.imageType
+        $scope.imageType;
         $scope.bandOptions = ["B01", "B02", "B03", "B04", "B05", "B06", "B07", "B08", "B8A", "B09", "B10", "B11", "B12"];
     }
     if (folderName.includes("MSIL2A")) {

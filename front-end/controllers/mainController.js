@@ -464,7 +464,7 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
                 bounds01: boundsData[0][1],
                 bounds10: boundsData[1][0],
                 bounds11: boundsData[1][1],
-            }
+            };
 
             console.log(sendData);
             if (tilesServer != "userrequest") {
@@ -592,7 +592,7 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
                             boundsData = [
                                 [array[0].object.bounds00, array[0].object.bounds01],
                                 [array[0].object.bounds10, array[0].object.bounds11]
-                            ]
+                            ];
 
                             $scope.baseMap.fitBounds(boundsData, {
                                 padding: [150, 150]
@@ -629,7 +629,7 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
                 }
             }
         }).done();
-    }
+    };
 
     /**
      * Returns the original senitel2 measurement values in a leaflet popup 
@@ -653,7 +653,7 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
                         lng: e.latlng.lng,
                         fileName: $scope.overlayName,
                         band: $scope.selectedBand
-                    }
+                    };
 
                     $.ajax({
                         type: "POST",
@@ -753,21 +753,12 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
                 $scope.$apply(function(){$scope.isProcessing = false;});
                 $scope.thereIsAnOverlay = true;
             },
-<<<<<<< HEAD
-            error: function (XMLHttpRequest, textStatus, errorThrown) {
-                sweetAlert('Oops...', 'Something went wrong!', 'error');
-                $scope.hasInfo = false;
-                $scope.isProcessing = false;
-            },
-            timeout: 3000
-=======
             error: function (XMLHttpRequest, textStatus, errorThrown) {                
                 sweetAlert('Oops...', XMLHttpRequest.responseText, 'error');
                 $scope.hasInfo = false;
                 $scope.thereIsAnOverlay = true;
                 $scope.$apply(function(){$scope.isProcessing = false;});
             }
->>>>>>> develop
         });
     };
 }]);

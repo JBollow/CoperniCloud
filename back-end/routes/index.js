@@ -6,7 +6,7 @@ var parser = new xml2js.Parser();
 var unirest = require('unirest');
 var rp = require('request-promise');
 
-const pyServerURL = "http://localhost:8088"
+const pyServerURL = "http://localhost:8088";
 
 // Docker
 // const localPath = '';
@@ -267,7 +267,7 @@ router.post('/sendColorBand', function (req, res) {
 
                         rp(options)
                             .then(function (response) {
-                                    var summaryArray = []
+                                    var summaryArray = [];
 
                                     response.band.forEach(function (entry, i) {
                                         i++;
@@ -276,7 +276,7 @@ router.post('/sendColorBand', function (req, res) {
                                         max = entry.max;
                                         min = entry.min;
                                         stdDev = entry.stdDev;
-                                        summaryArray.push("Band" + i + "<br>Mean: " + mean + "<br>Median: " + median + "<br>Max: " + max + "<br>Min: " + min + "<br>StdDev: " + stdDev + "<br><br>")
+                                        summaryArray.push("Band" + i + "<br>Mean: " + mean + "<br>Median: " + median + "<br>Max: " + max + "<br>Min: " + min + "<br>StdDev: " + stdDev + "<br><br>");
                                     });
 
                                     summaryString = summaryArray.toString();
@@ -360,7 +360,7 @@ router.post('/sendComputeBand', function (req, res) {
 
                         rp(options)
                             .then(function (response) {
-                                var summaryArray = []
+                                var summaryArray = [];
 
                                 response.band.forEach(function (entry, i) {
                                     i++;
@@ -369,7 +369,7 @@ router.post('/sendComputeBand', function (req, res) {
                                     max = entry.max;
                                     min = entry.min;
                                     stdDev = entry.stdDev;
-                                    summaryArray.push("Band" + i + "<br>Mean: " + mean + "<br>Median: " + median + "<br>Max: " + max + "<br>Min: " + min + "<br>StdDev: " + stdDev + "<br><br>")
+                                    summaryArray.push("Band" + i + "<br>Mean: " + mean + "<br>Median: " + median + "<br>Max: " + max + "<br>Min: " + min + "<br>StdDev: " + stdDev + "<br><br>");
                                 });
 
                                 summaryString = summaryArray.toString();
@@ -481,14 +481,14 @@ router.post('/set_coordinates', function (req, res) {
                 popup_content = {
                     message: "You clicked at " + Math.round(lat * 10000) / 10000 + ", " + Math.round(lng * 10000) / 10000 + ". " +
                         "The values at this location are: " + values_at_click
-                }
+                };
                 res.send(popup_content);
             } else {
                 values_at_click = response.raw_body.pointInfo.toString();
                 popup_content = {
                     message: "You clicked at " + Math.round(lat * 10000) / 10000 + ", " + Math.round(lng * 10000) / 10000 + ". " +
                         "The values at this location are: " + values_at_click
-                }
+                };
                 res.send(popup_content);
             }
         });

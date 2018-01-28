@@ -10,11 +10,11 @@ angular.module('coperniCloud').config(function ($routeProvider) {
     .when('/#!/', {
         templateUrl: '../templates/home.html',
         controller: 'mainController'
-    })
+    });
 
     // route for the contact page
     // .when('/contact', {
     //     templateUrl: '../templates/contact.html',
     //     controller: 'contactController'
     // });
-})
+});
