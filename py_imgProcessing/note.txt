@@ -1,0 +1,19 @@
+Das Script `gdal2tiles_multi.py` ist eine bisher nicht im offiziellen Release von GDAL 
+enthaltene Version von `gdal2tiles.py`, welche mittels der flag `--processes=[int]` 
+erlaubt, Tiles mithilfe von Multithreading wesentlich (!!) schneller zu generieren, 
+sofern das Host-System Mutlithreading zulässt. 
+
+Das Script wurde veröffentlicht unter: 
+https://raw.githubusercontent.com/OSGeo/gdal/trunk/gdal/swig/python/scripts/gdal2tiles.py
+
+Das Script und dessen Status im GDAL Projekt wurden diskutiert im Thread:
+https://github.com/OSGeo/gdal/pull/201
+
+Wir bedanken uns bei Gregory Bataille (https://github.com/gbataille), sowie bei 
+Klokan Petr Pridal und Even Roualt, die für das Script und seine Bereitstellung verant-
+wortlich sind.
+
+Unser ursprünglicher Ansatz war die Idee, `gdal2tiles.py` zu modifizieren, um "von 
+beiden Seiten" ausgehend Tiles zu generieren, und somit ein quasi-multithreading mit
+2 Prozessen zu simulieren. Die Flag `-e` hätte ein Überschreiben bestehender Tiles 
+verhindert, sodass beide Prozesse terminieren, wenn sie dich "treffen".

@@ -31,7 +31,7 @@ geotiff = gdal.GetDriverByName('GTiff')
 # docker
 # localPath = ""
 # Anna
-localPath = "F:/Dokumente/Uni/WS_2017/Geosoft2/Testdaten"
+# localPath = "F:/Dokumente/Uni/WS_2017/Geosoft2/Testdaten"
 # Jan-Patrick
 # localPath = "Y:"
 
