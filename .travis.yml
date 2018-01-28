@@ -9,11 +9,12 @@ cache:
 language: python
 python:
   - "3.6"
+  - "nightly"
 
 before_install:
-  - sudo add-apt-repository ppa:ubuntugis/ppa
+  - sudo add-apt-repository ppa:ubuntugis/ppa -y
   - sudo apt-get -qq update -y
-  - sudo apt-get install gdal-bin
+  - sudo apt-get install gdal-bin -y
 
 install:
   - pip install --user gdal bottle numpy
