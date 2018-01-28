@@ -17,7 +17,7 @@ before_install:
   - sudo apt-get install gdal-bin -y
 
 install:
-  - pip install --user gdal bottle numpy
+  - pip install gdal bottle numpy
   - . install.sh
 
 script:
