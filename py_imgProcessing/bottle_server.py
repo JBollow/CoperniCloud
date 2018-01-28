@@ -202,9 +202,9 @@ def arithmetic_band_combination():
     tmpFile = tmpPath + req['id'] + ".tif"
 
     # read one band to get metadata, i.e. GeoTransform and Projection
-    metaBand = gdal.Open(bands[0])
+    metaBand = gdal.Open(bands[1])
 
-    newImageObject = geotiff.CreateCopy(tmpFile, metaBand, 0)
+    # newImageObject = geotiff.CreateCopy(tmpFile, metaBand, 0)
     newImageObject = geotiff.Create(
         tmpFile,
         metaBand.RasterXSize, metaBand.RasterYSize,
