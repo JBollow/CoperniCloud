@@ -30,9 +30,9 @@ geotiff = gdal.GetDriverByName('GTiff')
 # docker
 # localPath = ""
 # Anna
-localPath = "F:/Dokumente/Uni/WS_2017/Geosoft2/Testdaten"
+# localPath = "F:/Dokumente/Uni/WS_2017/Geosoft2/Testdaten"
 # Jan-Patrick
-# localPath = "Y:/OneDrive/Dokumente/Uni/Uni Münster/WS17/Geosoft 2/Projekt/Testdaten"
+localPath = "Y:/OneDrive/Dokumente/Uni/Uni Münster/WS17/Geosoft 2/Projekt/Testdaten"
 
 optPath = localPath + "/opt/"
 
@@ -176,7 +176,7 @@ def create_new_image():
 
     newImageObject = None
     
-    cmdString = "--profile=mercator -z 3-10 \"" + tmpFile + "\" \"" + tilePath + "\""
+    cmdString = "--profile=mercator -z 3-13 \"" + tmpFile + "\" \"" + tilePath + "\""
 
     call(["powershell.exe", "gdal2tiles.py", cmdString])
 
@@ -199,8 +199,10 @@ def arithmetic_band_combination():
         req['image'] + ".SAFE/" + req['id'] + "/"
     os.makedirs(tilePath)
 
-    tmpPath = optPath + "tmp/copernicloud/userrequest/"
+    tmpPath = optPath + "tmp/copernicloud/userrequest/" + \
+        req['id'] + "/"
     os.makedirs(tmpPath)
+
     tmpFile = tmpPath + req['id'] + ".tif"
 
     # read one band to get metadata, i.e. GeoTransform and Projection
@@ -224,9 +226,9 @@ def arithmetic_band_combination():
 
     newImageObject = None
 
-    os.popen("gdal2tiles.py --profile=mercator -z 3-13 \"" +
-              tmpFile + "\" \"" + tilePath + "\" ")
-    #subprocess.run(["gdal2tiles.py", "--profile=mercator", "-z 10-13", tmpFile, tilePath])
+    cmdString = "--profile=mercator -z 3-13 \"" + tmpFile + "\" \"" + tilePath + "\""
+
+    call(["powershell.exe", "gdal2tiles.py", cmdString])
 
     response.headers['Content-Type'] = 'application/json'
     response.headers['Cache-Control'] = 'no-cache'

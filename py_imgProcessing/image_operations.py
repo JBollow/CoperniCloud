@@ -121,11 +121,13 @@ def change_contrast(img, level):
 ###### Arithmetic Combination #########
 #######################################
 
-def arithmeticCombination (bandPaths, equation):
+def arithmeticCombination (bandPaths, eq):
     # open Bands where required
     def returnSelf (val):
         return val
     
+    equation = ''.join(str(e) for e in eq)
+
     B01 = None
     B02 = None
     B03 = None
@@ -180,14 +182,19 @@ def arithmeticCombination (bandPaths, equation):
         B12 = gdal.Open(bandPaths[12])
         B12 = B12.GetRasterBand(1).ReadAsArray(0,0,B12.RasterXSize, B12.RasterYSize)
     
-    newBand = eval(equation)
-    # newBand = eval(str(equation))
+    
+    print("equation")
+    print(equation)
+
+    # newBand = eval(equation)
+    newBand = eval(equation) 
+
     newBand = np.nan_to_num(newBand)
     newBand[ newBand == np.inf ] = np.max(newBand)
     
     newBand = ((newBand - np.min(newBand)) / (np.max(newBand) - np.min(newBand))) * 65536
-    
-    return newBand.asType(int)
+    print(getSummaryStatistics(newBand))
+    return newBand.astype(int)
     
     
     
