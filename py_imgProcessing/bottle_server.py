@@ -25,10 +25,19 @@ geotiff = gdal.GetDriverByName('GTiff')
 
 # convert incoming band IDs to band file names
 
+# docker
+# localPath = ""
+# Anna
+# localPath = "F:/Dokumente/Uni/WS_2017/Geosoft2/Testdaten"
+# Jan-Patrick
+localPath = "Y:/OneDrive/Dokumente/Uni/Uni Münster/WS17/Geosoft 2/Projekt/Testdaten"
+
+optPath = localPath + "/opt/"
+
 
 def getFileNamesPerBandID(imgName):
     img = imgName
-    imgPath = "Y:/OneDrive/Dokumente/Uni/Uni Münster/WS17/Geosoft 2/Projekt/Testdaten/opt/sentinel2/" + \
+    imgPath = optPath + "sentinel2/" + \
         img + ".SAFE/GRANULE/"
     dirName = os.listdir(imgPath)
     print(dirName)
@@ -119,11 +128,11 @@ def create_new_image():
 
     req = request.json
     imageName = req['image']
-    tilePath = "Y:/OneDrive/Dokumente/Uni/Uni Münster/WS17/Geosoft 2/Projekt/Testdaten/opt/userrequest/" + \
+    tilePath = optPath + "userrequest/" + \
         req['image'] + ".SAFE/" + req['id']
     os.makedirs(tilePath)
 
-    tmpPath = "Y:/OneDrive/Dokumente/Uni/Uni Münster/WS17/Geosoft 2/Projekt/Testdaten/opt/tmp/copernicloud/userrequest/" + \
+    tmpPath = optPath + "/tmp/copernicloud/userrequest/" + \
         req['id'] + "/"
     os.makedirs(tmpPath)
 
@@ -184,11 +193,11 @@ def arithmetic_band_combination():
     equation = req['operations']
     newBand = img_ops.arithmeticCombination(bands, equation)
 
-    tilePath = "Y:/OneDrive/Dokumente/Uni/Uni Münster/WS17/Geosoft 2/Projekt/Testdaten/opt/userrequest/" + \
+    tilePath = optPath + "userrequest/" + \
         req['image'] + ".SAFE/" + req['id'] + "/"
     os.makedirs(tilePath)
 
-    tmpPath = "Y:/OneDrive/Dokumente/Uni/Uni Münster/WS17/Geosoft 2/Projekt/Testdaten/opt/tmp/copernicloud/userrequest/"
+    tmpPath = optPath + "tmp/copernicloud/userrequest/"
     os.makedirs(tmpPath)
     tmpFile = tmpPath + req['id'] + ".tif"
 
@@ -238,7 +247,7 @@ def get_point_info():
     band = req['band']
     imgName = req['image']  # may differ later
 
-    imgPath = "Y:/OneDrive/Dokumente/Uni/Uni Münster/WS17/Geosoft 2/Projekt/Testdaten/opt/sentinel2/" + \
+    imgPath = optPath + "sentinel2/" + \
         imgName + ".SAFE/GRANULE/"
     dirName = os.listdir(imgPath)
     imgPath = imgPath + dirName[0] + "/IMG_DATA/"
@@ -274,7 +283,7 @@ def get_summary_statistics():
     req = request.json
     band = req["band"]
     imgName = req['image']  # may differ later
-    imgPath = "Y:/OneDrive/Dokumente/Uni/Uni Münster/WS17/Geosoft 2/Projekt/Testdaten/opt/sentinel2/" + \
+    imgPath = optPath + "sentinel2/" + \
         imgName + ".SAFE/GRANULE/"
     imgPath = imgPath + [x[0] for x in os.walk(imgPath)] + "/IMG_DATA/"
     filenameParts = imgName.split("_")

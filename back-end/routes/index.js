@@ -7,11 +7,14 @@ var unirest = require('unirest');
 
 const pyServerURL = "http://localhost:8088"
 
-// const testFolder = '';
+// Docker
+// const localPath = '';
 // Jan-Patrick
-const testFolder = 'Y:/OneDrive/Dokumente/Uni/Uni Münster/WS17/Geosoft 2/Projekt/Testdaten/opt/sentinel2';
+const localPath = 'Y:/OneDrive/Dokumente/Uni/Uni Münster/WS17/Geosoft 2/Projekt/Testdaten';
 // Anna
-// const testFolder = 'F:/Dokumente/Uni/WS_2017/Geosoft2/Testdaten/opt/sentinel2';
+// const localPath = 'F:/Dokumente/Uni/WS_2017/Geosoft2/Testdaten';
+
+const testFolder = localPath+'/opt/sentinel2';
 
 //filesearch
 const fs = require('fs');
