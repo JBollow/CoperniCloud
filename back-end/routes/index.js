@@ -432,8 +432,7 @@ router.post('/set_coordinates', function (req, res) {
             "band": band,
             "image": image
         })
-        .end(function (response) {
-            console.log(response);
+        .end(function (response) {            
             if (response.error) {
                 values_at_click = "Something went wrong :(";
                 popup_content = {
@@ -442,8 +441,8 @@ router.post('/set_coordinates', function (req, res) {
                 }
                 res.send(popup_content);
             } else {
-                values_at_click = response;
-                opup_content = {
+                values_at_click = response.raw_body.pointInfo.toString();
+                popup_content = {
                     message: "You clicked at " + Math.round(lat * 10000) / 10000 + ", " + Math.round(lng * 10000) / 10000 + ". " +
                         "The values at this location are: " + values_at_click
                 }

@@ -16,6 +16,7 @@ import gdalconst
 import osr
 import json
 import subprocess
+from json import dumps
 
 float32 = np.float32
 geotiff = gdal.GetDriverByName('GTiff')
@@ -258,7 +259,9 @@ def get_point_info():
     print("pointInfo")
     print(pointInfo)
 
-    return response.__init__(body=str(pointInfo))
+    response.headers['Content-Type'] = 'application/json'
+    response.headers['Cache-Control'] = 'no-cache'
+    return json.dumps({"pointInfo": pointInfo})
 
 
 @route('/get_summary_statistics')

@@ -755,8 +755,9 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
                 $scope.thereIsAnOverlay = true;
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {
-                sweetAlert('Oops...', XMLHttpRequest.responseText, 'error');
                 $scope.hasInfo = false;
+                $scope.isProcessing = false;
+                sweetAlert('Oops...', XMLHttpRequest.responseText, 'error');
                 $scope.isProcessing = false;
             }
         });

@@ -13,6 +13,7 @@ import gdal, gdalconst, osr
 import json
 
 
+
 float32 = np.float32
 geotiff = gdal.GetDriverByName('GTiff')
 
@@ -183,7 +184,7 @@ def arithmeticCombination (bandPaths, equation):
 #######################################
     
 def getPointInfo(bandPath, lat, lng):
-    return os.system("gdallocationinfo -valonly -wgs84 \"" + bandPath +"\" "+ lng + " " + lat)
+    return os.popen("gdallocationinfo -valonly -wgs84 \"" + bandPath +"\" "+ lng + " " + lat).read()
 
 #########################################
         
