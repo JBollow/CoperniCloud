@@ -758,8 +758,7 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
                 sweetAlert('Oops...', XMLHttpRequest.responseText, 'error');
                 $scope.hasInfo = false;
                 $scope.isProcessing = false;
-            },
-            timeout: 0
+            }
         });
     };
 }]);

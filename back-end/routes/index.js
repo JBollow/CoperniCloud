@@ -240,7 +240,7 @@ router.post('/sendColorBand', function (req, res) {
                                 "contrast": helpobject.operations[i + 2],
                                 "brightness": helpobject.operations[i + 3]
                             });
-                        }                       
+                        }
 
                         var pythonUrl = pyServerURL + "/create_new_image";
                         var sendData = {
@@ -255,9 +255,10 @@ router.post('/sendColorBand', function (req, res) {
                                 'Content-Type': 'application/json'
                             })
                             .send(sendData)
-                            .end(function (response) {
-                                console.log(response);
+                            .end(function (response) {                                
+                                // console.log(response);
                                 if (response.error) {
+                                    console.log("bottle server error in der response");
                                     collection.remove(doc);
                                     res.send("There was a problem calculating the image.");
                                 } else {
@@ -323,7 +324,7 @@ router.post('/sendComputeBand', function (req, res) {
                             "operations": doc.object.operations
                         };
 
-                        unirest.post(pythonUrl)
+                        unirest.get(pythonUrl)
                             .headers({
                                 'Accept': 'application/json',
                                 'Content-Type': 'application/json'
@@ -413,22 +414,28 @@ router.post('/set_coordinates', function (req, res) {
 
     var lat = req.body.lat;
     var lng = req.body.lng;
-    var values_at_click = "Something went wrong :(";
+    var band = req.body.band;
+    var image = req.body.fileName;
+    var values_at_click = "Server Problem.";
     var popup_content = {};
 
     var pythonUrl = pyServerURL + "/get_point_info";
 
-    unirest.post(pythonUrl)
+    unirest.get(pythonUrl)
         .headers({
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         })
         .send({
             "lat": lat,
-            "lng": lng
+            "lng": lng,
+            "band": band,
+            "image": image
         })
         .end(function (response) {
+            console.log(response);
             if (response.error) {
+                values_at_click = "Something went wrong :(";
                 popup_content = {
                     message: "You clicked at " + Math.round(lat * 10000) / 10000 + ", " + Math.round(lng * 10000) / 10000 + ". " +
                         "The values at this location are: " + values_at_click

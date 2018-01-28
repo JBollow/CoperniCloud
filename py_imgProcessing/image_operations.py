@@ -183,8 +183,7 @@ def arithmeticCombination (bandPaths, equation):
 #######################################
     
 def getPointInfo(bandPath, lat, lng):
-    return os.system('gdallocationinfo -valonly -wgs84 %s %s %s' % (bandPath, lng, lat))
-
+    return os.system("gdallocationinfo -valonly -wgs84 \"" + bandPath +"\" "+ lng + " " + lat)
 
 #########################################
         
