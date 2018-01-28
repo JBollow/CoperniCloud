@@ -13,7 +13,7 @@ python:
 
 before_install:
   - sudo apt-get -qq update -y
-  - sudo apt-get install pip
+  - sudo apt-get install python3-pip -y
   - sudo apt-get install libgdal1-dev -y
 
 install:
