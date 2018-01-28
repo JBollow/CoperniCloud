@@ -6,3 +6,4 @@ cd ..
 cd ./front-end
 echo "Installing front-end"
 npm install
+cd ..
