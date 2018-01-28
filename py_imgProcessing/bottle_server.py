@@ -132,7 +132,7 @@ def create_new_image():
         req['image'] + ".SAFE/" + req['id']
     os.makedirs(tilePath)
 
-    tmpPath = optPath + "/tmp/copernicloud/userrequest/" + \
+    tmpPath = optPath + "tmp/copernicloud/userrequest/" + \
         req['id'] + "/"
     os.makedirs(tmpPath)
 
@@ -173,6 +173,8 @@ def create_new_image():
     summaryStatistics = {"band": summaryArray}
 
     newImageObject = None
+
+    print(tmpFile)
 
     os.system("gdal2tiles.py --profile=mercator -z 3-13 \"" +
               tmpFile + "\" \"" + tilePath + "\"")
