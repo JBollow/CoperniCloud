@@ -7,6 +7,7 @@ Created on Tue Jan 16 22:03:38 2018
 """
 
 from bottle import route, run, template, request, response
+import time
 import numpy as np
 import image_operations as img_ops
 import os
@@ -28,9 +29,9 @@ geotiff = gdal.GetDriverByName('GTiff')
 # docker
 # localPath = ""
 # Anna
-# localPath = "F:/Dokumente/Uni/WS_2017/Geosoft2/Testdaten"
+localPath = "F:/Dokumente/Uni/WS_2017/Geosoft2/Testdaten"
 # Jan-Patrick
-localPath = "Y:/OneDrive/Dokumente/Uni/Uni Münster/WS17/Geosoft 2/Projekt/Testdaten"
+# localPath = "Y:/OneDrive/Dokumente/Uni/Uni Münster/WS17/Geosoft 2/Projekt/Testdaten"
 
 optPath = localPath + "/opt/"
 
@@ -179,6 +180,13 @@ def create_new_image():
 
     os.system("gdal2tiles.py --profile=mercator -z 3-13 \"" +
               tmpFile + "\" \"" + tilePath + "\"")
+
+    # cmd = "gdal2tiles.py --profile=mercator -z 3-13 \"" + tmpFile + "\" \"" + tilePath + "\""
+
+    # os.system(cmd)
+
+    os.system("gdal2tiles.py --profile=mercator -z 11-11 \"" + tmpFile + "\" \"" + tilePath + "\"/")
+
     # subprocess.call("gdal2tiles.py --profile=mercator -z 8-13 \"" + tmpFile + "\" \"" + tilePath + "\"")
 
     response.headers['Content-Type'] = 'application/json'
@@ -225,7 +233,7 @@ def arithmetic_band_combination():
 
     newImageObject = None
 
-    os.system("gdal2tiles.py --profile=mercator -z 3-13 \"" +
+    os.popen("gdal2tiles.py --profile=mercator -z 3-13 \"" +
               tmpFile + "\" \"" + tilePath + "\" ")
     # subprocess.call("gdal2tiles.py --profile=mercator -z 10-13 \"" + tmpFile + "\" \"" + tilePath + "\" ")
 
