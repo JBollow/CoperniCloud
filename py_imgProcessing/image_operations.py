@@ -126,7 +126,19 @@ def arithmeticCombination (bandPaths, equation):
     def returnSelf (val):
         return val
     
-    B01,B02,B03,B04,B05,B06,B07,B08,B8A,B09,B10,B11,B12 = None
+    B01 = None
+    B02 = None
+    B03 = None
+    B04 = None
+    B05 = None
+    B06 = None
+    B07 = None
+    B08 = None
+    B8A = None
+    B09 = None
+    B10 = None
+    B11 = None
+    B12 = None
     
     if "B01" in equation : 
         B01 = gdal.Open(bandPaths[0])
@@ -169,6 +181,7 @@ def arithmeticCombination (bandPaths, equation):
         band = band.GetRasterBand(1).ReadAsArray(0,0,band.RasterXSize, band.RasterYSize)
     
     newBand = eval(equation)
+    # newBand = eval(str(equation))
     newBand = np.nan_to_num(newBand)
     newBand[ newBand == np.inf ] = np.max(newBand)
     
@@ -200,11 +213,11 @@ def getSummaryStatistics(band):
     stdDeviation = np.std(band, ddof=1)
     
     statistics = {
-            'mean': mean,
-            'median': median,
-            'max': maxPixel,
-            'min': minPixel,
-            'stdDev': stdDeviation
+            'mean': str(mean),
+            'median': str(median),
+            'max': str(maxPixel),
+            'min': str(minPixel),
+            'stdDev': str(stdDeviation)
             }
     
     return statistics

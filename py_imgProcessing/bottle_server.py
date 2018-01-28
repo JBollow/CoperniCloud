@@ -162,12 +162,13 @@ def create_new_image():
 
     newImageObject = None
 
-    os.system("gdal2tiles.py --profile=mercator -z 3-13 \"" +
+    os.system("gdal2tiles.py --profile=mercator -z 10-10 \"" +
               tmpFile + "\" \"" + tilePath + "\"")
     # subprocess.call("gdal2tiles.py --profile=mercator -z 8-13 \"" + tmpFile + "\" \"" + tilePath + "\"")
 
-    res = response.__init__(body=json.dumps('summaryStatistics'))
-    return res
+    response.headers['Content-Type'] = 'application/json'
+    response.headers['Cache-Control'] = 'no-cache'
+    return json.dumps(summaryStatistics)
 
 
 @route('/arithmetic_band_combination')
@@ -177,7 +178,7 @@ def arithmetic_band_combination():
     # get full file paths for each band of the requested image
     bands = getFileNamesPerBandID(req['image'])
 
-    equation = req.operations
+    equation = req['operations']
     newBand = img_ops.arithmeticCombination(bands, equation)
 
     tilePath = "Y:/OneDrive/Dokumente/Uni/Uni Münster/WS17/Geosoft 2/Projekt/Testdaten/opt/userrequest/" + \
@@ -255,9 +256,6 @@ def get_point_info():
                 "_" + band + "_60m.jp2"
 
     pointInfo = img_ops.getPointInfo(band, lat, lng)
-
-    print("pointInfo")
-    print(pointInfo)
 
     response.headers['Content-Type'] = 'application/json'
     response.headers['Cache-Control'] = 'no-cache'

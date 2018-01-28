@@ -256,14 +256,14 @@ router.post('/sendColorBand', function (req, res) {
                             })
                             .send(sendData)
                             .end(function (response) {                                
-                                // console.log(response);
+                                console.log(response.raw_body);
                                 if (response.error) {
                                     console.log("bottle server error in der response");
                                     collection.remove(doc);
                                     res.send("There was a problem calculating the image.");
                                 } else {
                                     // Wenn die response ein object ist?
-                                    var summary = response.summary;
+                                    var summary = response.raw_body;
 
                                     // Creates new object to update the DB with the summary
                                     var newObject = doc;
@@ -273,7 +273,6 @@ router.post('/sendColorBand', function (req, res) {
                                     // Sends back the object
                                     res.send(newObject);
                                 }
-
                             });
                     }
                 });
@@ -320,7 +319,7 @@ router.post('/sendComputeBand', function (req, res) {
                         var pythonUrl = pyServerURL + "/arithmetic_band_combination";
                         var sendData = {
                             "id": doc._id,
-                            "name": doc.object.image,
+                            "image": doc.object.image,
                             "operations": doc.object.operations
                         };
 
