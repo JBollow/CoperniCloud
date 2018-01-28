@@ -176,9 +176,10 @@ def create_new_image():
 
     newImageObject = None
     
-    cmdString = "--profile=mercator -z 3-13 \"" + tmpFile + "\" \"" + tilePath + "\""
+    cmdString = "--profile=mercator -z 3-13 \"" + tmpFile + "\" \"" + tilePath + "\" -e"
 
     call(["powershell.exe", "gdal2tiles.py", cmdString])
+    call(["powershell.exe", "gdal2tiles_reverse.py", cmdString])
 
     response.headers['Content-Type'] = 'application/json'
     response.headers['Cache-Control'] = 'no-cache'
@@ -226,9 +227,10 @@ def arithmetic_band_combination():
 
     newImageObject = None
 
-    cmdString = "--profile=mercator -z 3-13 \"" + tmpFile + "\" \"" + tilePath + "\""
+    cmdString = "--profile=mercator -z 3-13 \"" + tmpFile + "\" \"" + tilePath + "\" -e"
 
     call(["powershell.exe", "gdal2tiles.py", cmdString])
+    call(["powershell.exe", "gdal2tiles_reverse.py", cmdString])
 
     response.headers['Content-Type'] = 'application/json'
     response.headers['Cache-Control'] = 'no-cache'
