@@ -228,7 +228,7 @@ def arithmetic_band_combination():
 
     os.popen("gdal2tiles.py --profile=mercator -z 3-13 \"" +
               tmpFile + "\" \"" + tilePath + "\" ")
-    # subprocess.call("gdal2tiles.py --profile=mercator -z 10-13 \"" + tmpFile + "\" \"" + tilePath + "\" ")
+    #subprocess.run(["gdal2tiles.py", "--profile=mercator", "-z 10-13", tmpFile, tilePath])
 
     response.headers['Content-Type'] = 'application/json'
     response.headers['Cache-Control'] = 'no-cache'
