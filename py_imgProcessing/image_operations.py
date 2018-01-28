@@ -190,6 +190,7 @@ def arithmeticCombination (bandPaths, equation):
     return newBand.asType(int)
     
     
+    
 ########################################
     
 #######################################
