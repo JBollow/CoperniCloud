@@ -172,6 +172,7 @@ def create_new_image():
 
     summaryStatistics = {"band": summaryArray}
 
+
     newImageObject = None
 
     print(tmpFile)
