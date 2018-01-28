@@ -11,7 +11,7 @@ from sys import argv
 import os
 import gdal, gdalconst, osr
 import json
-
+from math import sqrt as root
 
 
 float32 = np.float32

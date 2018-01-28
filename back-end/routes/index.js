@@ -351,8 +351,22 @@ router.post('/sendComputeBand', function (req, res) {
                                     collection.remove(doc);
                                     res.send("There was a problem calculating the image.");
                                 } else {
-                                    // Wenn die response ein object ist?
-                                    var summary = response.summary;
+                                    var summaryArray = []                                    
+
+                                    response.raw_body.band.forEach(function (entry, i) {
+                                        i++;
+                                        mean = entry.mean;
+                                        median = entry.median;
+                                        max = entry.max;
+                                        min = entry.min;
+                                        stdDev = entry.stdDev;
+                                        summaryArray.push("Band" + i + "<br>Mean: " + mean + "<br>Median: " + median + "<br>Max: " + max + "<br>Min: " + min + "<br>StdDev: " + stdDev + "<br><br>")
+                                    });
+
+                                    summaryString = summaryArray.toString();
+                                    summaryString = summaryString.replace(/,/g, '');
+
+                                    var summary = summaryString;
 
                                     // Creates new object to update the DB with the summary
                                     var newObject = doc;
