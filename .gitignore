@@ -21,3 +21,4 @@ sat_data/
 # nuetzliche installationsscripts fur windows systeme
 *.bat
 *.ps1
+py_imgProcessing/.vscode/settings.json
