@@ -4,6 +4,7 @@ var xml2js = require('xml2js');
 var util = require('util');
 var parser = new xml2js.Parser();
 var unirest = require('unirest');
+var rp = require('request-promise');
 
 const pyServerURL = "http://localhost:8088"
 
@@ -14,7 +15,7 @@ const pyServerURL = "http://localhost:8088"
 // Anna
 const localPath = 'F:/Dokumente/Uni/WS_2017/Geosoft2/Testdaten';
 
-const testFolder = localPath+'/opt/sentinel2';
+const testFolder = localPath + '/opt/sentinel2';
 
 //filesearch
 const fs = require('fs');
@@ -252,22 +253,23 @@ router.post('/sendColorBand', function (req, res) {
                             "operations": arrofObjects
                         };
 
-                        unirest.get(pythonUrl)
-                            .headers({
+                        var options = {
+                            method: 'GET',
+                            url: pythonUrl,
+                            body: sendData,
+                            headers: {
                                 'Accept': 'application/json',
                                 'Content-Type': 'application/json'
-                            })
-                            .send(sendData)
-                            .timeout(300000)
-                            .end(function (response) {
-                                if (response.error) {
-                                    console.log("bottle server error in der response");
-                                    collection.remove(doc);
-                                    res.send("There was a problem calculating the image.");
-                                } else {
+                            },
+                            json: true,
+                            timeout: 300000
+                        };
+
+                        rp(options)
+                            .then(function (response) {
                                     var summaryArray = []
 
-                                    response.raw_body.band.forEach(function (entry, i) {
+                                    response.band.forEach(function (entry, i) {
                                         i++;
                                         mean = entry.mean;
                                         median = entry.median;
@@ -289,7 +291,11 @@ router.post('/sendColorBand', function (req, res) {
 
                                     // Sends back the object
                                     res.send(newObject);
-                                }
+                            })
+                            .catch(function (err) {
+                                console.log("bottle server error in der response");
+                                collection.remove(doc);
+                                res.send("There was a problem calculating the image.");
                             });
                     }
                 });
@@ -340,28 +346,49 @@ router.post('/sendComputeBand', function (req, res) {
                             "operations": doc.object.operations
                         };
 
-                        unirest.get(pythonUrl)
-                            .headers({
+                        var options = {
+                            method: 'GET',
+                            url: pythonUrl,
+                            body: sendData,
+                            headers: {
                                 'Accept': 'application/json',
                                 'Content-Type': 'application/json'
+                            },
+                            json: true,
+                            timeout: 300000
+                        };
+
+                        rp(options)
+                            .then(function (response) {
+                                var summaryArray = []
+
+                                response.band.forEach(function (entry, i) {
+                                    i++;
+                                    mean = entry.mean;
+                                    median = entry.median;
+                                    max = entry.max;
+                                    min = entry.min;
+                                    stdDev = entry.stdDev;
+                                    summaryArray.push("Band" + i + "<br>Mean: " + mean + "<br>Median: " + median + "<br>Max: " + max + "<br>Min: " + min + "<br>StdDev: " + stdDev + "<br><br>")
+                                });
+
+                                summaryString = summaryArray.toString();
+                                summaryString = summaryString.replace(/,/g, '');
+
+                                var summary = summaryString;
+
+                                // Creates new object to update the DB with the summary
+                                var newObject = doc;
+                                newObject.object.summary = summary;
+                                collection.update(doc._id, newObject);
+
+                                // Sends back the object
+                                res.send(newObject);
+
                             })
-                            .send(sendData)
-                            .end(function (response) {
-                                if (response.error) {
-                                    collection.remove(doc);
-                                    res.send("There was a problem calculating the image.");
-                                } else {
-                                    // Wenn die response ein object ist?
-                                    var summary = response.summary;
-
-                                    // Creates new object to update the DB with the summary
-                                    var newObject = doc;
-                                    newObject.object.summary = summary;
-                                    collection.update(doc._id, newObject);
-
-                                    // Sends back the object
-                                    res.send(newObject);
-                                }
+                            .catch(function (err) {
+                                collection.remove(doc);
+                                res.send("There was a problem calculating the image.");
                             });
                     }
                 });

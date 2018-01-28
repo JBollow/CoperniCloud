@@ -18,6 +18,8 @@
     "mongodb": "^2.2.25",
     "monk": "^4.0.0",
     "morgan": "~1.7.0",
+    "request": "^2.83.0",
+    "request-promise": "^4.2.2",
     "serve-favicon": "~2.3.2",
     "unirest": "^0.5.1",
     "util": "^0.10.3",

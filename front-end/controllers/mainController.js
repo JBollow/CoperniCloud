@@ -750,7 +750,7 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
                 $scope.tilesLayer.setOpacity(1);
 
                 $scope.hasInfo = true;
-                $scope.isProcessing = false;
+                $scope.$apply(function(){$scope.isProcessing = false;});
                 $scope.thereIsAnOverlay = true;
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) {                

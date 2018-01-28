@@ -20,6 +20,7 @@ import json
 import subprocess
 from json import dumps
 
+
 float32 = np.float32
 geotiff = gdal.GetDriverByName('GTiff')
 
@@ -32,7 +33,7 @@ geotiff = gdal.GetDriverByName('GTiff')
 # Anna
 localPath = "F:/Dokumente/Uni/WS_2017/Geosoft2/Testdaten"
 # Jan-Patrick
-# localPath = "Y:/OneDrive/Dokumente/Uni/Uni Münster/WS17/Geosoft 2/Projekt/Testdaten"
+# localPath = "Y:"
 
 optPath = localPath + "/opt/"
 
@@ -176,14 +177,13 @@ def create_new_image():
 
     newImageObject = None
     
-    cmdString = "--profile=mercator -z 3-10 \"" + tmpFile + "\" \"" + tilePath + "\""
-
-    call(["powershell.exe", "gdal2tiles.py", cmdString])
+    cmdString = "--profile=mercator -z 3-13 --processes=8 \"" + tmpFile + "\" \"" + tilePath + "\""
+    
+    subprocess.call(["powershell.exe", "gdal2tiles_multi.py", cmdString])
 
     response.headers['Content-Type'] = 'application/json'
     response.headers['Cache-Control'] = 'no-cache'
     return json.dumps(summaryStatistics)
-
 
 @route('/arithmetic_band_combination')
 def arithmetic_band_combination():
@@ -199,8 +199,10 @@ def arithmetic_band_combination():
         req['image'] + ".SAFE/" + req['id'] + "/"
     os.makedirs(tilePath)
 
-    tmpPath = optPath + "tmp/copernicloud/userrequest/"
+    tmpPath = optPath + "tmp/copernicloud/userrequest/" + \
+        req['id'] + "/"
     os.makedirs(tmpPath)
+
     tmpFile = tmpPath + req['id'] + ".tif"
 
     # read one band to get metadata, i.e. GeoTransform and Projection
@@ -217,6 +219,8 @@ def arithmetic_band_combination():
 
     summaryArray = []
     summaryArray.append(img_ops.getSummaryStatistics(newBand))
+    print("summaryArray")
+    print(summaryArray)
     summaryStatistics = {"band": summaryArray}
 
     newImageObject.GetRasterBand(1).WriteArray(newBand)
@@ -224,9 +228,9 @@ def arithmetic_band_combination():
 
     newImageObject = None
 
-    os.popen("gdal2tiles.py --profile=mercator -z 3-13 \"" +
-              tmpFile + "\" \"" + tilePath + "\" ")
-    #subprocess.run(["gdal2tiles.py", "--profile=mercator", "-z 10-13", tmpFile, tilePath])
+    cmdString = "--profile=mercator -z 3-13 --processes=8 \"" + tmpFile + "\" \"" + tilePath + "\""
+    
+    subprocess.call(["powershell.exe", "gdal2tiles_multi.py", cmdString])
 
     response.headers['Content-Type'] = 'application/json'
     response.headers['Cache-Control'] = 'no-cache'
