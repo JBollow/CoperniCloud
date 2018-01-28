@@ -214,8 +214,12 @@ def arithmetic_band_combination():
               tmpFile + "\" \"" + tilePath + "\" ")
     # subprocess.call("gdal2tiles.py --profile=mercator -z 10-13 \"" + tmpFile + "\" \"" + tilePath + "\" ")
 
-    res = response.__init__(body=json.dumps(summaryStatistics))
-    return res
+    response.headers['Content-Type'] = 'application/json'
+    response.headers['Cache-Control'] = 'no-cache'
+    return json.dumps(summaryStatistics)
+
+    # res = response.__init__(body=json.dumps(summaryStatistics))
+    # return res
 
 
 @route('/mask_pixels')
