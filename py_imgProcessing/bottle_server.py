@@ -177,15 +177,7 @@ def create_new_image():
 
     print(tmpFile)
 
-    #print("sleep")
-
-    #time.sleep(5)
-
-    print("wach")
-
-    print(tilePath)
-
-    print("gdal2tiles.py --profile=mercator -z 3-13 \"" +
+    os.system("gdal2tiles.py --profile=mercator -z 3-13 \"" +
               tmpFile + "\" \"" + tilePath + "\"")
 
     # cmd = "gdal2tiles.py --profile=mercator -z 3-13 \"" + tmpFile + "\" \"" + tilePath + "\""
