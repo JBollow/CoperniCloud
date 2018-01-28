@@ -17,9 +17,8 @@ Copernicloud is a simple web interface to view and edit Sentinel-2 satellite ima
 ## Installation
 
 1. Clone the repository: `git clone git@github.com:JBollow/Geosoftware-2.git`
-2. Install the application: `npm install` (in `front-end/` and `back-end/`)
-3. Start the server: `npm start` (in `front-end/` and `back-end/`)
-3. Install [GDAL](http://www.gdal.org/)
+2. Install the application: `npm install`
+3. Start the server: `npm start`
 4. View in browser at `http://localhost:10001`
 
 
