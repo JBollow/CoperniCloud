@@ -12,6 +12,7 @@ import numpy as np
 import image_operations as img_ops
 import os
 from subprocess import Popen
+from subprocess import call
 import gdal
 import gdalconst
 import osr
@@ -29,9 +30,9 @@ geotiff = gdal.GetDriverByName('GTiff')
 # docker
 # localPath = ""
 # Anna
-# localPath = "F:/Dokumente/Uni/WS_2017/Geosoft2/Testdaten"
+localPath = "F:/Dokumente/Uni/WS_2017/Geosoft2/Testdaten"
 # Jan-Patrick
-localPath = "Y:/OneDrive/Dokumente/Uni/Uni Münster/WS17/Geosoft 2/Projekt/Testdaten"
+# localPath = "Y:/OneDrive/Dokumente/Uni/Uni Münster/WS17/Geosoft 2/Projekt/Testdaten"
 
 optPath = localPath + "/opt/"
 
@@ -173,14 +174,11 @@ def create_new_image():
 
     summaryStatistics = {"band": summaryArray}
 
-
     newImageObject = None
+    
+    cmdString = "--profile=mercator -z 3-10 \"" + tmpFile + "\" \"" + tilePath + "\""
 
-    print(tmpFile)
-
-    os.system("gdal2tiles.py --profile=mercator -z 11-11 \"" + tmpFile + "\" \"" + tilePath + "\"")
-
-    # subprocess.call("gdal2tiles.py --profile=mercator -z 8-13 \"" + tmpFile + "\" \"" + tilePath + "\"")
+    call(["powershell.exe", "gdal2tiles.py", cmdString])
 
     response.headers['Content-Type'] = 'application/json'
     response.headers['Cache-Control'] = 'no-cache'
