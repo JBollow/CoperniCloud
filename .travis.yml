@@ -1,18 +1,23 @@
 ---
-language: node_js, python3, gdal
+language: node_js 
 node_js:
   - "8"
-python3:
-  - "3.6"
 cache:
   directories:
     - "node_modules"
+
+language: python
+python:
+  - "3.6"
+
 before_install:
   - sudo add-apt-repository ppa:ubuntugis/ppa
-  - sudo apt-get update -y
+  - sudo apt-get -qq update -y
   - sudo apt-get install gdal-bin
+
 install:
-  - pip install gdal bottle numpy
+  - pip install --user gdal bottle numpy
   - . install.sh
+
 script:
   - . start.sh
