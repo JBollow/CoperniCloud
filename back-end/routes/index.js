@@ -10,9 +10,9 @@ const pyServerURL = "http://localhost:8088"
 // Docker
 // const localPath = '';
 // Jan-Patrick
-// const localPath = 'Y:/OneDrive/Dokumente/Uni/Uni Münster/WS17/Geosoft 2/Projekt/Testdaten';
+const localPath = 'Y:/OneDrive/Dokumente/Uni/Uni Münster/WS17/Geosoft 2/Projekt/Testdaten';
 // Anna
-const localPath = 'F:/Dokumente/Uni/WS_2017/Geosoft2/Testdaten';
+// const localPath = 'F:/Dokumente/Uni/WS_2017/Geosoft2/Testdaten';
 
 const testFolder = localPath+'/opt/sentinel2';
 

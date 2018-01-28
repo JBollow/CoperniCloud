@@ -29,9 +29,9 @@ geotiff = gdal.GetDriverByName('GTiff')
 # docker
 # localPath = ""
 # Anna
-localPath = "F:/Dokumente/Uni/WS_2017/Geosoft2/Testdaten"
+# localPath = "F:/Dokumente/Uni/WS_2017/Geosoft2/Testdaten"
 # Jan-Patrick
-# localPath = "Y:/OneDrive/Dokumente/Uni/Uni Münster/WS17/Geosoft 2/Projekt/Testdaten"
+localPath = "Y:/OneDrive/Dokumente/Uni/Uni Münster/WS17/Geosoft 2/Projekt/Testdaten"
 
 optPath = localPath + "/opt/"
 
@@ -178,14 +178,7 @@ def create_new_image():
 
     print(tmpFile)
 
-    os.system("gdal2tiles.py --profile=mercator -z 3-13 \"" +
-              tmpFile + "\" \"" + tilePath + "\"")
-
-    # cmd = "gdal2tiles.py --profile=mercator -z 3-13 \"" + tmpFile + "\" \"" + tilePath + "\""
-
-    # os.system(cmd)
-
-    os.system("gdal2tiles.py --profile=mercator -z 11-11 \"" + tmpFile + "\" \"" + tilePath + "\"/")
+    os.system("gdal2tiles.py --profile=mercator -z 11-11 \"" + tmpFile + "\" \"" + tilePath + "\"")
 
     # subprocess.call("gdal2tiles.py --profile=mercator -z 8-13 \"" + tmpFile + "\" \"" + tilePath + "\"")
 
