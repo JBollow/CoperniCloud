@@ -255,6 +255,7 @@ router.post('/sendColorBand', function (req, res) {
                                 'Content-Type': 'application/json'
                             })
                             .send(sendData)
+                            .timeout(300000)
                             .end(function (response) {
                                 if (response.error) {
                                     console.log("bottle server error in der response");

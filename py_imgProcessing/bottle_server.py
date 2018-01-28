@@ -165,7 +165,7 @@ def create_new_image():
 
     newImageObject = None
 
-    os.system("gdal2tiles.py --profile=mercator -z 10-10 \"" +
+    os.system("gdal2tiles.py --profile=mercator -z 3-13 \"" +
               tmpFile + "\" \"" + tilePath + "\"")
     # subprocess.call("gdal2tiles.py --profile=mercator -z 8-13 \"" + tmpFile + "\" \"" + tilePath + "\"")
 
