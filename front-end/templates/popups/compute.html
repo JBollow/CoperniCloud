@@ -20,14 +20,14 @@
                     <select ng-model="x.front">
                         <option value=""> </option>
                         <option value="(">(</option>
-                        <option value="root(">&radic;</option>
+                        <option value="numpy.sqrt(">&radic;</option>
                     </select>
                     <select ng-options="b for b in bandOptions" ng-model="x.band">
                     </select>
                     <select ng-model="x.back">
                         <option value=""> </option>
                         <option value=")">)</option>
-                        <option value=")^2">)²</option>
+                        <option value=")**2">)²</option>
                     </select>
                     <button class="delete" ng-click="deleteff($index)" ng-if="terms.length>1">-</button>
                     <button class="add_form_field" ng-click="addff()">

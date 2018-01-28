@@ -12,11 +12,11 @@ coperniCloud.controller('bandColorController', function ($scope, data, $uibModal
 
     // Different tile path for 1C and 2A        
     if (folderName.includes("MSIL1C")) {
-        $scope.bandOptions = ["B01", "B02", "B03", "B04", "B05", "B06", "B07", "B08", "B8A", "B09", "B10", "B11", "B12", "TCI"];
+        $scope.bandOptions = ["B01", "B02", "B03", "B04", "B05", "B06", "B07", "B08", "B8A", "B09", "B10", "B11", "B12"];
     }
     if (folderName.includes("MSIL2A")) {
         $scope.imageType1C = false;
-        $scope.bandOptions = ["AOT", "B02", "B03", "B04", "B08", "TCI", "WVP"];
+        $scope.bandOptions = ["B02", "B03", "B04", "B08"];
     }
 
     // Close by pressing the Cancel button
@@ -80,8 +80,8 @@ coperniCloud.controller('bandColorController', function ($scope, data, $uibModal
 
     // Adding more bands to the expression
     $scope.terms = [{
-        band: 'TCI',
-        color: 'greyscale',
+        band: 'B08',
+        color: 'blue',
         contrastValue: 128,
         brightnessValue: 128
     }];
@@ -89,8 +89,8 @@ coperniCloud.controller('bandColorController', function ($scope, data, $uibModal
     $scope.addcf = function () {
         if ($scope.terms.length < 11) {
             $scope.terms.push({
-         band: 'TCI',
-        color: 'greyscale',
+         band: 'B08',
+        color: 'blue',
                 contrastValue: 128,
                 brightnessValue: 128
             });

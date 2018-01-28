@@ -1532,12 +1532,19 @@ h4 {
 }
 
 div.infobox {
+    font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 400;
+    line-height: 18px;
+    text-align: left;
     position: absolute;
     bottom: 80px;
     right: 10px;
     z-index: 500;
     width: 201px;
-    height: 148px;
+    height: 248px;
     padding: 2px;
     background-color: rgba(255, 255, 255, 0.6);
     border: 2px solid rgba(0, 0, 20, 0.25);

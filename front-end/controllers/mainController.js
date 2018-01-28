@@ -16,9 +16,16 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
     var dataType = "";
     var tilesServer;
     var bandType = "TCI";
-    var serverUrl = "http://gis-bigdata:12015/";
     var boundsData;
     var userRequestName;
+
+    var backendUrl = "http://localhost:10002";
+    // Tilesserver
+    // // Uni VPN
+    // var serverUrl = "http://gis-bigdata:12015/";
+    // Local
+    var serverUrl = "http://127.0.0.1:8887/";
+    
 
     //the map
     angular.extend($scope, {
@@ -214,7 +221,7 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
         }
 
         $.ajax({
-            url: 'http://localhost:10002/search',
+            url: backendUrl + "/search",
             type: 'get',
             data: {
                 name: name,
@@ -471,7 +478,7 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
 
             $.ajax({
                 type: "POST",
-                url: "http://localhost:10002/save",
+                url: backendUrl + "/save",
                 dataType: 'json',
                 data: sendData,
                 success: function (id) {
@@ -550,7 +557,7 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
                     };
                     $.ajax({
                         type: "POST",
-                        url: "http://localhost:10002/load",
+                        url: backendUrl + "/load",
                         dataType: 'json',
                         data: sendId,
                         success: function (array) {
@@ -626,11 +633,9 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
 
     /**
      * Returns the original senitel2 measurement values in a leaflet popup 
-     * https://github.com/grantHarris/leaflet-popup-angular
-     * with controller?
      */
     $scope.mouseClick = function () {
-        if (tilesServer === "userrequest") {
+        if (tilesServer != "tiles") {
             swal({
                 html: "Only for the original sentinel imagery :/",
                 type: 'info',
@@ -639,50 +644,56 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
             });
         } else {
             $scope.baseMap.once('click', function (e) {
+                console.log(boundsData);
                 console.log(e.latlng);
-                var coordToSend = {
-                    lat: e.latlng.lat,
-                    lng: e.latlng.lng,
-                    fileName: $scope.overlayName,
-                    band: $scope.selectedBand
-                }
-
-                $.ajax({
-                    type: "POST",
-                    url: "http://localhost:10002/set_coordinates",
-                    dataType: 'json',
-                    data: coordToSend,
-                    success: function (data) {
-                        var popup = L.popup.angular({
-                                template: `
-                            <div>
-                                <h1><small>Hello ;)</small></h1>
-                                <div>{{$content.message}}</div>
-                            </div>
-                        `,
-                            }).setLatLng(e.latlng).setContent({
-                                'lat': e.latlng.lat,
-                                'lng': e.latlng.lng,
-                                'message': data.message
-                            })
-                            .openOn($scope.baseMap);
-                    },
-                    error: function (message) {
-                        swal({
-                            titel: 'Error',
-                            html: "Something went wrong :( <br>" + message,
-                            type: 'error',
-                            customClass: 'swalCc',
-                            buttonsStyling: false,
-                        });
+                //has to be where the image is!
+                if (e.latlng.lat < boundsData[0][0] && e.latlng.lat > boundsData[1][0] && e.latlng.lng < boundsData[0][1] && e.latlng.lng > boundsData[1][1]) {
+                    var coordToSend = {
+                        lat: e.latlng.lat,
+                        lng: e.latlng.lng,
+                        fileName: $scope.overlayName,
+                        band: $scope.selectedBand
                     }
-                });
+
+                    $.ajax({
+                        type: "POST",
+                        url: "http://localhost:10002/set_coordinates",
+                        dataType: 'json',
+                        data: coordToSend,
+                        success: function (data) {
+                            var popup = L.popup.angular({
+                                    template: `
+                                <div>                                
+                                    <div><p style="font-size: 16px;line-height: 20px;">{{$content.message}}</p></div>
+                                </div>
+                            `,
+                                }).setLatLng(e.latlng).setContent({
+                                    'lat': e.latlng.lat,
+                                    'lng': e.latlng.lng,
+                                    'message': data.message
+                                })
+                                .openOn($scope.baseMap);
+                        },
+                        error: function (message) {
+                            swal({
+                                titel: 'Error',
+                                html: "Something went wrong :( <br>",
+                                type: 'error',
+                                customClass: 'swalCc',
+                                buttonsStyling: false,
+                            });
+                        }
+                    });
+                } else {
+                    swal({
+                        html: "Please click on the image :) <br>",
+                        type: 'info',
+                        customClass: 'swalCc',
+                        buttonsStyling: false,
+                    });
+                }
             });
-
-            // TODO
-            // Daten bekommen?
         }
-
     };
 
     /**
@@ -703,7 +714,7 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
 
         $.ajax({
             type: "POST",
-            url: "http://localhost:10002/" + type,
+            url: backendUrl + "/" + type,
             dataType: 'json',
             data: sendData,
             traditional: true,
@@ -739,15 +750,24 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
                 $scope.tilesLayer.setOpacity(1);
 
                 $scope.hasInfo = true;
-                $scope.isProcessing = false;
+                $scope.$apply(function(){$scope.isProcessing = false;});
                 $scope.thereIsAnOverlay = true;
             },
+<<<<<<< HEAD
             error: function (XMLHttpRequest, textStatus, errorThrown) {
                 sweetAlert('Oops...', 'Something went wrong!', 'error');
                 $scope.hasInfo = false;
                 $scope.isProcessing = false;
             },
             timeout: 3000
+=======
+            error: function (XMLHttpRequest, textStatus, errorThrown) {                
+                sweetAlert('Oops...', XMLHttpRequest.responseText, 'error');
+                $scope.hasInfo = false;
+                $scope.thereIsAnOverlay = true;
+                $scope.$apply(function(){$scope.isProcessing = false;});
+            }
+>>>>>>> develop
         });
     };
 }]);

@@ -8,6 +8,14 @@ back-end/node_modules/
 back-end/.idea/
 back-end/npm-debug.log
 back-end/data/
+<<<<<<< HEAD
+=======
+
+#python stuff
+py_imgProcessing/__pycache__
+py_imgProcessing/bottle-0.12.13
+
+>>>>>>> develop
 .idea/
 
 # locally generated tiles (redundant)
@@ -16,3 +24,4 @@ sat_data/
 # nuetzliche installationsscripts fur windows systeme
 *.bat
 *.ps1
+py_imgProcessing/.vscode/settings.json

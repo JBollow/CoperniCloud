@@ -3,12 +3,19 @@ var router = express.Router();
 var xml2js = require('xml2js');
 var util = require('util');
 var parser = new xml2js.Parser();
+var unirest = require('unirest');
+var rp = require('request-promise');
 
-// const testFolder = '';
+const pyServerURL = "http://localhost:8088"
+
+// Docker
+// const localPath = '';
 // Jan-Patrick
-const testFolder = 'Y:/OneDrive/Dokumente/Uni/Uni Münster/WS17/Geosoft 2/Projekt/Testdaten/opt/sentinel2';
+const localPath = 'Y:/OneDrive/Dokumente/Uni/Uni Münster/WS17/Geosoft 2/Projekt/Testdaten';
 // Anna
-// const testFolder = 'F:/Dokumente/Uni/WS_2017/Geosoft2/Testdaten/opt/sentinel2';
+// const localPath = 'F:/Dokumente/Uni/WS_2017/Geosoft2/Testdaten';
+
+const testFolder = localPath + '/opt/sentinel2';
 
 //filesearch
 const fs = require('fs');
@@ -239,22 +246,57 @@ router.post('/sendColorBand', function (req, res) {
                             });
                         }
 
-                        // TODO
-                        // @Timm
-                        // hier kommt dein funktionsaufruf dein ajax oder was du brauchst
-                        // bitte mit der doc._id arbeiten
-                        console.log(doc._id);
-                        // als return muss nur die summary kommen, die dann bitte hier einfügen
+                        var pythonUrl = pyServerURL + "/create_new_image";
+                        var sendData = {
+                            "id": doc._id,
+                            "image": doc.object.image,
+                            "operations": arrofObjects
+                        };
 
-                        var summary = "";
+                        var options = {
+                            method: 'GET',
+                            url: pythonUrl,
+                            body: sendData,
+                            headers: {
+                                'Accept': 'application/json',
+                                'Content-Type': 'application/json'
+                            },
+                            json: true,
+                            timeout: 300000
+                        };
 
-                        // Creates new object to update the DB with the summary
-                        var newObject = doc;
-                        newObject.object.summary = summary;
-                        collection.update(doc._id, newObject);
+                        rp(options)
+                            .then(function (response) {
+                                    var summaryArray = []
 
-                        // Sends back the object
-                        res.send(doc);
+                                    response.band.forEach(function (entry, i) {
+                                        i++;
+                                        mean = entry.mean;
+                                        median = entry.median;
+                                        max = entry.max;
+                                        min = entry.min;
+                                        stdDev = entry.stdDev;
+                                        summaryArray.push("Band" + i + "<br>Mean: " + mean + "<br>Median: " + median + "<br>Max: " + max + "<br>Min: " + min + "<br>StdDev: " + stdDev + "<br><br>")
+                                    });
+
+                                    summaryString = summaryArray.toString();
+                                    summaryString = summaryString.replace(/,/g, '');
+
+                                    var summary = summaryString;
+
+                                    // Creates new object to update the DB with the summary
+                                    var newObject = doc;
+                                    newObject.object.summary = summary;
+                                    collection.update(doc._id, newObject);
+
+                                    // Sends back the object
+                                    res.send(newObject);
+                            })
+                            .catch(function (err) {
+                                console.log("bottle server error in der response");
+                                collection.remove(doc);
+                                res.send("There was a problem calculating the image.");
+                            });
                     }
                 });
             }
@@ -297,22 +339,57 @@ router.post('/sendComputeBand', function (req, res) {
                         res.send("There was a problem adding the information to the database.");
                     } else {
 
-                        // TODO
-                        // @Timm
-                        // hier kommt dein funktionsaufruf dein ajax oder was du brauchst
-                        // bitte mit der doc._id arbeiten
-                        console.log(doc._id);
-                        // als return muss nur die summary kommen, die dann bitte hier einfügen
+                        var pythonUrl = pyServerURL + "/arithmetic_band_combination";
+                        var sendData = {
+                            "id": doc._id,
+                            "image": doc.object.image,
+                            "operations": doc.object.operations
+                        };
 
-                        var summary = "";
+                        var options = {
+                            method: 'GET',
+                            url: pythonUrl,
+                            body: sendData,
+                            headers: {
+                                'Accept': 'application/json',
+                                'Content-Type': 'application/json'
+                            },
+                            json: true,
+                            timeout: 300000
+                        };
 
-                        // Creates new object to update the DB with the summary
-                        var newObject = doc;
-                        newObject.object.summary = summary;
-                        collection.update(doc._id, newObject);
+                        rp(options)
+                            .then(function (response) {
+                                var summaryArray = []
 
-                        // Sends back the object
-                        res.send(doc);
+                                response.band.forEach(function (entry, i) {
+                                    i++;
+                                    mean = entry.mean;
+                                    median = entry.median;
+                                    max = entry.max;
+                                    min = entry.min;
+                                    stdDev = entry.stdDev;
+                                    summaryArray.push("Band" + i + "<br>Mean: " + mean + "<br>Median: " + median + "<br>Max: " + max + "<br>Min: " + min + "<br>StdDev: " + stdDev + "<br><br>")
+                                });
+
+                                summaryString = summaryArray.toString();
+                                summaryString = summaryString.replace(/,/g, '');
+
+                                var summary = summaryString;
+
+                                // Creates new object to update the DB with the summary
+                                var newObject = doc;
+                                newObject.object.summary = summary;
+                                collection.update(doc._id, newObject);
+
+                                // Sends back the object
+                                res.send(newObject);
+
+                            })
+                            .catch(function (err) {
+                                collection.remove(doc);
+                                res.send("There was a problem calculating the image.");
+                            });
                     }
                 });
             }
@@ -333,8 +410,6 @@ router.post('/save', function (req, res) {
 
     // Set our collection
     var collection = db.get('copernicollection');
-
-    console.log(object);
 
     // Submit to the DB
     collection.insert({
@@ -366,8 +441,6 @@ router.post('/load', function (req, res) {
     // Set our collection
     var collection = db.get('copernicollection');
 
-    console.log(object.id);
-
     // Query from our DB
     collection.find({
         _id: object.id
@@ -384,20 +457,41 @@ router.post('/set_coordinates', function (req, res) {
 
     var lat = req.body.lat;
     var lng = req.body.lng;
+    var band = req.body.band;
+    var image = req.body.fileName;
+    var values_at_click = "Server Problem.";
+    var popup_content = {};
 
+    var pythonUrl = pyServerURL + "/get_point_info";
 
-    // TODO
-    // Hier bitte die Sentinel-2 measurement values ermitteln und als popup_content zurück schicken
-
-
-    var values_at_click = "something something";
-
-    var popup_content = {
-        message: "You clicked at " + lat + ", " + lng + ". " +
-            "The values at this location are: " + values_at_click
-    }
-
-    res.send(popup_content);
+    unirest.get(pythonUrl)
+        .headers({
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        })
+        .send({
+            "lat": lat,
+            "lng": lng,
+            "band": band,
+            "image": image
+        })
+        .end(function (response) {
+            if (response.error) {
+                values_at_click = "Something went wrong :(";
+                popup_content = {
+                    message: "You clicked at " + Math.round(lat * 10000) / 10000 + ", " + Math.round(lng * 10000) / 10000 + ". " +
+                        "The values at this location are: " + values_at_click
+                }
+                res.send(popup_content);
+            } else {
+                values_at_click = response.raw_body.pointInfo.toString();
+                popup_content = {
+                    message: "You clicked at " + Math.round(lat * 10000) / 10000 + ", " + Math.round(lng * 10000) / 10000 + ". " +
+                        "The values at this location are: " + values_at_click
+                }
+                res.send(popup_content);
+            }
+        });
 });
 
 module.exports = router;
