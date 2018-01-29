@@ -299,6 +299,7 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
             minZoom: 3,
             maxZoom: 13
         }).addTo($scope.baseMap);
+        $scope.tilesLayer.setZIndex(100);
     };
 
     /**

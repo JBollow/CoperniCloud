@@ -39,6 +39,7 @@ All satellite data is supplied for visualization using a simple TMS, and visuali
 - **python-gdal**: `pip install GDAL`
 - **numpy**: `pip install numpy`
 - **bottle**: `pip install bottle`
+- **Pillow**: `sudo pip install Pillow`  # Pillow is a currently maintained Fork of PIL (Python Image Library)
 
 ## Installation
 

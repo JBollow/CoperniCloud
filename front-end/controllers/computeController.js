@@ -43,7 +43,7 @@ coperniCloud.controller('computeController', function ($scope, data, $uibModalIn
      * NDVI preset for computebands expression
      */
     $scope.ndvi = function () {
-        sendData.operations = ["(", "B08", "-", "B04", ")", "/", "(", "B08", "+", "B04", ")"];
+        sendData.operations = ["(", "B08", "", "-", "", "B04", ")", "/", "(", "B08", "", "+", "", "B04", ")"];
         $uibModalInstance.close(sendData);
         $uibModalInstance.dismiss('ndvi');
     };
@@ -52,7 +52,7 @@ coperniCloud.controller('computeController', function ($scope, data, $uibModalIn
      * NDSI preset for computebands expression
      */
     $scope.ndsi = function () {
-        sendData.operations = ["(", "B03", "-", "B11", ")", "/", "(", "B03", "+", "B11", ")"];
+        sendData.operations = ["(", "B03", "", "-", "", "B11", ")", "/", "(", "B03", "", "+", "", "B11", ")"];
         $uibModalInstance.close(sendData);
         $uibModalInstance.dismiss('ndsi');
     };
