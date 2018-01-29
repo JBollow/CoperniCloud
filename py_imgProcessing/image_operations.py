@@ -143,56 +143,56 @@ def arithmeticCombination (bandPaths, eq):
     
     if "B01" in equation : 
         B01 = gdal.Open(bandPaths[0])
-        B01 = B01.GetRasterBand(1).ReadAsArray(0,0,B01.RasterXSize, B01.RasterYSize)
         rasterSizes[0] = B01.RasterXSize
+        B01 = B01.GetRasterBand(1).ReadAsArray(0,0,B01.RasterXSize, B01.RasterYSize)
     if "B02" in equation : 
         B02 = gdal.Open(bandPaths[1])
-        B02 = B02.GetRasterBand(1).ReadAsArray(0,0,B02.RasterXSize, B02.RasterYSize)
         rasterSizes[1] = B02.RasterXSize
+        B02 = B02.GetRasterBand(1).ReadAsArray(0,0,B02.RasterXSize, B02.RasterYSize)
     if "B03" in equation : 
         B03 = gdal.Open(bandPaths[2])
-        B03 = B03.GetRasterBand(1).ReadAsArray(0,0,B03.RasterXSize, B03.RasterYSize)
         rasterSizes[2] = B03.RasterXSize
+        B03 = B03.GetRasterBand(1).ReadAsArray(0,0,B03.RasterXSize, B03.RasterYSize)
     if "B04" in equation : 
         B04 = gdal.Open(bandPaths[3])
-        B04 = B04.GetRasterBand(1).ReadAsArray(0,0,B04.RasterXSize, B04.RasterYSize)
         rasterSizes[3] = B04.RasterXSize
+        B04 = B04.GetRasterBand(1).ReadAsArray(0,0,B04.RasterXSize, B04.RasterYSize)
     if "B05" in equation : 
         B05 = gdal.Open(bandPaths[4])
-        B05 = B05.GetRasterBand(1).ReadAsArray(0,0,B05.RasterXSize, B05.RasterYSize)
         rasterSizes[4] = B05.RasterXSize
+        B05 = B05.GetRasterBand(1).ReadAsArray(0,0,B05.RasterXSize, B05.RasterYSize)
     if "B06" in equation : 
         B06 = gdal.Open(bandPaths[5])
-        B06 = B06.GetRasterBand(1).ReadAsArray(0,0,B06.RasterXSize,B06.RasterYSize)
         rasterSizes[5] = B06.RasterXSize
+        B06 = B06.GetRasterBand(1).ReadAsArray(0,0,B06.RasterXSize,B06.RasterYSize)
     if "B07" in equation : 
         B07 = gdal.Open(bandPaths[6])
-        B07 = B07.GetRasterBand(1).ReadAsArray(0,0,B07.RasterXSize, B07.RasterYSize)
         rasterSizes[6] = B07.RasterXSize
+        B07 = B07.GetRasterBand(1).ReadAsArray(0,0,B07.RasterXSize, B07.RasterYSize)
     if "B08" in equation : 
         B08 = gdal.Open(bandPaths[7])
-        B08 = B08.GetRasterBand(1).ReadAsArray(0,0,B08.RasterXSize, B08.RasterYSize)
         rasterSizes[7] = B08.RasterXSize
+        B08 = B08.GetRasterBand(1).ReadAsArray(0,0,B08.RasterXSize, B08.RasterYSize)
     if "B8A" in equation : 
         B8A = gdal.Open(bandPaths[8])
-        B8A = B8A.GetRasterBand(1).ReadAsArray(0,0,B8A.RasterXSize, B8A.RasterYSize)
         rasterSizes[8] = B8A.RasterXSize
+        B8A = B8A.GetRasterBand(1).ReadAsArray(0,0,B8A.RasterXSize, B8A.RasterYSize)
     if "B09" in equation : 
         B09 = gdal.Open(bandPaths[9])
-        B09 = B09.GetRasterBand(1).ReadAsArray(0,0,B09.RasterXSize, B09.RasterYSize)
         rasterSizes[9] = B09.RasterXSize
+        B09 = B09.GetRasterBand(1).ReadAsArray(0,0,B09.RasterXSize, B09.RasterYSize)
     if "B10" in equation : 
         B10 = gdal.Open(bandPaths[10])
-        B10 = B10.GetRasterBand(1).ReadAsArray(0,0,B10.RasterXSize, B10.RasterYSize)
         rasterSizes[10] = B10.RasterXSize
+        B10 = B10.GetRasterBand(1).ReadAsArray(0,0,B10.RasterXSize, B10.RasterYSize)
     if "B11" in equation : 
         B11 = gdal.Open(bandPaths[11])
-        B11 = B11.GetRasterBand(1).ReadAsArray(0,0,B11.RasterXSize, B11.RasterYSize)
         rasterSizes[11] = B11.RasterXSize
+        B11 = B11.GetRasterBand(1).ReadAsArray(0,0,B11.RasterXSize, B11.RasterYSize)
     if "B12" in equation : 
         B12 = gdal.Open(bandPaths[12])
-        B12 = B12.GetRasterBand(1).ReadAsArray(0,0,B12.RasterXSize, B12.RasterYSize)
         rasterSizes[12] = B12.RasterXSize
+        B12 = B12.GetRasterBand(1).ReadAsArray(0,0,B12.RasterXSize, B12.RasterYSize)
     
     maxDim = np.max()
     
