@@ -197,7 +197,7 @@ def arithmeticCombination (bandPaths, eq):
     maxDim = np.max(rasterSizes)
     
     for b in [B01, B02, B03, B04, B05, B06, B07, B08, B8A, B09, B10, B11, B12]:
-        if b != None:
+        if b:
             img = Image.fromarray(b)
             img = img.resize((maxDim, maxDim))
             b = np.array(img)
