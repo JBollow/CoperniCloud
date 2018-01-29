@@ -49,8 +49,8 @@ coperniCloud.controller('bandColorController', function ($scope, data, $uibModal
      * TRUE COLOR preset for colorband operations
      */
     $scope.trueColor = function () {
-        sendData.operations = ["B01", "blue", "128", "128", "B03", "green", "128", "128", "B04", "red",
-            "128", "128"
+        sendData.operations = ["B01", "blue", "128", "128", "", "", "band", "", "", "B03", "green", "128", "128", "", "", "band", "", "", "B04", "red",
+            "128", "128", "", "", "band", "", ""
         ];
         $uibModalInstance.close(sendData);
         $uibModalInstance.dismiss('trueColor');
@@ -60,7 +60,7 @@ coperniCloud.controller('bandColorController', function ($scope, data, $uibModal
      * False color preset for colorband operations
      */
     $scope.falseColor = function () {
-        sendData.operations = ["B03", "blue", "128", "128", "B04", "green", "128", "128", "B08", "red", "128", "128"];
+        sendData.operations = ["B03", "blue", "128", "128", "", "", "band", "", "", "B04", "green", "128", "128", "", "", "band", "", "", "B08", "red", "128", "128", "", "", "band", "", ""];
         $uibModalInstance.close(sendData);
         $uibModalInstance.dismiss('falseColor');
     };
@@ -69,7 +69,7 @@ coperniCloud.controller('bandColorController', function ($scope, data, $uibModal
      * Short-wave infrared preset for colorband operations
      */
     $scope.shortWaveInfrared = function () {
-        sendData.operations = ["B04", "blue", "128", "128", "B08", "green", "128", "128", "B12", "red", "128", "128"];
+        sendData.operations = ["B04", "blue", "128", "128", "", "", "band", "", "", "B08", "green", "128", "128", "", "", "band", "", "", "B12", "red", "128", "128", "", "", "band", "", ""];
         $uibModalInstance.close(sendData);
         $uibModalInstance.dismiss('shortWaveInfrared');
     };
@@ -78,7 +78,7 @@ coperniCloud.controller('bandColorController', function ($scope, data, $uibModal
      * Near infrared preset for colorband operations
      */
     $scope.nearInfrared = function () {
-        sendData.operations = ["B04", "blue", "128", "128", "B08", "green", "128", "128", "B11", "red", "128", "128"];
+        sendData.operations = ["B04", "blue", "128", "128", "", "", "band", "", "", "B08", "green", "128", "128", "", "", "band", "", "", "B11", "red", "128", "128", "", "", "band", "", ""];
         $uibModalInstance.close(sendData);
         $uibModalInstance.dismiss('nearInfrared');
     };
@@ -88,7 +88,7 @@ coperniCloud.controller('bandColorController', function ($scope, data, $uibModal
         band: 'B08',
         color: 'blue',
         contrastValue: 128,
-        brightnessValue: 128,        
+        brightnessValue: 128,
         maskingvalue1: '',
         maskingoperator1: '',
         maskingoperator2: '',

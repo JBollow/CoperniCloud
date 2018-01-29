@@ -359,6 +359,8 @@ router.post('/sendComputeBand', function (req, res) {
                             "mask" : maskStr
                         };
 
+                        console.log(sendData);
+
                         var options = {
                             method: 'GET',
                             url: pythonUrl,

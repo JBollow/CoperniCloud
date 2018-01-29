@@ -1554,3 +1554,27 @@ div.infobox {
     padding: 10px;
     background-color: rgba(255, 255, 255, 0.8);
 }
+
+select.maskop{
+    font-size: 20px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 400;
+    line-height: 18px;
+    text-align: center;
+    width: 35px;
+    height: 35px;
+    position: relative;
+    bottom: -2px;
+}
+
+input.maskvalue{
+    font-size: 16px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 400;
+    line-height: 18px;
+    padding-left: 5px;
+    width: 54px;
+    height: 35px;
+}

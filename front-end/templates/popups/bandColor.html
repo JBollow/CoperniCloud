@@ -38,23 +38,23 @@
                     </span>
 
                     <span style="display: inline-block;">
-                        <p style="font-size: 16px; line-height: 32px; display: inline;">&nbsp;Masking:</p>
-                        <input type="number" name="input" ng-model="x.maskingvalue1" min="0" max="255">
-                        <select ng-if="x" ng-model="x.maskingoperator1">
-                                <option value="!=">!=</option>
+                        <p style="font-size: 16px; line-height: 32px; display: inline;">&nbsp;&nbsp;&nbsp;Masking:</p>
+                        <input class="maskvalue" type="number" name="input" ng-model="x.maskingvalue1" min="0" max="255">
+                        <select class="maskop" ng-if="x" ng-model="x.maskingoperator1">
+                                <option value="!=">&ne;</option>
                             <option value="==">=</option>
-                                    <option value=">=">>=</option>
-                                    <option value="<=">&lt=</option>
+                                    <option value=">=">&geq;</option>
+                                    <option value="<=">&leq;</option>
                                     <option value=""></option>
                         </select>
-                        <p style="font-size: 14px; display: inline;">band</p>
-                        <select ng-if="x.maskingoperator1 == '<='" ng-model="x.maskingoperator2">
-                            <option value="<=">&lt=</option>
+                        <p style="font-size: 14px; display: inline;">&nbsp;band&nbsp;</p>
+                        <select class="maskop" ng-if="x.maskingoperator1 == '<='" ng-model="x.maskingoperator2">
+                            <option value="<=">&leq;</option>
                             <option value=""></option></select>
-                        <select ng-if="x.maskingoperator1 == '>='" ng-model="x.maskingoperator2">
-                                <option value=">=">>=</option>
+                        <select class="maskop" ng-if="x.maskingoperator1 == '>='" ng-model="x.maskingoperator2">
+                                <option value=">=">&geq;</option>
                                 <option value=""></option></select>
-                        <input ng-if="x.maskingoperator1 == '>=' || x.maskingoperator1 == '<='" type="number" name="input" ng-model="x.maskingvalue2" min="0" max="255">
+                        <input class="maskvalue" ng-if="x.maskingoperator1 == '>=' || x.maskingoperator1 == '<='" type="number" name="input" ng-model="x.maskingvalue2" min="0" max="255">
                     </span>
 
                     <!-- Bitte überarbeiten -->
