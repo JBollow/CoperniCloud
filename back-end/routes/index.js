@@ -6,14 +6,14 @@ var parser = new xml2js.Parser();
 var unirest = require('unirest');
 var rp = require('request-promise');
 
-const pyServerURL = "http://localhost:8088"
+const pyServerURL = "http://localhost:8088";
 
 // Docker
 // const localPath = '';
 // Jan-Patrick
-// const localPath = 'Y:/OneDrive/Dokumente/Uni/Uni Münster/WS17/Geosoft 2/Projekt/Testdaten';
+const localPath = 'Y:/OneDrive/Dokumente/Uni/Uni Münster/WS17/Geosoft 2/Projekt/Testdaten';
 // Anna
-const localPath = 'F:/Dokumente/Uni/WS_2017/Geosoft2/Testdaten';
+// const localPath = 'F:/Dokumente/Uni/WS_2017/Geosoft2/Testdaten';
 
 const testFolder = localPath + '/opt/sentinel2';
 
@@ -237,12 +237,13 @@ router.post('/sendColorBand', function (req, res) {
                         var helpobject = req.body;
                         var arrofObjects = [];
                         var counter = helpobject.operations.length;
-                        for (i = 0; i < counter; i = i + 4) {
+                        for (i = 0; i < counter; i = i + 9) {
                             arrofObjects.push({
                                 "band": helpobject.operations[i],
                                 "color": helpobject.operations[i + 1],
                                 "contrast": helpobject.operations[i + 2],
-                                "brightness": helpobject.operations[i + 3]
+                                "brightness": helpobject.operations[i + 3],
+                                "mask": helpobject.operations[i + 4] + helpobject.operations[i + 5] + "band" + helpobject.operations[i + 7] + helpobject.operations[i + 8]
                             });
                         }
 
@@ -267,7 +268,7 @@ router.post('/sendColorBand', function (req, res) {
 
                         rp(options)
                             .then(function (response) {
-                                    var summaryArray = []
+                                    var summaryArray = [];
 
                                     response.band.forEach(function (entry, i) {
                                         i++;
@@ -276,7 +277,7 @@ router.post('/sendColorBand', function (req, res) {
                                         max = entry.max;
                                         min = entry.min;
                                         stdDev = entry.stdDev;
-                                        summaryArray.push("Band" + i + "<br>Mean: " + mean + "<br>Median: " + median + "<br>Max: " + max + "<br>Min: " + min + "<br>StdDev: " + stdDev + "<br><br>")
+                                        summaryArray.push("Band" + i + "<br>Mean: " + mean + "<br>Median: " + median + "<br>Max: " + max + "<br>Min: " + min + "<br>StdDev: " + stdDev + "<br><br>");
                                     });
 
                                     summaryString = summaryArray.toString();
@@ -338,12 +339,19 @@ router.post('/sendComputeBand', function (req, res) {
                         // If it failed, return error
                         res.send("There was a problem adding the information to the database.");
                     } else {
+                        var operationArray = doc.object.operations;
+                        var maskStr = "";
+
+                        for(i=0; i<=4 ; i++){
+                        maskStr = operationArray.pop() + maskStr;
+                        }
 
                         var pythonUrl = pyServerURL + "/arithmetic_band_combination";
                         var sendData = {
                             "id": doc._id,
                             "image": doc.object.image,
-                            "operations": doc.object.operations
+                            "operations": operationArray,
+                            "mask" : maskStr
                         };
 
                         var options = {
@@ -360,7 +368,7 @@ router.post('/sendComputeBand', function (req, res) {
 
                         rp(options)
                             .then(function (response) {
-                                var summaryArray = []
+                                var summaryArray = [];
 
                                 response.band.forEach(function (entry, i) {
                                     i++;
@@ -369,7 +377,7 @@ router.post('/sendComputeBand', function (req, res) {
                                     max = entry.max;
                                     min = entry.min;
                                     stdDev = entry.stdDev;
-                                    summaryArray.push("Band" + i + "<br>Mean: " + mean + "<br>Median: " + median + "<br>Max: " + max + "<br>Min: " + min + "<br>StdDev: " + stdDev + "<br><br>")
+                                    summaryArray.push("Band" + i + "<br>Mean: " + mean + "<br>Median: " + median + "<br>Max: " + max + "<br>Min: " + min + "<br>StdDev: " + stdDev + "<br><br>");
                                 });
 
                                 summaryString = summaryArray.toString();
@@ -481,14 +489,14 @@ router.post('/set_coordinates', function (req, res) {
                 popup_content = {
                     message: "You clicked at " + Math.round(lat * 10000) / 10000 + ", " + Math.round(lng * 10000) / 10000 + ". " +
                         "The values at this location are: " + values_at_click
-                }
+                };
                 res.send(popup_content);
             } else {
                 values_at_click = response.raw_body.pointInfo.toString();
                 popup_content = {
                     message: "You clicked at " + Math.round(lat * 10000) / 10000 + ", " + Math.round(lng * 10000) / 10000 + ". " +
                         "The values at this location are: " + values_at_click
-                }
+                };
                 res.send(popup_content);
             }
         });
