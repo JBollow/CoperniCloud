@@ -196,67 +196,69 @@ def arithmeticCombination (bandPaths, eq):
     
     maxDim = np.max(rasterSizes)
     
-    if type(B01) == "numpy.array":
+    print(type(B01))
+
+    if type(B01).__module__ == np.__name__:
         img = Image.fromarray(B01)
         img = img.resize((maxDim, maxDim))
         B01 = np.array(img)
     
-    if type(B02) == "numpy.array":
+    if type(B02).__module__ == np.__name__:
         img = Image.fromarray(B02)
         img = img.resize((maxDim, maxDim))
         B02 = np.array(img)
     
-    if type(B03) == "numpy.array":
+    if type(B03).__module__ == np.__name__:
         img = Image.fromarray(B03)
         img = img.resize((maxDim, maxDim))
         B03 = np.array(img)
     
-    if type(B04) == "numpy.array":
+    if type(B04).__module__ == np.__name__:
         img = Image.fromarray(B04)
         img = img.resize((maxDim, maxDim))
         B04 = np.array(img)
     
-    if type(B05) == "numpy.array":
+    if type(B05).__module__ == np.__name__:
         img = Image.fromarray(B05)
         img = img.resize((maxDim, maxDim))
         B05 = np.array(img)
     
-    if type(B06) == "numpy.array":
+    if type(B06).__module__ == np.__name__:
         img = Image.fromarray(B06)
         img = img.resize((maxDim, maxDim))
         B06 = np.array(img)
     
-    if type(B07) == "numpy.array":
+    if type(B07).__module__ == np.__name__:
         img = Image.fromarray(B07)
         img = img.resize((maxDim, maxDim))
         B07 = np.array(img)
     
-    if type(B08) == "numpy.array":
+    if type(B08).__module__ == np.__name__:
         img = Image.fromarray(B08)
         img = img.resize((maxDim, maxDim))
         B08 = np.array(img)
     
-    if type(B8A) == "numpy.array":
+    if type(B8A).__module__ == np.__name__:
         img = Image.fromarray(B8A)
         img = img.resize((maxDim, maxDim))
         B8A = np.array(img)
     
-    if type(B09) == "numpy.array":
+    if type(B09).__module__ == np.__name__:
         img = Image.fromarray(B09)
         img = img.resize((maxDim, maxDim))
         B09 = np.array(img)
     
-    if type(B10) == "numpy.array":
+    if type(B10).__module__ == np.__name__:
         img = Image.fromarray(B10)
         img = img.resize((maxDim, maxDim))
         B10 = np.array(img)
     
-    if type(B11) == "numpy.array":
+    if type(B11).__module__ == np.__name__:
         img = Image.fromarray(B11)
         img = img.resize((maxDim, maxDim))
         B11 = np.array(img)
         
-    if type(B12) == "numpy.array":
+    if type(B12).__module__ == np.__name__:
         img = Image.fromarray(B12)
         img = img.resize((maxDim, maxDim))
         B12 = np.array(img)
