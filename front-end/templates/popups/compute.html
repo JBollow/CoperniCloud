@@ -35,6 +35,25 @@
                     </button>
                 </span>
             </span>
+            <span style="display: inline-block;">
+                    <p style="font-size: 16px; line-height: 32px; display: inline;">&nbsp;Masking:</p>
+                    <input type="number" name="input" ng-model="masking.maskingvalue1" min="0" max="255">
+                    <select ng-if="masking" ng-model="masking.maskingoperator1">
+                            <option value="!=">!=</option>
+                        <option value="==">=</option>
+                                <option value=">=">>=</option>
+                                <option value="<=">&lt=</option>
+                                <option value=""></option>
+                    </select>
+                    <p style="font-size: 14px; display: inline;">band</p>
+                    <select ng-if="masking.maskingoperator1 == '<='" ng-model="masking.maskingoperator2">
+                        <option value="<=">&lt=</option>
+                        <option value=""></option></select>
+                    <select ng-if="masking.maskingoperator1 == '>='" ng-model="masking.maskingoperator2">
+                            <option value=">=">>=</option>
+                            <option value=""></option></select>
+                    <input ng-if="masking.maskingoperator1 == '>=' || masking.maskingoperator1 == '<='" type="number" name="input" ng-model="masking.maskingvalue2" min="0" max="255">
+                </span>
         </div>
 
         <div class="col-sm-4 scrollbarDiv">

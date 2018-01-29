@@ -210,6 +210,7 @@ router.post('/sendColorBand', function (req, res) {
 
     // Get our object
     var object = req.body;
+    console.log(object.operations);
 
     // Checks if this userrequest was already rendered
     collection.findOne({
@@ -235,6 +236,7 @@ router.post('/sendColorBand', function (req, res) {
 
                         // Helpobject and array for calculations
                         var helpobject = req.body;
+                        
                         var arrofObjects = [];
                         var counter = helpobject.operations.length;
                         for (i = 0; i < counter; i = i + 9) {
@@ -246,13 +248,16 @@ router.post('/sendColorBand', function (req, res) {
                                 "mask": helpobject.operations[i + 4] + helpobject.operations[i + 5] + "band" + helpobject.operations[i + 7] + helpobject.operations[i + 8]
                             });
                         }
+                        console.log(arrofObjects);
 
                         var pythonUrl = pyServerURL + "/create_new_image";
                         var sendData = {
                             "id": doc._id,
                             "image": doc.object.image,
-                            "operations": arrofObjects
+                            "operations": arrofObjects,
                         };
+
+                        console.log(sendData);
 
                         var options = {
                             method: 'GET',

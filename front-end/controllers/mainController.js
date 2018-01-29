@@ -398,7 +398,6 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
         modalInstance.result.then(function (operationsObject) {
             operationsObject.image = $scope.overlayName;
             userRequestName = $scope.overlayName;
-            console.log(operationsObject);
             var type = "sendComputeBand";
             $scope.sendCalc(operationsObject, type);
         });
@@ -424,7 +423,6 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
         modalInstance.result.then(function (operationsObject) {
             operationsObject.image = $scope.overlayName;
             userRequestName = $scope.overlayName;
-            console.log(operationsObject);
             var type = "sendColorBand";
             $scope.sendCalc(operationsObject, type);
         });
@@ -709,6 +707,8 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
             customClass: 'swalCc',
             buttonsStyling: false,
         });
+
+        console.log(sendData);
 
         $scope.isProcessing = true;
         $scope.hasInfo = false;

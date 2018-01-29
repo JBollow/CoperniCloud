@@ -35,6 +35,8 @@ coperniCloud.controller('computeController', function ($scope, data, $uibModalIn
             sendData.operations.push(newArray[i][2]);
             sendData.operations.push(newArray[i][3]);
         }
+        sendData.operations.push($scope.masking.maskingvalue1.toString(), $scope.masking.maskingoperator1, "band",  $scope.masking.maskingoperator2,  $scope.masking.maskingvalue2.toString());
+
         $uibModalInstance.close(sendData);
         $uibModalInstance.dismiss('ok');
     };
@@ -64,6 +66,14 @@ coperniCloud.controller('computeController', function ($scope, data, $uibModalIn
         band: '',
         back: ''
     }];
+
+    $scope.masking = {
+        maskingvalue1: '',
+        maskingoperator1: '',
+        maskingband: 'band',
+        maskingoperator2: '',
+        maskingvalue2: ''
+    }
 
     $scope.addff = function () {
         if ($scope.terms.length < 11) {
