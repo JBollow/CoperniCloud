@@ -194,7 +194,7 @@ def arithmeticCombination (bandPaths, eq):
         rasterSizes[12] = B12.RasterXSize
         B12 = B12.GetRasterBand(1).ReadAsArray(0,0,B12.RasterXSize, B12.RasterYSize)
     
-    maxDim = np.max()
+    maxDim = np.max(rasterSizes)
     
     for b in [B01, B02, B03, B04, B05, B06, B07, B08, B8A, B09, B10, B11, B12]:
         if b != None:
