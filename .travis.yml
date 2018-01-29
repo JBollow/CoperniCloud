@@ -18,6 +18,7 @@ before_install:
 
 install:
   - pip install bottle numpy
+  - sudo pip install Pillow
   - . install.sh
 
 script:
