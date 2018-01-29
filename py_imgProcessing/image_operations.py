@@ -196,12 +196,71 @@ def arithmeticCombination (bandPaths, eq):
     
     maxDim = np.max(rasterSizes)
     
-    for b in [B01, B02, B03, B04, B05, B06, B07, B08, B8A, B09, B10, B11, B12]:
-        if b:
-            img = Image.fromarray(b)
-            img = img.resize((maxDim, maxDim))
-            b = np.array(img)
+    if type(B01) == "numpy.array":
+        img = Image.fromarray(B01)
+        img = img.resize((maxDim, maxDim))
+        B01 = np.array(img)
     
+    if type(B02) == "numpy.array":
+        img = Image.fromarray(B02)
+        img = img.resize((maxDim, maxDim))
+        B02 = np.array(img)
+    
+    if type(B03) == "numpy.array":
+        img = Image.fromarray(B03)
+        img = img.resize((maxDim, maxDim))
+        B03 = np.array(img)
+    
+    if type(B04) == "numpy.array":
+        img = Image.fromarray(B04)
+        img = img.resize((maxDim, maxDim))
+        B04 = np.array(img)
+    
+    if type(B05) == "numpy.array":
+        img = Image.fromarray(B05)
+        img = img.resize((maxDim, maxDim))
+        B05 = np.array(img)
+    
+    if type(B06) == "numpy.array":
+        img = Image.fromarray(B06)
+        img = img.resize((maxDim, maxDim))
+        B06 = np.array(img)
+    
+    if type(B07) == "numpy.array":
+        img = Image.fromarray(B07)
+        img = img.resize((maxDim, maxDim))
+        B07 = np.array(img)
+    
+    if type(B08) == "numpy.array":
+        img = Image.fromarray(B08)
+        img = img.resize((maxDim, maxDim))
+        B08 = np.array(img)
+    
+    if type(B8A) == "numpy.array":
+        img = Image.fromarray(B8A)
+        img = img.resize((maxDim, maxDim))
+        B8A = np.array(img)
+    
+    if type(B09) == "numpy.array":
+        img = Image.fromarray(B09)
+        img = img.resize((maxDim, maxDim))
+        B09 = np.array(img)
+    
+    if type(B10) == "numpy.array":
+        img = Image.fromarray(B10)
+        img = img.resize((maxDim, maxDim))
+        B10 = np.array(img)
+    
+    if type(B11) == "numpy.array":
+        img = Image.fromarray(B11)
+        img = img.resize((maxDim, maxDim))
+        B11 = np.array(img)
+        
+    if type(B12) == "numpy.array":
+        img = Image.fromarray(B12)
+        img = img.resize((maxDim, maxDim))
+        B12 = np.array(img)
+        
     print("equation")
     print(equation)
 
