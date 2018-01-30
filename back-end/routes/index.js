@@ -11,7 +11,7 @@ const pyServerURL = "http://localhost:8088";
 // Docker
 // const localPath = '';
 // Jan-Patrick
-const localPath = 'Y:/OneDrive/Dokumente/Uni/Uni Münster/WS17/Geosoft 2/Projekt/Testdaten';
+const localPath = 'C:';
 // Anna
 // const localPath = 'F:/Dokumente/Uni/WS_2017/Geosoft2/Testdaten';
 
@@ -282,7 +282,7 @@ router.post('/sendColorBand', function (req, res) {
                                         max = entry.max;
                                         min = entry.min;
                                         stdDev = entry.stdDev;
-                                        summaryArray.push("Band" + i + "<br>Mean: " + mean + "<br>Median: " + median + "<br>Max: " + max + "<br>Min: " + min + "<br>StdDev: " + stdDev + "<br><br>");
+                                        summaryArray.push("New band " + i + "<br>Mean: " + mean + "<br>Median: " + median + "<br>Max: " + max + "<br>Min: " + min + "<br>StdDev: " + stdDev + "<br><br>");
                                     });
 
                                     summaryString = summaryArray.toString();

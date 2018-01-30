@@ -34,7 +34,7 @@ geotiff = gdal.GetDriverByName('GTiff')
 # Anna
 # localPath = "F:/Dokumente/Uni/WS_2017/Geosoft2/Testdaten"
 # Jan-Patrick
-localPath = "Y:"
+localPath = "C:"
 
 optPath = localPath + "/opt/"
 

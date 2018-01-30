@@ -11,12 +11,11 @@ coperniCloud.controller('computeController', function ($scope, data, $uibModalIn
 
     // Different tile path for 1C and 2A        
     if (folderName.includes("MSIL1C")) {
-        $scope.imageType
         $scope.bandOptions = ["B01", "B02", "B03", "B04", "B05", "B06", "B07", "B08", "B8A", "B09", "B10", "B11", "B12"];
     }
     if (folderName.includes("MSIL2A")) {
         $scope.imageType1C = false;
-        $scope.bandOptions = ["B02", "B03", "B04", "B08"];
+        $scope.bandOptions = ["B01", "B02", "B03", "B04", "B05", "B06", "B07", "B08", "B8A", "B09", "B10", "B11", "B12"];
     }
 
     // Close by pressing the Cancel button
@@ -73,7 +72,7 @@ coperniCloud.controller('computeController', function ($scope, data, $uibModalIn
         maskingband: 'band',
         maskingoperator2: '',
         maskingvalue2: ''
-    }
+    };
 
     $scope.addff = function () {
         if ($scope.terms.length < 11) {

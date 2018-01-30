@@ -76,7 +76,7 @@ coperniCloud.controller('resultsController', function ($scope, data, $uibModalIn
 
     //..by pressing the ok button
     $scope.ok = function (result) {
-        let allMeta = {result: result, bounds: $scope.bounds}
+        let allMeta = {result: result, bounds: $scope.bounds};
         $uibModalInstance.close(allMeta);
     };
 
