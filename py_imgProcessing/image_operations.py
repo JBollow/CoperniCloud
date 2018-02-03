@@ -62,9 +62,16 @@ def edit_band (instructions, bandPaths):
         band = gdal.Open(bandPaths[12])
         band = band.GetRasterBand(1).ReadAsArray(0,0,band.RasterXSize, band.RasterYSize)
     
+    # increase / decrease brightness of image pixel-wise
     band = change_brightness(band, instructions['brightness'])
+    
+    # increase / decrease contrase of image pixel-wise
     band = change_contrast(band, instructions['contrast'])
     
+    # when masking is required, mask pixels according to requested logic operators
+    if instructions['mask'] != "band":
+        band = maskPixels(band, instructions['mask'])
+        
     return band
 
 #######################################
@@ -118,7 +125,7 @@ def change_contrast(img, level):
 ###### Arithmetic Combination #########
 #######################################
 
-def arithmeticCombination (bandPaths, eq):
+def arithmeticCombination (bandPaths, eq, mask):
     # open Bands where required
     def returnSelf (val):
         return val
@@ -273,6 +280,10 @@ def arithmeticCombination (bandPaths, eq):
     newBand[ newBand == np.inf ] = np.max(newBand)
     
     newBand = ((newBand - np.min(newBand)) / (np.max(newBand) - np.min(newBand))) * 65536
+    
+    if mask != "band":
+        newBand = maskPixels(newBand, mask)
+    
     print(getSummaryStatistics(newBand))
     return newBand.astype(int)
     
@@ -320,12 +331,17 @@ def getSummaryStatistics(band):
 
 def maskPixels (imgBand, logicOp):
     # ops is an array of Stings following format:
-    # "band [logical_op] [0 <= int_value <= 65536]
+    # "band [logical_op] [0 <= int_value <= 65536]"
+
+    band = (imgBand / 65536) * 255
+    band = band.astype(int)
     
-    band = imgBand
     band += 1
+    band[eval(logicOp)] = 1
+    band -= 1
     
-    band[eval(logicOp)] = 0
+    band = (band / 255) * 65536
+    band = band.astype(int)
     
     return band
 

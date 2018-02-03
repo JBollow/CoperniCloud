@@ -19,6 +19,7 @@ import osr
 import json
 import subprocess
 from json import dumps
+from PIL import Image
 
 
 float32 = np.float32
@@ -31,9 +32,9 @@ geotiff = gdal.GetDriverByName('GTiff')
 # docker
 # localPath = ""
 # Anna
-localPath = "F:/Dokumente/Uni/WS_2017/Geosoft2/Testdaten"
+# localPath = "F:/Dokumente/Uni/WS_2017/Geosoft2/Testdaten"
 # Jan-Patrick
-# localPath = "Y:"
+localPath = "C:"
 
 optPath = localPath + "/opt/"
 
@@ -145,6 +146,7 @@ def create_new_image():
     bandFileNames = getFileNamesPerBandID(imageName)
 
     # read one band to get metadata, i.e. GeoTransform and Projection
+    # incidentally, blue color band is always supplied in 10m resolution
     metaBand = gdal.Open(bandFileNames[1])
 
     #newImageObject = geotiff.CreateCopy(tmpFile, metaBand, 0)
@@ -157,6 +159,7 @@ def create_new_image():
     newImageObject.SetProjection(metaBand.GetProjection())
 
     bandBuildInstructions = [None]*len(req['operations'])
+    
     for i, instructionSet in enumerate(req['operations'], start=0):
         bandBuildInstructions[i] = makeColorInterpretationSettingNumeric(
             instructionSet)
@@ -165,7 +168,12 @@ def create_new_image():
 
     for index, instructionSet in enumerate(bandBuildInstructions, start=1):
         newBand = img_ops.edit_band(instructionSet, bandFileNames)
-
+        
+        # rescale image to 10m resolution Raster Size, so images match in display
+        img = Image.fromarray(newBand)
+        img = img.resize((metaBand.RasterXSize, metaBand.RasterXSize))
+        newBand = np.array(img)
+        
         # summaryStatistics[str(index)] = img_ops.getSummaryStatistics(newBand)
         summaryArray.append(img_ops.getSummaryStatistics(newBand))
 
@@ -193,7 +201,9 @@ def arithmetic_band_combination():
     bands = getFileNamesPerBandID(req['image'])
 
     equation = req['operations']
-    newBand = img_ops.arithmeticCombination(bands, equation)
+    mask = req['mask']
+    
+    newBand = img_ops.arithmeticCombination(bands, equation, mask)
 
     tilePath = optPath + "userrequest/" + \
         req['image'] + ".SAFE/" + req['id'] + "/"

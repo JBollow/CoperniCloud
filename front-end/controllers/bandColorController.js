@@ -16,7 +16,7 @@ coperniCloud.controller('bandColorController', function ($scope, data, $uibModal
     }
     if (folderName.includes("MSIL2A")) {
         $scope.imageType1C = false;
-        $scope.bandOptions = ["B02", "B03", "B04", "B08"];
+        $scope.bandOptions = ["B01", "B02", "B03", "B04", "B05", "B06", "B07", "B08", "B8A", "B09", "B10", "B11", "B12"];
     }
 
     // Close by pressing the Cancel button
@@ -27,13 +27,18 @@ coperniCloud.controller('bandColorController', function ($scope, data, $uibModal
     // Sends arithmetic expressions to backend
     $scope.ok = function () {
         var newArray = $scope.terms.map(function (el) {
-            return [el.band, el.color, el.contrastValue, el.brightnessValue];
+            return [el.band, el.color, el.contrastValue, el.brightnessValue, el.maskingvalue1.toString(), el.maskingoperator1, "band", el.maskingoperator2, el.maskingvalue2.toString()];
         });
         for (var i = 0; i < newArray.length; i++) {
             sendData.operations.push(newArray[i][0]);
             sendData.operations.push(newArray[i][1]);
             sendData.operations.push(newArray[i][2]);
             sendData.operations.push(newArray[i][3]);
+            sendData.operations.push(newArray[i][4]);
+            sendData.operations.push(newArray[i][5]);
+            sendData.operations.push(newArray[i][6]);
+            sendData.operations.push(newArray[i][7]);
+            sendData.operations.push(newArray[i][8]);
         }
         console.log(sendData);
         $uibModalInstance.close(sendData);
@@ -44,8 +49,8 @@ coperniCloud.controller('bandColorController', function ($scope, data, $uibModal
      * TRUE COLOR preset for colorband operations
      */
     $scope.trueColor = function () {
-        sendData.operations = ["B01", "blue", "128", "128", "B03", "green", "128", "128", "B04", "red",
-            "128", "128"
+        sendData.operations = ["B01", "blue", "128", "128", "", "", "band", "", "", "B03", "green", "128", "128", "", "", "band", "", "", "B04", "red",
+            "128", "128", "", "", "band", "", ""
         ];
         $uibModalInstance.close(sendData);
         $uibModalInstance.dismiss('trueColor');
@@ -55,7 +60,7 @@ coperniCloud.controller('bandColorController', function ($scope, data, $uibModal
      * False color preset for colorband operations
      */
     $scope.falseColor = function () {
-        sendData.operations = ["B03", "blue", "128", "128", "B04", "green", "128", "128", "B08", "red", "128", "128"];
+        sendData.operations = ["B03", "blue", "128", "128", "", "", "band", "", "", "B04", "green", "128", "128", "", "", "band", "", "", "B08", "red", "128", "128", "", "", "band", "", ""];
         $uibModalInstance.close(sendData);
         $uibModalInstance.dismiss('falseColor');
     };
@@ -64,7 +69,7 @@ coperniCloud.controller('bandColorController', function ($scope, data, $uibModal
      * Short-wave infrared preset for colorband operations
      */
     $scope.shortWaveInfrared = function () {
-        sendData.operations = ["B04", "blue", "128", "128", "B08", "green", "128", "128", "B12", "red", "128", "128"];
+        sendData.operations = ["B04", "blue", "128", "128", "", "", "band", "", "", "B08", "green", "128", "128", "", "", "band", "", "", "B12", "red", "128", "128", "", "", "band", "", ""];
         $uibModalInstance.close(sendData);
         $uibModalInstance.dismiss('shortWaveInfrared');
     };
@@ -73,26 +78,34 @@ coperniCloud.controller('bandColorController', function ($scope, data, $uibModal
      * Near infrared preset for colorband operations
      */
     $scope.nearInfrared = function () {
-        sendData.operations = ["B04", "blue", "128", "128", "B08", "green", "128", "128", "B11", "red", "128", "128"];
+        sendData.operations = ["B04", "blue", "128", "128", "", "", "band", "", "", "B08", "green", "128", "128", "", "", "band", "", "", "B11", "red", "128", "128", "", "", "band", "", ""];
         $uibModalInstance.close(sendData);
         $uibModalInstance.dismiss('nearInfrared');
     };
 
     // Adding more bands to the expression
     $scope.terms = [{
-        band: 'B08',
+        band: 'B01',
         color: 'blue',
         contrastValue: 128,
-        brightnessValue: 128
+        brightnessValue: 128,
+        maskingvalue1: '',
+        maskingoperator1: '',
+        maskingoperator2: '',
+        maskingvalue2: ''
     }];
 
     $scope.addcf = function () {
         if ($scope.terms.length < 11) {
             $scope.terms.push({
-         band: 'B08',
-        color: 'blue',
+                band: 'B01',
+                color: 'blue',
                 contrastValue: 128,
-                brightnessValue: 128
+                brightnessValue: 128,
+                maskingvalue1: '',
+                maskingoperator1: '',
+                maskingoperator2: '',
+                maskingvalue2: ''
             });
         } else {
             swal({

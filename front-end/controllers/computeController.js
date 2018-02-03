@@ -11,12 +11,11 @@ coperniCloud.controller('computeController', function ($scope, data, $uibModalIn
 
     // Different tile path for 1C and 2A        
     if (folderName.includes("MSIL1C")) {
-        $scope.imageType;
         $scope.bandOptions = ["B01", "B02", "B03", "B04", "B05", "B06", "B07", "B08", "B8A", "B09", "B10", "B11", "B12"];
     }
     if (folderName.includes("MSIL2A")) {
         $scope.imageType1C = false;
-        $scope.bandOptions = ["B02", "B03", "B04", "B08"];
+        $scope.bandOptions = ["B01", "B02", "B03", "B04", "B05", "B06", "B07", "B08", "B8A", "B09", "B10", "B11", "B12"];
     }
 
     // Close by pressing the Cancel button
@@ -35,6 +34,8 @@ coperniCloud.controller('computeController', function ($scope, data, $uibModalIn
             sendData.operations.push(newArray[i][2]);
             sendData.operations.push(newArray[i][3]);
         }
+        sendData.operations.push($scope.masking.maskingvalue1.toString(), $scope.masking.maskingoperator1, "band",  $scope.masking.maskingoperator2,  $scope.masking.maskingvalue2.toString());
+
         $uibModalInstance.close(sendData);
         $uibModalInstance.dismiss('ok');
     };
@@ -43,7 +44,7 @@ coperniCloud.controller('computeController', function ($scope, data, $uibModalIn
      * NDVI preset for computebands expression
      */
     $scope.ndvi = function () {
-        sendData.operations = ["(", "B08", "", "-", "", "B04", ")", "/", "(", "B08", "", "+", "", "B04", ")"];
+        sendData.operations = ["(", "B08", "", "-", "", "B04", ")", "/", "(", "B08", "", "+", "", "B04", ")","","","band","",""];
         $uibModalInstance.close(sendData);
         $uibModalInstance.dismiss('ndvi');
     };
@@ -52,7 +53,7 @@ coperniCloud.controller('computeController', function ($scope, data, $uibModalIn
      * NDSI preset for computebands expression
      */
     $scope.ndsi = function () {
-        sendData.operations = ["(", "B03", "", "-", "", "B11", ")", "/", "(", "B03", "", "+", "", "B11", ")"];
+        sendData.operations = ["(", "B03", "", "-", "", "B11", ")", "/", "(", "B03", "", "+", "", "B11", ")","","","band","",""];
         $uibModalInstance.close(sendData);
         $uibModalInstance.dismiss('ndsi');
     };
@@ -64,6 +65,14 @@ coperniCloud.controller('computeController', function ($scope, data, $uibModalIn
         band: '',
         back: ''
     }];
+
+    $scope.masking = {
+        maskingvalue1: '',
+        maskingoperator1: '',
+        maskingband: 'band',
+        maskingoperator2: '',
+        maskingvalue2: ''
+    };
 
     $scope.addff = function () {
         if ($scope.terms.length < 11) {

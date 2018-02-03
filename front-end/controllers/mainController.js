@@ -321,7 +321,8 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
         }
         if (folderName.includes("MSIL2A")) {
             dataType = "R10m/";
-            $scope.bandOptions = ["AOT", "B02", "B03", "B04", "B08", "TCI", "WVP"];
+
+            $scope.bandOptions = ["B01", "B02", "B03", "B04", "B05", "B06", "B07", "B08", "B8A", "B09", "B10", "B11", "B12", "TCI", "AOT", "WVP"];
         }
 
         tilesServer = "tiles";
@@ -353,7 +354,54 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
             dataType = "";
         }
         if (folderName.includes("MSIL2A")) {
-            dataType = "R10m/";
+            if ($scope.selectedBand == "AOT") {
+                dataType = "R10m/";                
+            }
+            if ($scope.selectedBand == "WVP") {
+                dataType = "R10m/";                
+            }
+            if ($scope.selectedBand == "TCI") {
+                dataType = "R10m/";                
+            }
+            if ($scope.selectedBand == "B02") {
+                dataType = "R10m/";                
+            }
+            if ($scope.selectedBand == "B03") {
+                dataType = "R10m/";                
+            }
+            if ($scope.selectedBand == "B04") {
+                dataType = "R10m/";                
+            }
+            if ($scope.selectedBand == "B08") {
+                dataType = "R10m/";                
+            }
+            if ($scope.selectedBand == "B05") {
+                dataType = "R20m/";                
+            }
+            if ($scope.selectedBand == "B06") {
+                dataType = "R20m/";                
+            }
+            if ($scope.selectedBand == "B07") {
+                dataType = "R20m/";                
+            }
+            if ($scope.selectedBand == "B8A") {
+                dataType = "R20m/";                
+            }
+            if ($scope.selectedBand == "B11") {
+                dataType = "R20m/";                
+            }
+            if ($scope.selectedBand == "B12") {
+                dataType = "R20m/";                
+            }
+            if ($scope.selectedBand == "B01") {
+                dataType = "R60m/";                
+            }
+            if ($scope.selectedBand == "B09") {
+                dataType = "R60m/";                
+            }
+            if ($scope.selectedBand == "B10") {
+                dataType = "R60m/";                
+            }
         }
 
         $scope.addTileServer(tilesServer, folderName, dataType, $scope.selectedBand);
@@ -398,7 +446,6 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
         modalInstance.result.then(function (operationsObject) {
             operationsObject.image = $scope.overlayName;
             userRequestName = $scope.overlayName;
-            console.log(operationsObject);
             var type = "sendComputeBand";
             $scope.sendCalc(operationsObject, type);
         });
@@ -424,7 +471,6 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
         modalInstance.result.then(function (operationsObject) {
             operationsObject.image = $scope.overlayName;
             userRequestName = $scope.overlayName;
-            console.log(operationsObject);
             var type = "sendColorBand";
             $scope.sendCalc(operationsObject, type);
         });
@@ -473,7 +519,54 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
                     sendData.dataType = "";
                 }
                 if ($scope.overlayName.includes("MSIL2A")) {
-                    sendData.dataType = "R10m/";
+                    if ($scope.selectedBand == "AOT") {
+                        dataType = "R10m/";                
+                    }
+                    if ($scope.selectedBand == "WVP") {
+                        dataType = "R10m/";                
+                    }
+                    if ($scope.selectedBand == "TCI") {
+                        dataType = "R10m/";                
+                    }
+                    if ($scope.selectedBand == "B02") {
+                        dataType = "R10m/";                
+                    }
+                    if ($scope.selectedBand == "B03") {
+                        dataType = "R10m/";                
+                    }
+                    if ($scope.selectedBand == "B04") {
+                        dataType = "R10m/";                
+                    }
+                    if ($scope.selectedBand == "B08") {
+                        dataType = "R10m/";                
+                    }
+                    if ($scope.selectedBand == "B05") {
+                        dataType = "R20m/";                
+                    }
+                    if ($scope.selectedBand == "B06") {
+                        dataType = "R20m/";                
+                    }
+                    if ($scope.selectedBand == "B07") {
+                        dataType = "R20m/";                
+                    }
+                    if ($scope.selectedBand == "B8A") {
+                        dataType = "R20m/";                
+                    }
+                    if ($scope.selectedBand == "B11") {
+                        dataType = "R20m/";                
+                    }
+                    if ($scope.selectedBand == "B12") {
+                        dataType = "R20m/";                
+                    }
+                    if ($scope.selectedBand == "B01") {
+                        dataType = "R60m/";                
+                    }
+                    if ($scope.selectedBand == "B09") {
+                        dataType = "R60m/";                
+                    }
+                    if ($scope.selectedBand == "B10") {
+                        dataType = "R60m/";                
+                    }
                 }
             }
 
@@ -584,9 +677,56 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
                                     dataType = "";
                                     $scope.bandOptions = ["B01", "B02", "B03", "B04", "B05", "B06", "B07", "B08", "B8A", "B09", "B10", "B11", "B12", "TCI"];
                                 }
-                                if (array[0].object.folderName.includes("MSIL2A")) {
-                                    dataType = "R10m/";
-                                    $scope.bandOptions = ["AOT", "B02", "B03", "B04", "B08", "TCI", "WVP"];
+                                if (array[0].object.folderName.includes("MSIL2A")) {                                    
+                                    $scope.bandOptions = ["B01", "B02", "B03", "B04", "B05", "B06", "B07", "B08", "B8A", "B09", "B10", "B11", "B12", "TCI", "AOT", "WVP"];
+                                    if ($scope.selectedBand == "AOT") {
+                                        dataType = "R10m/";                
+                                    }
+                                    if ($scope.selectedBand == "WVP") {
+                                        dataType = "R10m/";                
+                                    }
+                                    if ($scope.selectedBand == "TCI") {
+                                        dataType = "R10m/";                
+                                    }
+                                    if ($scope.selectedBand == "B02") {
+                                        dataType = "R10m/";                
+                                    }
+                                    if ($scope.selectedBand == "B03") {
+                                        dataType = "R10m/";                
+                                    }
+                                    if ($scope.selectedBand == "B04") {
+                                        dataType = "R10m/";                
+                                    }
+                                    if ($scope.selectedBand == "B08") {
+                                        dataType = "R10m/";                
+                                    }
+                                    if ($scope.selectedBand == "B05") {
+                                        dataType = "R20m/";                
+                                    }
+                                    if ($scope.selectedBand == "B06") {
+                                        dataType = "R20m/";                
+                                    }
+                                    if ($scope.selectedBand == "B07") {
+                                        dataType = "R20m/";                
+                                    }
+                                    if ($scope.selectedBand == "B8A") {
+                                        dataType = "R20m/";                
+                                    }
+                                    if ($scope.selectedBand == "B11") {
+                                        dataType = "R20m/";                
+                                    }
+                                    if ($scope.selectedBand == "B12") {
+                                        dataType = "R20m/";                
+                                    }
+                                    if ($scope.selectedBand == "B01") {
+                                        dataType = "R60m/";                
+                                    }
+                                    if ($scope.selectedBand == "B09") {
+                                        dataType = "R60m/";                
+                                    }
+                                    if ($scope.selectedBand == "B10") {
+                                        dataType = "R60m/";                
+                                    }
                                 }
                             }
 
@@ -710,6 +850,8 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
             buttonsStyling: false,
         });
 
+        console.log(sendData);
+
         $scope.isProcessing = true;
         $scope.hasInfo = false;
 
@@ -759,7 +901,8 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
                 $scope.hasInfo = false;
                 $scope.thereIsAnOverlay = true;
                 $scope.$apply(function(){$scope.isProcessing = false;});
-            }
+            },
+            timeout: 300000
         });
     };
 }]);
