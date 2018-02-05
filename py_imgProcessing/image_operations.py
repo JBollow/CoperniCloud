@@ -371,8 +371,8 @@ def maskingHelper (band, logicalMask):
         
         logicals = logicalMask.split("band")
         
-        log1 = logicals[0] + "band"
-        log2 = "band" + logicals[1]
+        logic1 = logicals[0] + "band"
+        logic2 = "band" + logicals[1]
         
         if "<=band<=" in logicalMask: 
             
@@ -382,28 +382,28 @@ def maskingHelper (band, logicalMask):
                 # mask everything between the two int values
                 # to do so, create 2 parts, one with only values above the bigger, one with only below the lower
                 # then add them back up
-                maskPart1 = maskPixels (band, log2)
-                maskPart2 = maskPixels (band, log1, invert=False)
+                maskPart1 = maskPixels (band, logic2)
+                maskPart2 = maskPixels (band, logic1, invert=False)
                 return maskPart1 + maskPart2
             
             else:     
                 # mask everything above and below the int values
-                maskPart1 = maskPixels (band, log2, invert=False)
-                return maskPixels (maskPart1, log1)
+                maskPart1 = maskPixels (band, logic2, invert=False)
+                return maskPixels (maskPart1, logic1)
             
         else: 
             margins = logicalMask.split(">=band>=")
         
             if int(margins[0]) <= int(margins[1]):
-                maskPart1 = maskPixels (band, log1, invert=False)
-                return maskPixels (maskPart1, log2)
+                maskPart1 = maskPixels (band, logic1, invert=False)
+                return maskPixels (maskPart1, logic2)
                 
             else:     
                 # mask everything between the two int values
                 # to do so, create 2 parts, one with only values above the bigger, one with only below the lower
                 # then add them back up
-                maskPart1 = maskPixels (band, log1)
-                maskPart2 = maskPixels (band, log2, invert=False)
+                maskPart1 = maskPixels (band, logic1)
+                maskPart2 = maskPixels (band, logic2, invert=False)
                 return maskPart1 + maskPart2      
         
     else: 
