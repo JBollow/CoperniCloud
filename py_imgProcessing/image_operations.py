@@ -70,7 +70,7 @@ def edit_band (instructions, bandPaths):
     
     # when masking is required, mask pixels according to requested logic operators
     if instructions['mask'] != "band":
-        band = maskPixels(band, instructions['mask'])
+        band = maskingHelper(band, instructions['mask'])
         
     return band
 
@@ -282,7 +282,7 @@ def arithmeticCombination (bandPaths, eq, mask):
     newBand = ((newBand - np.min(newBand)) / (np.max(newBand) - np.min(newBand))) * 65536
     
     if mask != "band":
-        newBand = maskPixels(newBand, mask)
+        newBand = maskingHelper(newBand, mask)
     
     print(getSummaryStatistics(newBand))
     return newBand.astype(int)
@@ -329,21 +329,85 @@ def getSummaryStatistics(band):
 ########## Masking Pixels #############
 #######################################
 
-def maskPixels (imgBand, logicOp):
+def maskPixels (imgBand, logicOp, invert=True):
     # ops is an array of Stings following format:
-    # "band [logical_op] [0 <= int_value <= 65536]"
+    # "band [logical_op] [0 <= int_value <= 255]"
+    # or
+    # "[0 <= int_value <= 255] [logical_op] band"
 
-    band = (imgBand / 65536) * 255
+    # @invert : this parameter controls whether the boolean nparray created from
+    #           our logical expression shall be inverted (i.e. mask every value where the expression holds true)
+    #           or not (for example:  band <= 5  --> invert=True  == black out all pixels with value <= 5;
+    #                                                invert=False == black out all pixels with value > 5 )
+
+    # normalize imgBand and scale to uint8
+    band = (imgBand / 65535) * 255
     band = band.astype(int)
     
-    band += 1
-    band[eval(logicOp)] = 1
-    band -= 1
+    bandMasked = band
     
-    band = (band / 255) * 65536
-    band = band.astype(int)
+    mask = eval(logicOp)
+    if not invert:
+        mask = np.logical_not(mask)
     
-    return band
+    mask = mask.astype(int)
+    
+    bandMasked = bandMasked * mask
+    
+    # normalize bandMasked and scale back to uint16
+    bandMasked = (bandMasked / 255) * 65535
+    bandMasked = bandMasked.astype(int)
+    
+    return bandMasked
 
+##########################################
+#
+# Helper Wrapper for masking pixels:
+#   catch eventuality of interval masking
+#   e.g. x <= band <= y
+    
+def maskingHelper (band, logicalMask):
+    if "<=band<=" in logicalMask or ">=band>=" in logicalMask: 
+        
+        logicals = logicalMask.split("band")
+        
+        log1 = logicals[0] + "band"
+        log2 = "band" + logicals[1]
+        
+        if "<=band<=" in logicalMask: 
+            
+            margins = logicalMask.split("<=band<=")
+            
+            if int(margins[0]) <= int(margins[1]):
+                # mask everything between the two int values
+                # to do so, create 2 parts, one with only values above the bigger, one with only below the lower
+                # then add them back up
+                maskPart1 = maskPixels (band, log2)
+                maskPart2 = maskPixels (band, log1, invert=False)
+                return maskPart1 + maskPart2
+            
+            else:     
+                # mask everything above and below the int values
+                maskPart1 = maskPixels (band, log2, invert=False)
+                return maskPixels (maskPart1, log1)
+            
+        else: 
+            margins = logicalMask.split(">=band>=")
+        
+            if int(margins[0]) <= int(margins[1]):
+                maskPart1 = maskPixels (band, log1, invert=False)
+                return maskPixels (maskPart1, log2)
+                
+            else:     
+                # mask everything between the two int values
+                # to do so, create 2 parts, one with only values above the bigger, one with only below the lower
+                # then add them back up
+                maskPart1 = maskPixels (band, log1)
+                maskPart2 = maskPixels (band, log2, invert=False)
+                return maskPart1 + maskPart2      
+        
+    else: 
+        # only singular logical mask, basic request
+        return maskPixels (band, logicalMask)
 
 ##########################################

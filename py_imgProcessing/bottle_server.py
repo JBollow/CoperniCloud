@@ -246,14 +246,14 @@ def arithmetic_band_combination():
     response.headers['Cache-Control'] = 'no-cache'
     return json.dumps(summaryStatistics)
 
-    # res = response.__init__(body=json.dumps(summaryStatistics))
-    # return res
 
-
-@route('/mask_pixels')
-def mask_pixels():
-    return "TODO"
-
+# =============================================================================
+# 
+# @route('/mask_pixels')
+# def mask_pixels():
+#     return "TODO"
+# 
+# =============================================================================
 
 @route('/get_point_info')
 def get_point_info():
@@ -321,7 +321,9 @@ def get_summary_statistics():
                 filenameParts[5] + "_" + filenameParts[2] + \
                 "_" + band + "_60m.jp2"
 
-    img_ops.getSummaryStatistics()
+    response.headers['Content-Type'] = 'application/json'
+    response.headers['Cache-Control'] = 'no-cache'
+    return json.dumps(img_ops.getSummaryStatistics(band))
 
 
 run(host='localhost', port=8088)
