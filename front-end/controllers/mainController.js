@@ -22,9 +22,9 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
     var backendUrl = "http://localhost:10002";
     // Tilesserver
     // // Uni VPN
-    // var serverUrl = "http://gis-bigdata:12015/";
+    var serverUrl = "http://gis-bigdata:12015/";
     // Local
-    var serverUrl = "http://127.0.0.1:8887/";
+    // var serverUrl = "http://127.0.0.1:8887/";
     
 
     //the map

@@ -6,12 +6,12 @@ var parser = new xml2js.Parser();
 var unirest = require('unirest');
 var rp = require('request-promise');
 
-const pyServerURL = "http://localhost:8088";
+const pyServerURL = "http://localhost:8081";
 
 // Docker
-// const localPath = '';
+const localPath = '';
 // Jan-Patrick
-const localPath = 'C:';
+// const localPath = 'C:';
 // Anna
 // const localPath = 'F:/Dokumente/Uni/WS_2017/Geosoft2/Testdaten';
 

@@ -20,25 +20,19 @@ import json
 import subprocess
 from json import dumps
 from PIL import Image
+import platform
 
-
+hostOS = platform.system()
 float32 = np.float32
 geotiff = gdal.GetDriverByName('GTiff')
 
-# helper functions to handle Band- and Image requests
-
-# convert incoming band IDs to band file names
-
-# docker
-# localPath = ""
-# Anna
-# localPath = "F:/Dokumente/Uni/WS_2017/Geosoft2/Testdaten"
-# Jan-Patrick
-localPath = "C:"
+# other dev paths (for Windows machines) deleted
+localPath = ""
 
 optPath = localPath + "/opt/"
 
-
+# helper functions to handle Band- and Image requests
+# convert incoming band IDs to band file names
 def getFileNamesPerBandID(imgName):
     img = imgName
     imgPath = optPath + "sentinel2/" + \
@@ -187,7 +181,11 @@ def create_new_image():
     
     cmdString = "--profile=mercator -z 3-13 --processes=8 \"" + tmpFile + "\" \"" + tilePath + "\""
     
-    subprocess.call(["powershell.exe", "gdal2tiles_multi.py", cmdString])
+    if hostOS == 'Windows':
+        subprocess.call(["powershell.exe", "gdal2tiles_multi.py", cmdString])
+        
+    else:
+        subprocess.call(["python3", "./gdal2tiles_multi.py", cmdString])
 
     response.headers['Content-Type'] = 'application/json'
     response.headers['Cache-Control'] = 'no-cache'
@@ -240,7 +238,11 @@ def arithmetic_band_combination():
 
     cmdString = "--profile=mercator -z 3-13 --processes=8 \"" + tmpFile + "\" \"" + tilePath + "\""
     
-    subprocess.call(["powershell.exe", "gdal2tiles_multi.py", cmdString])
+    if hostOS == 'Windows':
+        subprocess.call(["powershell.exe", "gdal2tiles_multi.py", cmdString])
+        
+    else:
+        subprocess.call(["python3", "./gdal2tiles_multi.py", cmdString])
 
     response.headers['Content-Type'] = 'application/json'
     response.headers['Cache-Control'] = 'no-cache'
