@@ -15,6 +15,15 @@ All satellite data is supplied for visualization using a simple TMS, and visuali
 This is a special deployment branch, created and organized specifically 
 to deploy the **CoperniCloud** platform on a `Ubuntu 16.4LTS xenial` -based `Docker` container.
 
+# Ports
+
+- **Front End**: The front end listens to requests at `http://gis-bigdata.uni-muenster.de:12014/`
+- **Node Back End**: The Node backend is currently not responding to outside requests, as it listens locally at `localhost:8082` (this port is NOT exposed)
+- **Python Bottle Server**: The Bottle server used for image manipulation is listening at `http://gis-bigdata.uni-muenster.de:12016/`
+- **Python File Server**: The Python http file server distribution Imagery and Tiles is available at `http://gis-bigdata.uni-muenster.de:12013/`
+
+For internal ports, see further documentation and source code.
+
 # Front-End
 
 ## Requirements
