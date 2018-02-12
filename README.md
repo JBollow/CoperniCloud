@@ -53,7 +53,7 @@ to deploy the **CoperniCloud** platform on a `Ubuntu 16.4LTS xenial` -based `Doc
 1. Install the server: `$ npm install`
 2. Start the server: `$ nodemon app`
 3. Start the Python Bottle server: `$ python3 bottle_server.py`
-4. Start the Python FileServer for Tile Delivery: `$ sudo bash ./py_filesServer/start_f`
+4. Start the Python FileServer for Tile Delivery: `$ sudo bash ./py_filesServer/start_py_filesServer.sh &`
 
 
 ## Authors
