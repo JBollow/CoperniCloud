@@ -6,6 +6,10 @@ npm start &
 cd ..
 cd ./front-end
 echo "Starting front-end"
-npm start &
+lite-server &
 cd ..
-python ./py_imgProcessing/bottle_server.py &
+python3 ./py_imgProcessing/bottle_server.py &
+echo "FrontEnd, BackEnd and ImageManipulation Servers have been started."
+echo "To conclude start-up, please enter:"
+echo "sudo bash ./py_filesServer/start_py_filesServer.sh"
+

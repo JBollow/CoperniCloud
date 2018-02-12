@@ -6,7 +6,7 @@ var parser = new xml2js.Parser();
 var unirest = require('unirest');
 var rp = require('request-promise');
 
-const pyServerURL = "http://localhost:8081";
+const pyServerURL = "http://localhost:3000";
 
 // Docker
 const localPath = '';

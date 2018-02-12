@@ -1,3 +1,4 @@
 #!/bin/bash
 cd /opt/
-python -m http.server 8881
+python3 -m http.server 443
+cd ~/copernicloud/Geosoftware-2/

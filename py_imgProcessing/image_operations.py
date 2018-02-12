@@ -8,7 +8,7 @@ Created on Tue Jan 16 22:11:22 2018
 
 import numpy as np
 import os
-import gdal, gdalconst, osr
+from osgeo import gdal, gdalconst, osr
 from PIL import Image
 
 float32 = np.float32

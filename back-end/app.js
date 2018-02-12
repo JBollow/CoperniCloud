@@ -14,7 +14,8 @@ var index = require('./routes/index');
 
 var app = express();
 
-var port = 10002;
+var port = 8082;
+
 app.listen(port, function (err, res) {
     if (err) {
         console.log('backend error');

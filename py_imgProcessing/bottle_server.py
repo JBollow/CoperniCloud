@@ -13,9 +13,7 @@ import image_operations as img_ops
 import os
 from subprocess import Popen
 from subprocess import call
-import gdal
-import gdalconst
-import osr
+from osgeo import gdal
 import json
 import subprocess
 from json import dumps
@@ -118,7 +116,10 @@ def makeColorInterpretationSettingNumeric(instructions):
 
 @route('/')
 def meta(x='NA'):
-    return '<b>This is a simple python server, set up using the Bottle framework.</b>'
+    # return '<b>This is a simple python server, set up using the Bottle framework.</b>'
+    response.headers['Content-Type'] = 'application/json'
+    response.headers['Cache-Control'] = 'no-cache'
+    return json.dumps({"response": "This is a simple python server, set up using the Bottle framework."})
 
 
 @route('/create_new_image')
@@ -328,4 +329,4 @@ def get_summary_statistics():
     return json.dumps(img_ops.getSummaryStatistics(band))
 
 
-run(host='localhost', port=8088)
+run(host='localhost', port=3000)
