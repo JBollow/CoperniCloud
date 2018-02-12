@@ -329,4 +329,4 @@ def get_summary_statistics():
     return json.dumps(img_ops.getSummaryStatistics(band))
 
 
-run(host='localhost', port=3000)
+run(host='0.0.0.0', port=3000)
