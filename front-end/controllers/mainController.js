@@ -19,7 +19,7 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
     var boundsData;
     var userRequestName;
 
-    var backendUrl = "http://gis-bigdata:12014/";
+    var backendUrl = "http://gis-bigdata:12015/";
     // Tilesserver
     // Uni VPN
     var serverUrl = "http://gis-bigdata:12013/";
