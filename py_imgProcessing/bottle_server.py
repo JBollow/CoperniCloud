@@ -182,7 +182,7 @@ def create_new_image():
     
     cmdString = "--profile=mercator -z 3-13 --processes=8 \"" + tmpFile + "\" \"" + tilePath + "\""
 
-    subprocess.call(["python3", "/home/t_kueh06/copernicloud/Geosoftware-2/py_imgProcessing/gdal2tiles_multi.py", cmdString])
+    call(["python3", "/home/t_kueh06/copernicloud/Geosoftware-2/py_imgProcessing/gdal2tiles_multi.py", cmdString])
 
     response.headers['Content-Type'] = 'application/json'
     response.headers['Cache-Control'] = 'no-cache'
@@ -235,7 +235,7 @@ def arithmetic_band_combination():
 
     cmdString = "--profile=mercator -z 3-13 --processes=8 \"" + tmpFile + "\" \"" + tilePath + "\""
  
-    subprocess.call(["python3", "/home/t_kueh06/copernicloud/Geosoftware-2/py_imgProcessing/gdal2tiles_multi.py", cmdString])
+    call(["python3", "/home/t_kueh06/copernicloud/Geosoftware-2/py_imgProcessing/gdal2tiles_multi.py", cmdString])
 
     response.headers['Content-Type'] = 'application/json'
     response.headers['Cache-Control'] = 'no-cache'
