@@ -181,8 +181,12 @@ def create_new_image():
     newImageObject = None
     
     cmdString = "--profile=mercator -z 3-13 --processes=8 \"" + tmpFile + "\" \"" + tilePath + "\""
-
-    call(["python3", "/home/t_kueh06/copernicloud/Geosoftware-2/py_imgProcessing/gdal2tiles_multi.py", cmdString])
+    
+    if hostOS == 'Windows':
+        subprocess.call(["powershell.exe", "gdal2tiles_multi.py", cmdString])
+        
+    else:
+        subprocess.call(["python3", "gdal2tiles", cmdString])
 
     response.headers['Content-Type'] = 'application/json'
     response.headers['Cache-Control'] = 'no-cache'
@@ -234,8 +238,12 @@ def arithmetic_band_combination():
     newImageObject = None
 
     cmdString = "--profile=mercator -z 3-13 --processes=8 \"" + tmpFile + "\" \"" + tilePath + "\""
- 
-    call(["python3", "/home/t_kueh06/copernicloud/Geosoftware-2/py_imgProcessing/gdal2tiles_multi.py", cmdString])
+    
+    if hostOS == 'Windows':
+        subprocess.call(["powershell.exe", "gdal2tiles_multi.py", cmdString])
+        
+    else:
+        subprocess.call(["python3", "gdal2tiles.py", cmdString])
 
     response.headers['Content-Type'] = 'application/json'
     response.headers['Cache-Control'] = 'no-cache'
