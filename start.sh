@@ -1,15 +1,16 @@
 #!/bin/bash
-cd ./back-end
+echo "Starting Tilesserver"
+cd /opt/
+sudo python3 -m http.server 443 >/dev/null 2>&1 & #
+cd /home/t_kueh06/copernicloud/Geosoftware-2/back-end
 echo "Starting back-end"
-mkdir data
 npm start &
-cd ..
-cd ./front-end
+cd /home/t_kueh06/copernicloud/Geosoftware-2/front-end
 echo "Starting front-end"
 lite-server &
-cd ..
-python3 ./py_imgProcessing/bottle_server.py &
+cd /home/t_kueh06/copernicloud/Geosoftware-2/py_imgProcessing
+echo "Starting py_imgProcessing"
+cd /home/t_kueh06/
+echo "Starting mongodDB"
+sudo mongod --dbpath=/home/t_kueh06/mongoDB_data/ >/dev/null 2>&1 & #
 echo "FrontEnd, BackEnd and ImageManipulation Servers have been started."
-echo "To conclude start-up, please enter:"
-echo "sudo bash ./py_filesServer/start_py_filesServer.sh"
-
