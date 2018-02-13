@@ -6,7 +6,7 @@ var parser = new xml2js.Parser();
 var unirest = require('unirest');
 var rp = require('request-promise');
 
-const pyServerURL = "http://0.0.0.0:3000";
+const pyServerURL = "http://gis-bigdata:12016/";
 
 // Docker
 // const localPath = '';
