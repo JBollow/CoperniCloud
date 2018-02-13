@@ -186,7 +186,7 @@ def create_new_image():
         subprocess.call(["powershell.exe", "gdal2tiles_multi.py", cmdString])
         
     else:
-        subprocess.call(["python3", "gdal2tiles", cmdString])
+        subprocess.call(["python3", "/home/t_kueh06/copernicloud/Geosoftware-2/py_imgProcessing/gdal2tiles_multi.py", cmdString])
 
     response.headers['Content-Type'] = 'application/json'
     response.headers['Cache-Control'] = 'no-cache'
@@ -243,7 +243,7 @@ def arithmetic_band_combination():
         subprocess.call(["powershell.exe", "gdal2tiles_multi.py", cmdString])
         
     else:
-        subprocess.call(["python3", "gdal2tiles.py", cmdString])
+        subprocess.call(["python3", "/home/t_kueh06/copernicloud/Geosoftware-2/py_imgProcessing/gdal2tiles_multi.py", cmdString])
 
     response.headers['Content-Type'] = 'application/json'
     response.headers['Cache-Control'] = 'no-cache'
