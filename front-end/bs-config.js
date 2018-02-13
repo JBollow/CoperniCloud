@@ -3,4 +3,3 @@ module.exports = {
         "open": false,
         "server":{ "baseDir": "./" }
 };
-
