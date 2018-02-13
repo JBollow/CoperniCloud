@@ -25,9 +25,9 @@ float32 = np.float32
 geotiff = gdal.GetDriverByName('GTiff')
 
 # other dev paths (for Windows machines) deleted
-localPath = ""
+# localPath = ""
 
-optPath = localPath + "/opt/"
+optPath = "/opt/"
 
 # helper functions to handle Band- and Image requests
 # convert incoming band IDs to band file names

@@ -18,7 +18,7 @@ to deploy the **CoperniCloud** platform on a `Ubuntu 16.4LTS xenial` -based `Doc
 # Ports
 
 - **Front End**: The front end listens to requests at `http://gis-bigdata.uni-muenster.de:12014/`
-- **Node Back End**: The Node backend is currently not responding to outside requests, as it listens locally at `localhost:8082` (this port is NOT exposed)
+- **Node Back End**: The Node backend is currently not responding to outside requests, as it listens locally at `127.0.0.1:8082` (this port is NOT exposed)
 - **Python Bottle Server**: The Bottle server used for image manipulation is listening at `http://gis-bigdata.uni-muenster.de:12016/`
 - **Python File Server**: The Python http file server distribution Imagery and Tiles is available at `http://gis-bigdata.uni-muenster.de:12013/`
 
@@ -36,7 +36,7 @@ For internal ports, see further documentation and source code.
 0. Clone the repository: `$ git clone git@github.com:JBollow/Geosoftware-2.git`
 1. Install the application: `$ npm install`
 2. Start the server: `$ liteserver`
-3. View in browser at `http://localhost:8080/`
+3. View in browser at `http://127.0.0.1:8080/`
 
 
 # Back-End

@@ -8,13 +8,14 @@ var bodyParser = require('body-parser');
 // mongodb
 var mongo = require('mongodb');
 var monk = require('monk');
-var db = monk('localhost:27017/copernicloud');
+var db = monk('127.0.0.1:27017/copernicloud');
 
 var index = require('./routes/index');
 
 var app = express();
 
-var port = 8082;
+// Back-end Port
+var port = 8081;
 
 app.listen(port, function (err, res) {
     if (err) {

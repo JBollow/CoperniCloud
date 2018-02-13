@@ -19,10 +19,10 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
     var boundsData;
     var userRequestName;
 
-    var backendUrl = "http://localhost:8082/";
+    var backendUrl = "http://127.0.0.1:8082/";
     // Tilesserver
     // // Uni VPN
-    var serverUrl = "http://localhost:443/";
+    var serverUrl = "http://127.0.0.1:443/";
     // Local
     // var serverUrl = "http://127.0.0.1:8887/";
     
@@ -798,7 +798,7 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
 
                     $.ajax({
                         type: "POST",
-                        url: "http://localhost:10002/set_coordinates",
+                        url: backendUrl + "set_coordinates",
                         dataType: 'json',
                         data: coordToSend,
                         success: function (data) {
