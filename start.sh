@@ -10,6 +10,7 @@ echo "Starting front-end"
 lite-server &
 cd /home/t_kueh06/copernicloud/Geosoftware-2/py_imgProcessing
 echo "Starting py_imgProcessing"
+sudo python3 bottle_server.py &
 cd /home/t_kueh06/
 echo "Starting mongodDB"
 sudo mongod --dbpath=/home/t_kueh06/mongoDB_data/ >/dev/null 2>&1 & #
