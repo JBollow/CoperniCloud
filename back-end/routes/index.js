@@ -39,8 +39,8 @@ fs.readdir(testFolder, (err, files) => {
                 date: parsedDate
             });
             readMetaData(file);
-            console.log(nameObjects);
-            console.log(util.inspect(nameObjects, false, null));
+            //console.log(nameObjects);
+            //console.log(util.inspect(nameObjects, false, null));
         });
     }
 });
@@ -76,7 +76,7 @@ function readMetaData(folderName) {
                             metadataObjects[i].geometry.southBoundLat = southBoundLat;
                     }
                 }
-                // console.log(util.inspect(metadataObjects, false, null));
+                console.log(util.inspect(metadataObjects, false, null));
             });
         }
     });
