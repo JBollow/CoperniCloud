@@ -798,7 +798,7 @@ coperniCloud.controller('mainController', ['$scope', '$timeout', 'leafletData', 
 
                     $.ajax({
                         type: "POST",
-                        url: backendUrl + "set_coordinates",
+                        url: backendUrl + "/set_coordinates",
                         dataType: 'json',
                         data: coordToSend,
                         success: function (data) {
