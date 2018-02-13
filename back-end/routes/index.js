@@ -9,13 +9,13 @@ var rp = require('request-promise');
 const pyServerURL = "http://localhost:3000";
 
 // Docker
-const localPath = '';
+// const localPath = '';
 // Jan-Patrick
 // const localPath = 'C:';
 // Anna
 // const localPath = 'F:/Dokumente/Uni/WS_2017/Geosoft2/Testdaten';
 
-const testFolder = localPath + '/opt/sentinel2';
+const testFolder = '/opt/sentinel2';
 
 //filesearch
 const fs = require('fs');
@@ -39,8 +39,8 @@ fs.readdir(testFolder, (err, files) => {
                 date: parsedDate
             });
             readMetaData(file);
-            // console.log(nameObjects);
-            // console.log(util.inspect(nameObjects, false, null));
+            console.log(nameObjects);
+            console.log(util.inspect(nameObjects, false, null));
         });
     }
 });
